@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>不符合项统计</title>
+  <link rel="stylesheet" href="files/不符合项统计/styles.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="main-nav">
+      <div class="logo"><span class="logo-icon">◇</span><strong>招商蛇口</strong></div>
+      <nav>
+        <section><h3>▤ 基础信息管理</h3><a href="组织信息.html">组织信息</a><a href="项目信息.html">项目信息</a><a href="应急资源.html">应急资源</a><a href="特种设备.html">特种设备</a><a href="危险作业.html">危险作业</a></section>
+        <section><h3>▣ 人员信息管理</h3><a href="组织信息.html">主要人员信息</a><a href="组织信息.html">人员信息</a><a href="组织信息.html">岗位信息</a></section>
+        <section><h3>风险评估管理</h3><a href="组织风险.html">组织风险</a><a href="项目风险.html">项目风险</a><a href="风险评估模板.html">风险评估模板</a><a href="风险配置管理.html">风险配置管理</a></section>
+        <section><h3>HSE监测管理</h3><a href="模板管理.html">模板管理</a><a href="任务发布.html">任务发布</a><a href="任务中心-标准化管理员.html">任务处理</a><a href="任务结果查询.html">任务结果查询</a><a href="不符合项管理.html">不符合项管理</a><a href="评估配置管理.html">HSE配置管理</a><a href="第三方检查管理.html">第三方检查管理</a></section>
+        <section class="open"><h3>统计报表</h3><a href="告警报表.html">告警报表</a><a href="基础报表-组织风险.html">基础报表</a><a class="active" href="监测评估报表.html">HSE监测报表</a><a href="用户报表.html">用户报表</a></section>
+      </nav>
+    </aside>
+
+    <main class="page">
+      <header class="topbar"><button class="menu-button" aria-label="展开菜单">☰</button><span>当前位置：</span><a href="监测评估报表.html">统计报表</a><i>/</i><b>HSE监测报表</b><i>/</i><b>不符合项统计</b><div class="user">安全管理员　⌄</div></header>
+      <div class="content">
+        <nav class="report-tabs" aria-label="HSE监测报表页签">
+          <a href="监测评估报表.html">安全标准化认证统计</a><a href="监测评估报表.html">任务下发统计</a><a href="监测评估报表.html">自评监测统计</a><a href="监测评估报表.html">监督评审统计</a><a href="监测评估报表.html">要素评分统计</a><a href="监测评估报表.html">上级组织评分统计</a><a class="active" href="不符合项统计.html">不符合项统计</a>
+        </nav>
+
+        <section class="search-panel">
+          <div class="field"><label for="orgName">组织名称</label><input id="orgName" placeholder="请输入组织名称"></div>
+          <div class="field"><label for="issueType">隐患类型</label><select id="issueType"><option value="">全部</option><option>公司管理红线</option><option>集团负面清单</option><option>重大隐患</option></select></div>
+          <div class="field date"><label for="statStart">统计时间</label><div><input id="statStart" type="date"><span>至</span><input id="statEnd" type="date"></div></div>
+          <div class="field"><label>统计范围</label><div class="multi-select" id="orgTreeSelect"><button type="button" class="multi-trigger" aria-expanded="false">请选择组织范围</button><div class="multi-panel org-tree"><label class="tree-root"><input type="checkbox" value="all">招商蛇口</label><label class="tree-parent"><input type="checkbox" value="scope:华东区域">华东区域</label><label class="tree-child"><input type="checkbox" value="org:上海公司">上海公司</label><label class="tree-child"><input type="checkbox" value="org:合肥公司">合肥公司</label><label class="tree-parent"><input type="checkbox" value="scope:总部职能">总部职能</label><label class="tree-child"><input type="checkbox" value="org:安全生产监督管理部">安全生产监督管理部</label><label class="tree-parent"><input type="checkbox" value="scope:西南区域">西南区域</label><label class="tree-child"><input type="checkbox" value="org:成都公司">成都公司</label><label class="tree-parent"><input type="checkbox" value="scope:产业园区">产业园区</label><label class="tree-child"><input type="checkbox" value="org:招商产园">招商产园</label><label class="tree-parent"><input type="checkbox" value="scope:华南区域">华南区域</label><label class="tree-child"><input type="checkbox" value="org:深圳公司">深圳公司</label><label class="tree-child"><input type="checkbox" value="org:华南区域">华南区域本级</label></div></div></div>
+          <div class="field"><label>组织层级</label><div class="multi-select" id="orgLevelSelect"><button type="button" class="multi-trigger" aria-expanded="false">请选择组织层级</button><div class="multi-panel level-grid"><label><input type="checkbox" value="1">一级</label><label><input type="checkbox" value="2">二级</label><label><input type="checkbox" value="3">三级</label><label><input type="checkbox" value="4">四级</label><label><input type="checkbox" value="5">五级</label><label><input type="checkbox" value="6">六级</label><label><input type="checkbox" value="7">七级</label><label><input type="checkbox" value="8">八级</label><label><input type="checkbox" value="9">九级</label></div></div></div>
+          <div class="actions"><button id="resetBtn">重置</button><button id="queryBtn" class="primary">查询统计</button><button id="exportBtn" class="primary">导出</button></div>
+        </section>
+
+        <section class="panel summary-panel">
+          <h2>不符合项汇总</h2>
+          <div class="table-scroll">
+            <table class="summary-table">
+              <thead><tr><th>隐患类型</th><th>隐患总数</th><th>已完成整改数</th><th>未完成整改数</th><th>整改率</th></tr></thead>
+              <tbody id="summaryBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel detail-panel">
+          <div class="panel-title"><h2>组织不符合项统计明细</h2><span>共 <b id="recordCount">0</b> 条记录</span></div>
+          <div class="table-scroll">
+            <table class="detail-table">
+              <thead><tr><th>组织名称</th><th>累计重大不符合总数<br>（累计求和，动态更新）</th><th>重大事故隐患数</th><th>重大事故隐患到期应整改</th><th>重大事故隐患到期已整改</th><th>重大事故隐患未到期数</th><th>重大事故隐患未到期已整改数</th><th>集团负面清单数</th><th>集团负面清单到期应整改</th><th>集团负面清单到期已整改</th><th>集团负面清单未到期数</th><th>集团负面清单未到期已整改数</th><th>公司管理红线数</th><th>公司管理红线到期应整改</th><th>公司管理红线到期已整改</th><th>公司管理红线未到期数</th><th>公司管理红线未到期已整改数</th></tr></thead>
+              <tbody id="detailBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="files/不符合项统计/script.js"></script>
+</body>
+</html>
