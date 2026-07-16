@@ -19,3 +19,4 @@
 .list-toolbar button{height:34px;min-width:88px;border:1px solid #ccd3db;background:#fff;border-radius:3px;color:#606872}
 .action-sep{color:#c7cdd4;margin:0 2px}
 @media(max-width:1400px){.workbench{gap:10px}.org-tree-panel{width:240px;min-width:240px}}
+.help-tip{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:4px;border:1px solid #2e7dd7;border-radius:50%;color:#2e7dd7;font-size:12px;line-height:1;cursor:help;background:#fff}
