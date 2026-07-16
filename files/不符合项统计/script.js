@@ -48,7 +48,8 @@
     }).join("");
     var orgRows=orgSummary(data);
     document.getElementById("detailBody").innerHTML=orgRows.length?orgRows.map(function(r){var total=["重大隐患","集团负面清单","公司管理红线"].reduce(function(sum,type){return sum+((r.types[type]&&r.types[type].total)||0)},0);return '<tr><td>'+esc(r.org)+'</td><td>'+statLink(total,"全部","累计重大不符合总数",r.org)+'</td>'+typeCells(r,"重大隐患")+typeCells(r,"集团负面清单")+typeCells(r,"公司管理红线")+'</tr>'}).join(""):'<tr><td class="empty" colspan="17">未查询到符合条件的统计数据</td></tr>';
-    document.getElementById("recordCount").textContent=orgRows.length;
+    var recordCount=document.getElementById("recordCount");
+    if(recordCount)recordCount.textContent=orgRows.length;
   }
   var scopeMap={"scope:华东区域":["上海公司","合肥公司"],"scope:总部职能":["安全生产监督管理部"],"scope:西南区域":["成都公司"],"scope:产业园区":["招商产园"],"scope:华南区域":["深圳公司","华南区域"]};
   function checkedValues(id){return Array.from(document.querySelectorAll("#"+id+" input:checked")).map(function(input){return input.value})}
