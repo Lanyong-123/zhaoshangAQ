@@ -19,6 +19,6 @@
 .list-toolbar button{height:34px;min-width:88px;border:1px solid #ccd3db;background:#fff;border-radius:3px;color:#606872}
 .action-sep{color:#c7cdd4;margin:0 2px}
 @media(max-width:1400px){.workbench{gap:10px}.org-tree-panel{width:240px;min-width:240px}}
-.help-tip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:4px;border:1px solid #2e7dd7;border-radius:50%;color:#2e7dd7;font-size:12px;line-height:1;cursor:help;background:#fff}
-.help-tooltip-popup{position:fixed;z-index:9999;display:none;max-width:280px;padding:7px 10px;border-radius:3px;background:rgba(44,55,68,.96);color:#fff;font-size:12px;line-height:1.4;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.2);pointer-events:none}
-.help-tooltip-popup:after{content:"";position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);border:6px solid transparent;border-top-color:rgba(44,55,68,.96)}
+.help-wrap{position:relative;display:inline-flex;align-items:center;margin-left:4px;vertical-align:middle}
+.help-tip{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;padding:0;border:1px solid #2e7dd7;border-radius:50%;color:#2e7dd7;font-size:12px;line-height:1;cursor:help;background:#fff}
+.help-tip:focus{outline:2px solid rgba(46,125,215,.18);outline-offset:2px}

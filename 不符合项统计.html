@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>不符合项统计</title>
   <link rel="stylesheet" href="files/不符合项统计/styles.css">
+  <style>
+    .help-wrap{position:relative;display:inline-flex;align-items:center;margin-left:4px;vertical-align:middle}
+    .help-tip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;padding:0;border:1px solid #2e7dd7;border-radius:50%;color:#2e7dd7;font-size:12px;line-height:1;cursor:help;background:#fff}
+    .help-tip:hover:before,.help-tip:focus:before{content:attr(data-tooltip);position:absolute;left:50%;bottom:25px;transform:translateX(-50%);z-index:99999;white-space:nowrap;padding:7px 10px;border-radius:3px;background:rgba(44,55,68,.96);color:#fff;font-size:12px;font-weight:400;line-height:1.4;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+    .help-tip:hover:after,.help-tip:focus:after{content:"";position:absolute;left:50%;bottom:13px;transform:translateX(-50%);z-index:99999;border:6px solid transparent;border-top-color:rgba(44,55,68,.96)}
+  </style>
 </head>
 <body>
   <div class="layout">
@@ -32,6 +38,7 @@
           <div class="field date"><label for="statStart">统计时间</label><div><input id="statStart" type="date"><span>至</span><input id="statEnd" type="date"></div></div>
           <div class="field"><label>统计范围</label><div class="multi-select" id="orgTreeSelect"><button type="button" class="multi-trigger" aria-expanded="false">请选择组织范围</button><div class="multi-panel org-tree"><label class="tree-root"><input type="checkbox" value="all">招商蛇口</label><label class="tree-parent"><input type="checkbox" value="scope:华东区域">华东区域</label><label class="tree-child"><input type="checkbox" value="org:上海公司">上海公司</label><label class="tree-child"><input type="checkbox" value="org:合肥公司">合肥公司</label><label class="tree-parent"><input type="checkbox" value="scope:总部职能">总部职能</label><label class="tree-child"><input type="checkbox" value="org:安全生产监督管理部">安全生产监督管理部</label><label class="tree-parent"><input type="checkbox" value="scope:西南区域">西南区域</label><label class="tree-child"><input type="checkbox" value="org:成都公司">成都公司</label><label class="tree-parent"><input type="checkbox" value="scope:产业园区">产业园区</label><label class="tree-child"><input type="checkbox" value="org:招商产园">招商产园</label><label class="tree-parent"><input type="checkbox" value="scope:华南区域">华南区域</label><label class="tree-child"><input type="checkbox" value="org:深圳公司">深圳公司</label><label class="tree-child"><input type="checkbox" value="org:华南区域">华南区域本级</label></div></div></div>
           <div class="field"><label>组织层级</label><div class="multi-select" id="orgLevelSelect"><button type="button" class="multi-trigger" aria-expanded="false">请选择组织层级</button><div class="multi-panel level-grid"><label><input type="checkbox" value="1">一级</label><label><input type="checkbox" value="2">二级</label><label><input type="checkbox" value="3">三级</label><label><input type="checkbox" value="4">四级</label><label><input type="checkbox" value="5">五级</label><label><input type="checkbox" value="6">六级</label><label><input type="checkbox" value="7">七级</label><label><input type="checkbox" value="8">八级</label><label><input type="checkbox" value="9">九级</label></div></div></div>
+          <div class="field due-field"><label for="dueDate">到期时间 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止该日期隐患整改状态查询" title="截止该日期隐患整改状态查询" aria-label="截止该日期隐患整改状态查询">?</button></span></label><input id="dueDate" type="date"></div>
           <div class="actions"><button id="resetBtn">重置</button><button id="queryBtn" class="primary">查询统计</button><button id="exportBtn" class="primary">导出</button></div>
         </section>
 
@@ -39,7 +46,10 @@
           <h2>不符合项汇总</h2>
           <div class="table-scroll">
             <table class="summary-table">
-              <thead><tr><th>隐患类型</th><th>隐患总数</th><th>已完成整改数</th><th>未完成整改数</th><th>整改率</th></tr></thead>
+              <thead>
+                <tr><th rowspan="2">隐患类型</th><th rowspan="2">隐患总数</th><th colspan="2">已完成整改数</th><th colspan="2">未完成整改数</th></tr>
+                <tr><th>到期已整改数</th><th>未到期已整改数</th><th>超期未完成数</th><th>未到期未完成数</th></tr>
+              </thead>
               <tbody id="summaryBody"></tbody>
             </table>
           </div>
@@ -49,7 +59,7 @@
           <div class="panel-title"><h2>组织不符合项统计明细</h2></div>
           <div class="table-scroll">
             <table class="detail-table">
-              <thead><tr><th>组织名称</th><th>累计重大不符合总数<br>（累计求和，动态更新）</th><th>重大事故隐患数</th><th>重大事故隐患到期应整改</th><th>重大事故隐患到期已整改</th><th>重大事故隐患未到期数</th><th>重大事故隐患未到期已整改数</th><th>集团负面清单数</th><th>集团负面清单到期应整改</th><th>集团负面清单到期已整改</th><th>集团负面清单未到期数</th><th>集团负面清单未到期已整改数</th><th>公司管理红线数</th><th>公司管理红线到期应整改</th><th>公司管理红线到期已整改</th><th>公司管理红线未到期数</th><th>公司管理红线未到期已整改数</th></tr></thead>
+              <thead><tr><th>组织名称</th><th>累计重大不符合总数<br>（累计求和，动态更新）</th><th>重大事故隐患数 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止到期时间重大事故隐患总数，到期应整改数、未到期数之和" title="截止到期时间重大事故隐患总数，到期应整改数、未到期数之和" aria-label="截止到期时间重大事故隐患总数，到期应整改数、未到期数之和">?</button></span></th><th>重大事故隐患到期应整改 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止到期时间重大事故隐患应整改数" title="截止到期时间重大事故隐患应整改数" aria-label="截止到期时间重大事故隐患应整改数">?</button></span></th><th>重大事故隐患到期已整改 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止到期时间重大事故隐患应整改中已整改数" title="截止到期时间重大事故隐患应整改中已整改数" aria-label="截止到期时间重大事故隐患应整改中已整改数">?</button></span></th><th>重大事故隐患未到期数 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止到期时间重大事故隐患未到期数" title="截止到期时间重大事故隐患未到期数" aria-label="截止到期时间重大事故隐患未到期数">?</button></span></th><th>重大事故隐患未到期已整改数 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止到期时间重大事故隐患未到期数中已整改数" title="截止到期时间重大事故隐患未到期数中已整改数" aria-label="截止到期时间重大事故隐患未到期数中已整改数">?</button></span></th><th>集团负面清单数</th><th>集团负面清单到期应整改</th><th>集团负面清单到期已整改</th><th>集团负面清单未到期数</th><th>集团负面清单未到期已整改数</th><th>公司管理红线数</th><th>公司管理红线到期应整改</th><th>公司管理红线到期已整改</th><th>公司管理红线未到期数</th><th>公司管理红线未到期已整改数</th></tr></thead>
               <tbody id="detailBody"></tbody>
             </table>
           </div>

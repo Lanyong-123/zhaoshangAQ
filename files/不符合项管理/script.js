@@ -63,23 +63,6 @@
   function exportCsv(){if(!current.length){toast("当前没有可导出的记录");return}var csv="\ufeff"+headers.join(",")+"\n"+current.map(function(r){return keys.map(function(k){return '"'+String(r[k]||"").replace(/"/g,'""')+'"'}).join(",")}).join("\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="不符合项管理_"+new Date().toISOString().slice(0,10)+".csv";a.click();URL.revokeObjectURL(a.href);toast("已导出 "+current.length+" 条记录")}
   function submitAudit(){var ids=Array.prototype.map.call(document.querySelectorAll(".row-check:checked"),function(input){return input.dataset.id});if(!ids.length){toast("请先勾选需要提交审核的不符合项");return}rows.forEach(function(row){if(ids.indexOf(row.assessmentNo)>-1)row.auditStatus="待审核"});query();toast("已提交 "+ids.length+" 个不符合项审核")}
   function toast(msg){var el=document.getElementById("toast");el.textContent=msg;el.style.display="block";clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(function(){el.style.display="none"},1800)}
-  function initHelpTooltip(){
-    var tip=document.createElement("div");
-    tip.className="help-tooltip-popup";
-    document.body.appendChild(tip);
-    document.querySelectorAll(".help-tip").forEach(function(el){
-      el.onmouseenter=function(){
-        tip.textContent=el.getAttribute("data-tooltip")||"";
-        tip.style.display="block";
-        var rect=el.getBoundingClientRect(),top=rect.top-tip.offsetHeight-10,left=rect.left+rect.width/2-tip.offsetWidth/2;
-        tip.style.top=Math.max(8,top)+"px";
-        tip.style.left=Math.max(8,left)+"px";
-      };
-      el.onmouseleave=function(){tip.style.display="none"};
-      el.onfocus=el.onmouseenter;
-      el.onblur=el.onmouseleave;
-    });
-  }
   function initTree(){
     document.querySelector(".tree-node[data-org='']").classList.add("active");
     document.querySelectorAll(".tree-node button").forEach(function(btn){btn.onclick=function(){var node=btn.parentNode;selectedOrg=node.getAttribute("data-org")||"";document.querySelectorAll(".tree-node.active").forEach(function(el){el.classList.remove("active")});node.classList.add("active");query()}});
@@ -91,7 +74,6 @@
   document.getElementById("submitAuditBtn").onclick=submitAudit;
   document.getElementById("checkAll").onchange=function(){var checked=this.checked;Array.prototype.forEach.call(document.querySelectorAll(".row-check"),function(c){c.checked=checked});updateSelectionCount()};
   document.getElementById("keyword").onkeydown=function(e){if(e.key==="Enter")query()};
-  initHelpTooltip();
   initTree();
   setDefaultDueDate();
   render(rows);

@@ -6,6 +6,12 @@
   <title>不符合项管理</title>
   <link rel="stylesheet" href="files/不符合项管理/styles.css">
   <link rel="stylesheet" href="files/不符合项管理/field-layout.css">
+  <style>
+    .help-wrap{position:relative;display:inline-flex;align-items:center;margin-left:4px;vertical-align:middle}
+    .help-tip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;padding:0;border:1px solid #2e7dd7;border-radius:50%;color:#2e7dd7;font-size:12px;line-height:1;cursor:help;background:#fff}
+    .help-tip:hover:before,.help-tip:focus:before{content:attr(data-tooltip);position:absolute;left:50%;bottom:25px;transform:translateX(-50%);z-index:99999;white-space:nowrap;padding:7px 10px;border-radius:3px;background:rgba(44,55,68,.96);color:#fff;font-size:12px;font-weight:400;line-height:1.4;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+    .help-tip:hover:after,.help-tip:focus:after{content:"";position:absolute;left:50%;bottom:13px;transform:translateX(-50%);z-index:99999;border:6px solid transparent;border-top-color:rgba(44,55,68,.96)}
+  </style>
 </head>
 <body>
   <div class="layout">
@@ -60,7 +66,7 @@
           <div class="field"><label for="auditStatus">审核状态</label><select id="auditStatus"><option value="">请选择</option><option>待处理</option><option>待审核</option><option>审核通过</option><option>审核不通过</option></select></div>
           <div class="field"><label for="dataStatus">数据可用状态</label><select id="dataStatus"><option value="">请选择</option><option>数据可用</option><option>数据不可用</option></select></div>
           <div class="field"><label for="levelOne">一级要素</label><select id="levelOne"><option value="">请选择</option><option>安全目标</option><option>组织机构和职责</option><option>安全投入</option></select></div>
-          <div class="field"><label for="planEndDate">到期时间 <span class="help-tip" tabindex="0" data-tooltip="截止该日期稳患整改状态查询">?</span></label><input id="planEndDate" type="date"></div>
+          <div class="field"><label for="planEndDate">到期时间 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止该日期隐患整改状态查询" title="截止该日期隐患整改状态查询" aria-label="截止该日期隐患整改状态查询">?</button></span></label><input id="planEndDate" type="date"></div>
           <div class="field date"><label for="startDate">整改时间</label><div><input id="startDate" type="date"><span>至</span><input id="endDate" type="date"></div></div>
           <div class="search-actions"><button id="resetBtn">重置</button><button id="searchBtn" class="primary">查询</button><button id="exportBtn" class="primary">导出</button></div>
         </section>

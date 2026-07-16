@@ -8,3 +8,18 @@
 .detail-table th:first-child{width:210px;background:#fff}
 .detail-table th:nth-child(2){width:260px;background:#fff}
 .detail-table th:nth-child(n+3){width:145px}
+.summary-table th{height:46px;vertical-align:middle;text-align:center}
+.summary-table thead tr:first-child th{font-size:18px;font-weight:700}
+.summary-table thead tr:nth-child(2) th{font-size:16px;font-weight:700}
+.summary-table th[rowspan="2"]{height:92px}
+.summary-table td:first-child{text-align:left}
+.summary-table td:not(:first-child){text-align:right}
+.search-panel{grid-template-columns:1fr 1fr 2fr}
+.due-field{grid-column:3/4}
+.actions{grid-column:3/4;justify-content:flex-end}
+@media(max-width:1450px){.search-panel{grid-template-columns:1fr 1fr 2fr}.due-field{grid-column:3/4}.actions{grid-column:3/4;justify-content:flex-end}}
+.help-wrap{position:relative;display:inline-flex;align-items:center;margin-left:4px;vertical-align:middle}
+.help-tip{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;padding:0;border:1px solid #2e7dd7;border-radius:50%;color:#2e7dd7;font-size:12px;line-height:1;cursor:help;background:#fff}
+.detail-table th .help-wrap{margin-left:3px}
+.detail-table th .help-tip{width:16px;height:16px;font-size:12px;vertical-align:middle}
+.help-tip:focus{outline:2px solid rgba(46,125,215,.18);outline-offset:2px}
