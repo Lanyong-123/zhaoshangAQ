@@ -19,4 +19,6 @@
 .list-toolbar button{height:34px;min-width:88px;border:1px solid #ccd3db;background:#fff;border-radius:3px;color:#606872}
 .action-sep{color:#c7cdd4;margin:0 2px}
 @media(max-width:1400px){.workbench{gap:10px}.org-tree-panel{width:240px;min-width:240px}}
-.help-tip{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:4px;border:1px solid #2e7dd7;border-radius:50%;color:#2e7dd7;font-size:12px;line-height:1;cursor:help;background:#fff}
+.help-tip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;margin-left:4px;border:1px solid #2e7dd7;border-radius:50%;color:#2e7dd7;font-size:12px;line-height:1;cursor:help;background:#fff}
+.help-tip:hover:after{content:attr(data-tooltip);position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:80;white-space:nowrap;padding:6px 9px;border-radius:3px;background:rgba(44,55,68,.94);color:#fff;font-size:12px;font-weight:400;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.help-tip:hover:before{content:"";position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:81;border:6px solid transparent;border-top-color:rgba(44,55,68,.94)}
