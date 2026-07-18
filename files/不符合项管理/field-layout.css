@@ -1,8 +1,11 @@
-table { min-width: 3520px; }
+table { min-width: 3940px; }
 th.assessment-no { width: 160px; }
 th.org-type { width: 140px; }
 th.org-name { width: 190px; }
 th.cycle { width: 170px; }
+th.assessment-form { width: 110px; }
+th.publisher { width: 110px; }
+th.publisher-org { width: 190px; }
 th.sequence { width: 86px; }
 th.element { width: 125px; }
 th.problem { width: 260px; }
@@ -15,7 +18,17 @@ th:nth-last-child(4) { width: 110px; }
 th:nth-last-child(3) { width: 150px; }
 th:nth-last-child(2) { width: 110px; }
 th:last-child { width: 140px; }
+.field.date { grid-column:auto; }
+.time-field.publish-time { grid-column:1 / 3; }
+.time-field.due-time { grid-column:3 / 4; }
+.time-field.implement-time { grid-column:4 / 6; }
+.time-field.rectify-time { grid-column:1 / 3; }
+.time-field.due-time input { min-width:0; }
 .search-actions { grid-column: 5 / 7; }
 @media (max-width: 1400px) {
+  .time-field.publish-time { grid-column:1 / 3; }
+  .time-field.due-time { grid-column:3 / 4; }
+  .time-field.implement-time { grid-column:1 / 3; }
+  .time-field.rectify-time { grid-column:3 / 5; }
   .search-actions { grid-column: 3 / 5; }
 }

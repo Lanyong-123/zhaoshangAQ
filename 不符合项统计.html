@@ -35,11 +35,22 @@
         <section class="search-panel">
           <div class="field"><label for="orgName">组织名称 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="汇总该层级下所有隐患数据" title="汇总该层级下所有隐患数据" aria-label="汇总该层级下所有隐患数据">?</button></span></label><input id="orgName" placeholder="请输入组织名称"></div>
           <div class="field"><label for="issueType">隐患类型</label><select id="issueType"><option value="">全部</option><option>公司管理红线</option><option>集团负面清单</option><option>重大隐患</option></select></div>
-          <div class="field date"><label for="statStart">任务发布时间</label><div><input id="statStart" type="date"><span>至</span><input id="statEnd" type="date"></div></div>
+          <div class="field"><label for="assessmentForm">评估形式</label><select id="assessmentForm"><option value="" selected>全部</option><option>监督评审</option><option>自评监测</option></select></div>
           <div class="field"><label>统计范围</label><div class="multi-select" id="orgTreeSelect"><button type="button" class="multi-trigger" aria-expanded="false">请选择组织范围</button><div class="multi-panel org-tree"><label class="tree-root"><input type="checkbox" value="all">招商蛇口</label><label class="tree-parent"><input type="checkbox" value="scope:华东区域">华东区域</label><label class="tree-child"><input type="checkbox" value="org:上海公司">上海公司</label><label class="tree-child"><input type="checkbox" value="org:合肥公司">合肥公司</label><label class="tree-parent"><input type="checkbox" value="scope:总部职能">总部职能</label><label class="tree-child"><input type="checkbox" value="org:安全生产监督管理部">安全生产监督管理部</label><label class="tree-parent"><input type="checkbox" value="scope:西南区域">西南区域</label><label class="tree-child"><input type="checkbox" value="org:成都公司">成都公司</label><label class="tree-parent"><input type="checkbox" value="scope:产业园区">产业园区</label><label class="tree-child"><input type="checkbox" value="org:招商产园">招商产园</label><label class="tree-parent"><input type="checkbox" value="scope:华南区域">华南区域</label><label class="tree-child"><input type="checkbox" value="org:深圳公司">深圳公司</label><label class="tree-child"><input type="checkbox" value="org:华南区域">华南区域本级</label></div></div></div>
           <div class="field"><label for="orgLevel">组织层级</label><select id="orgLevel"><option value="">请选择组织层级</option><option value="1">一级</option><option value="2">二级</option><option value="3">三级</option><option value="4">四级</option><option value="5">五级</option><option value="6">六级</option><option value="7">七级</option><option value="8">八级</option><option value="9">九级</option></select></div>
+          <div class="field date time-field task-time"><label for="statStart">任务发布时间</label><div><input id="statStart" type="date"><span>至</span><input id="statEnd" type="date"></div></div>
           <div class="field due-field"><label for="dueDate">到期时间 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止该日期隐患整改状态查询" title="截止该日期隐患整改状态查询" aria-label="截止该日期隐患整改状态查询">?</button></span></label><input id="dueDate" type="date"></div>
-          <div class="actions"><button id="resetBtn">重置</button><button id="queryBtn" class="primary">查询统计</button><button id="exportBtn" class="primary">导出</button></div>
+          <div class="field date time-field implement-time"><label for="implementStart">任务实施时间 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="任务实施流程节点审核通过时间" title="任务实施流程节点审核通过时间" aria-label="任务实施流程节点审核通过时间">?</button></span></label><div><input id="implementStart" type="date"><span>至</span><input id="implementEnd" type="date"></div></div>
+          <div class="actions"><button id="resetBtn">重置</button><button id="queryBtn" class="primary">查询统计</button><button id="exportBtn" class="primary">导出</button><button id="exportListBtn" class="primary">导出不符合项清单</button></div>
+        </section>
+
+        <section class="task-scope-switch" aria-label="不符合项统计任务范围切换">
+          <div class="task-scope-tabs" role="tablist">
+            <button type="button" class="active" data-scope="all" role="tab" aria-selected="true">全部</button>
+            <button type="button" data-scope="published" role="tab" aria-selected="false">发布的任务</button>
+            <button type="button" data-scope="implemented" role="tab" aria-selected="false">实施的任务</button>
+          </div>
+          <div id="taskScopeTip" class="task-scope-tip">选中的统计范围和层级，将该组织层级下所有的隐患汇总，如选中三层则将下层至九层所有的隐患汇总</div>
         </section>
 
         <section class="panel summary-panel">
@@ -67,7 +78,6 @@
       </div>
     </main>
   </div>
-  <div id="toast" class="toast" role="status"></div>
   <script src="files/不符合项统计/script.js"></script>
 </body>
 </html>
