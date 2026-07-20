@@ -4093,7 +4093,15 @@
       <div id="u72873" class="ax_default box_1" selectiongroup="Tab标签">
         <div id="u72873_div" class=""></div>
         <div id="u72873_text" class="text ">
-          <p><span>整改审核</span></p>
+          <p><span>20260701整改审核</span></p>
+        </div>
+      </div>
+
+      <!-- 20260712整改审核 (矩形) -->
+      <div id="rectify_audit_tab_main_20260712" class="ax_default box_1 rectify-batch-tab" selectiongroup="Tab标签">
+        <div id="rectify_audit_tab_main_20260712_div" class=""></div>
+        <div id="rectify_audit_tab_main_20260712_text" class="text ">
+          <p><span>20260712整改审核</span></p>
         </div>
       </div>
 
@@ -4123,5 +4131,112 @@
       </div>
     </div>
     <script src="resources/scripts/axure/ios.js"></script>
+    <script>
+      (function () {
+        var batches = {
+          "20260701": "2026-07-01",
+          "20260712": "2026-07-12"
+        };
+
+        function setText(id, value) {
+          var node = document.querySelector("#" + id + " span");
+          if (node) {
+            node.textContent = value;
+          }
+        }
+
+        function setRectifyBatch(batchKey) {
+          var isFirst = batchKey === "20260701";
+          var firstTab = document.getElementById("u72873");
+          var firstTabDiv = document.getElementById("u72873_div");
+          var secondTab = document.getElementById("rectify_audit_tab_main_20260712");
+          var reportTab = document.getElementById("u72874");
+          var reportTabDiv = document.getElementById("u72874_div");
+
+          if (firstTab) {
+            firstTab.classList.toggle("batch-active", isFirst);
+            firstTab.classList.toggle("selected", isFirst);
+          }
+          if (firstTabDiv) {
+            firstTabDiv.classList.toggle("selected", isFirst);
+          }
+          if (secondTab) {
+            secondTab.classList.toggle("active", !isFirst);
+          }
+          if (reportTab) {
+            reportTab.classList.remove("selected");
+          }
+          if (reportTabDiv) {
+            reportTabDiv.classList.remove("selected");
+          }
+
+          setText("u72445_text", batches[batchKey]);
+
+          if (window.$axure && $axure('@审核模板') && $axure('@审核模板').SetPanelState) {
+            $axure('@审核模板').SetPanelState('整改审核');
+          } else {
+            var rectifyPanel = document.getElementById("u72358_state0");
+            var reportPanel = document.getElementById("u72358_state1");
+            if (rectifyPanel) {
+              rectifyPanel.style.display = "";
+              rectifyPanel.style.visibility = "visible";
+            }
+            if (reportPanel) {
+              reportPanel.style.display = "none";
+              reportPanel.style.visibility = "hidden";
+            }
+          }
+        }
+
+        function initRectifyTabs() {
+          var firstTab = document.getElementById("u72873");
+          var secondTab = document.getElementById("rectify_audit_tab_main_20260712");
+          var reportTab = document.getElementById("u72874");
+
+          if (firstTab) {
+            firstTab.addEventListener("click", function () {
+              setTimeout(function () {
+                setRectifyBatch("20260701");
+              }, 0);
+            });
+          }
+          if (secondTab) {
+            secondTab.addEventListener("click", function () {
+              setRectifyBatch("20260712");
+            });
+          }
+          if (reportTab) {
+            reportTab.addEventListener("click", function () {
+              setTimeout(function () {
+                var firstTabDiv = document.getElementById("u72873_div");
+                var reportTabDiv = document.getElementById("u72874_div");
+                if (firstTab) {
+                  firstTab.classList.remove("batch-active");
+                  firstTab.classList.remove("selected");
+                }
+                if (firstTabDiv) {
+                  firstTabDiv.classList.remove("selected");
+                }
+                if (secondTab) {
+                  secondTab.classList.remove("active");
+                }
+                reportTab.classList.add("selected");
+                if (reportTabDiv) {
+                  reportTabDiv.classList.add("selected");
+                }
+              }, 0);
+            });
+          }
+
+          setRectifyBatch("20260701");
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initRectifyTabs);
+        } else {
+          initRectifyTabs();
+        }
+      })();
+    </script>
   </body>
 </html>

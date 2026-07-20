@@ -5077,7 +5077,15 @@
       <div id="u73521" class="ax_default box_1" selectiongroup="Tab标签">
         <div id="u73521_div" class=""></div>
         <div id="u73521_text" class="text ">
-          <p><span>整改审核</span></p>
+          <p><span>20260701整改审核</span></p>
+        </div>
+      </div>
+
+      <!-- 20260712整改审核 (矩形) -->
+      <div id="supervise_rectify_audit_tab_20260712" class="ax_default box_1 rectify-batch-tab" selectiongroup="Tab标签">
+        <div id="supervise_rectify_audit_tab_20260712_div" class=""></div>
+        <div id="supervise_rectify_audit_tab_20260712_text" class="text ">
+          <p><span>20260712整改审核</span></p>
         </div>
       </div>
 
@@ -5107,5 +5115,123 @@
       </div>
     </div>
     <script src="resources/scripts/axure/ios.js"></script>
+    <script>
+      (function () {
+        var batches = {
+          "20260701": {
+            rectifyDate: "2026-07-01",
+            flow: "标准化管理员整改审核，审核人：李斯"
+          },
+          "20260712": {
+            rectifyDate: "2026-07-12",
+            flow: "分管领导整改审核，审核人：李胜"
+          }
+        };
+
+        function setText(id, value) {
+          var node = document.querySelector("#" + id + " span");
+          if (node) {
+            node.textContent = value;
+          }
+        }
+
+        function showRectifyPanel() {
+          if (window.$axure && $axure('@审核内容模板') && $axure('@审核内容模板').SetPanelState) {
+            $axure('@审核内容模板').SetPanelState('整改审核');
+          } else {
+            var rectifyPanel = document.getElementById("u72877_state0");
+            var reportPanel = document.getElementById("u72877_state1");
+            if (rectifyPanel) {
+              rectifyPanel.style.display = "";
+              rectifyPanel.style.visibility = "visible";
+            }
+            if (reportPanel) {
+              reportPanel.style.display = "none";
+              reportPanel.style.visibility = "hidden";
+            }
+          }
+        }
+
+        function setBatchActive(batchKey) {
+          var isFirst = batchKey === "20260701";
+          var firstTab = document.getElementById("u73521");
+          var firstTabDiv = document.getElementById("u73521_div");
+          var secondTab = document.getElementById("supervise_rectify_audit_tab_20260712");
+          var reportTab = document.getElementById("u73522");
+          var reportTabDiv = document.getElementById("u73522_div");
+
+          if (firstTab) {
+            firstTab.classList.toggle("batch-active", isFirst);
+            firstTab.classList.toggle("selected", isFirst);
+          }
+          if (firstTabDiv) {
+            firstTabDiv.classList.toggle("selected", isFirst);
+          }
+          if (secondTab) {
+            secondTab.classList.toggle("active", !isFirst);
+          }
+          if (reportTab) {
+            reportTab.classList.remove("batch-active");
+            reportTab.classList.remove("selected");
+          }
+          if (reportTabDiv) {
+            reportTabDiv.classList.remove("selected");
+          }
+
+          setText("u72952_text", batches[batchKey].rectifyDate);
+          setText("u72884_text", batches[batchKey].flow);
+          showRectifyPanel();
+        }
+
+        function initRectifyAuditTabs() {
+          var firstTab = document.getElementById("u73521");
+          var secondTab = document.getElementById("supervise_rectify_audit_tab_20260712");
+          var reportTab = document.getElementById("u73522");
+
+          if (firstTab) {
+            firstTab.addEventListener("click", function () {
+              setTimeout(function () {
+                setBatchActive("20260701");
+              }, 0);
+            });
+          }
+          if (secondTab) {
+            secondTab.addEventListener("click", function () {
+              setBatchActive("20260712");
+            });
+          }
+          if (reportTab) {
+            reportTab.addEventListener("click", function () {
+              setTimeout(function () {
+                var firstTabDiv = document.getElementById("u73521_div");
+                var reportTabDiv = document.getElementById("u73522_div");
+                if (firstTab) {
+                  firstTab.classList.remove("batch-active");
+                  firstTab.classList.remove("selected");
+                }
+                if (firstTabDiv) {
+                  firstTabDiv.classList.remove("selected");
+                }
+                if (secondTab) {
+                  secondTab.classList.remove("active");
+                }
+                reportTab.classList.add("selected");
+                if (reportTabDiv) {
+                  reportTabDiv.classList.add("selected");
+                }
+              }, 0);
+            });
+          }
+
+          setBatchActive("20260701");
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initRectifyAuditTabs);
+        } else {
+          initRectifyAuditTabs();
+        }
+      })();
+    </script>
   </body>
 </html>
