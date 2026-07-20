@@ -64,7 +64,6 @@
           <div class="field"><label for="scoring">评分方式</label><input id="scoring" placeholder="评分方式关键字"></div>
           <div class="field"><label for="status">整改完成情况</label><select id="status"><option value="">请选择</option><option>未完成</option><option>整改中</option><option>已完成</option></select></div>
           <div class="field"><label for="dueStatus">到期状态</label><select id="dueStatus"><option value="">请选择</option><option>已到期</option><option>未到期</option></select></div>
-          <div class="field"><label for="auditStatus">审核状态</label><select id="auditStatus"><option value="">请选择</option><option>待处理</option><option>待审核</option><option>审核通过</option><option>审核不通过</option></select></div>
           <div class="field"><label for="dataStatus">数据可用状态</label><select id="dataStatus"><option value="">请选择</option><option>数据可用</option><option>数据不可用</option></select></div>
           <div class="field date time-field publish-time"><label for="cycleStart">任务发布时间</label><div><input id="cycleStart" type="date"><span>至</span><input id="cycleEnd" type="date"></div></div>
           <div class="field time-field due-time"><label for="planEndDate">到期时间 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止该日期隐患整改状态查询" title="截止该日期隐患整改状态查询" aria-label="截止该日期隐患整改状态查询">?</button></span></label><input id="planEndDate" type="date"></div>
@@ -74,10 +73,10 @@
         </section>
 
         <section class="result-panel">
-          <div class="list-toolbar"><div>已选择 <b id="selectedCount">0</b> 项</div><button id="submitAuditBtn" class="primary">提交审核</button></div>
+          <div class="list-toolbar"><div>已选择 <b id="selectedCount">0</b> 项</div></div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th><input id="checkAll" type="checkbox" aria-label="全选"></th><th class="assessment-no">评估编号</th><th class="org-type">所属组织/业态</th><th class="org-name">组织/项目名称</th><th class="cycle">评估周期</th><th class="assessment-form">评估形式</th><th class="publisher">任务发布人</th><th class="publisher-org">任务发布人所属组织</th><th class="sequence">一级要素序号</th><th class="element">一级要素名称</th><th class="sequence">二级要素序号</th><th class="element">二级要素名称</th><th class="sequence">三级要素序号</th><th class="element">三级要素名称</th><th class="sequence">四级要素序号</th><th class="element">四级要素名称</th><th class="sequence">五级要素序号</th><th class="element">五级要素名称</th><th class="problem">达标标准</th><th>必须项</th><th class="problem">评分方式</th><th class="problem-type">隐患类型</th><th class="rectify-date">计划整改完成时间</th><th class="due-status">到期状态</th><th class="rectify-date">整改时间</th><th>整改资料</th><th class="problem">整改说明</th><th>整改完成情况</th><th class="audit-status">审核状态</th><th>操作</th></tr></thead>
+              <thead><tr><th><input id="checkAll" type="checkbox" aria-label="全选"></th><th class="assessment-no">评估编号</th><th class="org-type">所属组织/业态</th><th class="org-name">组织/项目名称</th><th class="cycle">评估周期</th><th class="assessment-form">评估形式</th><th class="publisher">任务发布人</th><th class="publisher-org">任务发布人所属组织</th><th class="sequence">一级要素序号</th><th class="element">一级要素名称</th><th class="sequence">二级要素序号</th><th class="element">二级要素名称</th><th class="sequence">三级要素序号</th><th class="element">三级要素名称</th><th class="sequence">四级要素序号</th><th class="element">四级要素名称</th><th class="sequence">五级要素序号</th><th class="element">五级要素名称</th><th class="problem">达标标准</th><th>必须项</th><th class="problem">评分方式</th><th class="problem-type">隐患类型</th><th class="rectify-date">计划整改完成时间</th><th class="due-status">到期状态</th><th class="rectify-date">整改时间</th><th>整改资料</th><th class="problem">整改说明</th><th class="status-col">整改完成情况</th></tr></thead>
               <tbody id="resultBody"></tbody>
             </table>
           </div>
