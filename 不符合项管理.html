@@ -64,7 +64,9 @@
           <div class="field"><label for="scoring">评分方式</label><input id="scoring" placeholder="评分方式关键字"></div>
           <div class="field"><label for="status">整改完成情况</label><select id="status"><option value="">请选择</option><option>未完成</option><option>整改中</option><option>已完成</option></select></div>
           <div class="field"><label for="dueStatus">到期状态</label><select id="dueStatus"><option value="">请选择</option><option>已到期</option><option>未到期</option></select></div>
-          <div class="field"><label for="dataStatus">数据可用状态</label><select id="dataStatus"><option value="">请选择</option><option>数据可用</option><option>数据不可用</option></select></div>
+          <div class="field"><label for="dataStatus">可用状态</label><select id="dataStatus"><option value="">请选择</option><option>草稿</option><option>数据可用</option><option>数据不可用</option><option>退出</option></select></div>
+          <div class="field"><label for="elementName">要素名称</label><input id="elementName" placeholder="请输入要素名称"></div>
+          <div class="field element-chain"><label for="elementLevel1">要素序号</label><div><select id="elementLevel1"><option value="">请选择一级要素</option></select><select id="elementLevel2"><option value="">请选择二级要素</option></select><select id="elementLevel3"><option value="">请选择三级要素</option></select></div></div>
           <div class="field date time-field publish-time"><label for="cycleStart">任务发布时间</label><div><input id="cycleStart" type="date"><span>至</span><input id="cycleEnd" type="date"></div></div>
           <div class="field time-field due-time"><label for="planEndDate">到期时间 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止该日期隐患整改状态查询" title="截止该日期隐患整改状态查询" aria-label="截止该日期隐患整改状态查询">?</button></span></label><input id="planEndDate" type="date"></div>
           <div class="field date time-field implement-time"><label for="implementStartDate">任务实施时间</label><div><input id="implementStartDate" type="date"><span>至</span><input id="implementEndDate" type="date"></div></div>
