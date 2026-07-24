@@ -28,6 +28,8 @@
       ".ai-health-usable-filter{position:absolute;width:318px;height:32px;z-index:9991;font-family:'PingFang SC','Microsoft YaHei',Arial,sans-serif;color:#333;}",
       ".ai-health-usable-filter label{position:absolute;left:0;top:6px;width:72px;height:20px;line-height:20px;font-size:13px;text-align:right;color:#333;}",
       ".ai-health-usable-filter select{position:absolute;left:82px;top:0;width:180px;height:30px;padding:2px 6px;border:1px solid #797979;background:#fff;color:#333;font-size:13px;outline:none;}",
+      "#ai-health-usable-filter-task-release{width:250px;}",
+      "#ai-health-usable-filter-task-release select{width:160px;}",
       "#u88529.ai-health-note-bottom{z-index:9992!important;}",
       "#u88529.ai-health-note-bottom,#u88529.ai-health-note-bottom #u88529_div{width:1500px!important;height:72px!important;}",
       ".ai-hs-title{position:absolute;left:8px;top:10px;font-size:18px;font-weight:700;color:#333;}",
@@ -119,6 +121,13 @@
   function injectUsableFilter() {
     var configs = [
       { id: "ai-health-usable-filter-standard", panel: "u88429_state0_content", left: 970, top: 10 },
+      {
+        id: "ai-health-usable-filter-task-release",
+        panel: "u88429_state3_content",
+        left: 880,
+        top: 5,
+        options: ["请选择", "数据可用", "数据不可能", "退出"]
+      },
       { id: "ai-health-usable-filter-supervise", panel: "u88429_state9_content", left: 1748, top: 50 },
       { id: "ai-health-usable-filter-self", panel: "u88429_state10_content", left: 1748, top: 50 },
       { id: "ai-health-usable-filter-element", panel: "u88429_state11_content", left: 760, top: 72 },
@@ -133,6 +142,7 @@
 
   function createUsableFilter(config) {
     var filter = document.createElement("div");
+    var options = config.options || ["请选择", "草稿", "数据可用", "数据不可用", "退出"];
     filter.id = config.id;
     filter.className = "ai-health-usable-filter";
     filter.style.left = config.left + "px";
@@ -140,11 +150,9 @@
     filter.innerHTML = [
       '<label for="' + config.id + '-select">可用状态：</label>',
       '<select id="' + config.id + '-select">',
-      '<option value="">请选择</option>',
-      '<option value="草稿">草稿</option>',
-      '<option value="数据可用">数据可用</option>',
-      '<option value="数据不可用">数据不可用</option>',
-      '<option value="退出">退出</option>',
+      options.map(function (option, index) {
+        return '<option value="' + (index === 0 ? "" : option) + '">' + option + '</option>';
+      }).join(""),
       '</select>'
     ].join("");
     return filter;
