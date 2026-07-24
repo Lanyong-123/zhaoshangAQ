@@ -5115,6 +5115,40 @@
       </div>
     </div>
     <script src="resources/scripts/axure/ios.js"></script>
+    <style>
+      /* 监督审核新增的上级/三级单位审核流程节点 */
+      .supplement-audit-node {
+        position: absolute;
+        left: 0;
+        width: 1600px;
+        height: 150px;
+      }
+      .supplement-audit-node-title {
+        position: absolute;
+        left: 163px;
+        top: 0;
+        height: 18px;
+        line-height: 18px;
+        white-space: nowrap;
+        font-family: 'PingFangSC-Regular', 'PingFang SC', sans-serif;
+        font-size: 13px;
+        color: #333333;
+      }
+      .supplement-audit-node-table {
+        position: absolute !important;
+        left: 206px !important;
+        top: 30px !important;
+      }
+      .supplement-audit-flow-line {
+        position: absolute;
+        left: 186px;
+        top: 1100px;
+        width: 1px;
+        height: 976px;
+        background: #797979;
+        z-index: 0;
+      }
+    </style>
     <script>
       (function () {
         var batches = {
@@ -5230,6 +5264,76 @@
           document.addEventListener("DOMContentLoaded", initRectifyAuditTabs);
         } else {
           initRectifyAuditTabs();
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        var auditNodes = [
+          "上级单位安监机构负责，审核人：XX",
+          "上级单位分管业务领导，审核人：XX",
+          "三级单位安全管理员审核，审核人：XX",
+          "三级单位安监负责人，审核人：XX",
+          "三级单位分管业务领导，审核人：XX",
+          "三级单位主要负责，审核人：XX"
+        ];
+        var nodeStartTop = 1092;
+        var nodeSpacing = 160;
+        var addedHeight = auditNodes.length * nodeSpacing;
+
+        function addSupplementAuditNodes() {
+          var panel = document.getElementById("u72877");
+          var state = document.getElementById("u72877_state0");
+          var content = document.getElementById("u72877_state0_content");
+          var sourceTable = document.getElementById("u72885");
+          if (!panel || !state || !content || !sourceTable || document.getElementById("supplement-audit-flow")) {
+            return;
+          }
+
+          var originalChildren = Array.prototype.slice.call(content.children);
+          originalChildren.forEach(function (element) {
+            var top = parseFloat(window.getComputedStyle(element).top);
+            if (!Number.isNaN(top) && top >= 1081) {
+              element.style.top = (top + addedHeight) + "px";
+            }
+          });
+
+          var originalLine = document.getElementById("u72995");
+          var originalLineImage = document.getElementById("u72995_img");
+          if (originalLine && originalLineImage) {
+            originalLine.style.height = (139 + addedHeight) + "px";
+            originalLineImage.style.height = (140 + addedHeight) + "px";
+          }
+
+          auditNodes.forEach(function (title, index) {
+            var wrapper = document.createElement("div");
+            wrapper.className = "supplement-audit-node";
+            wrapper.style.top = (nodeStartTop + index * nodeSpacing) + "px";
+
+            var heading = document.createElement("div");
+            heading.className = "supplement-audit-node-title";
+            heading.textContent = title;
+            wrapper.appendChild(heading);
+
+            var table = sourceTable.cloneNode(true);
+            table.className = "ax_default supplement-audit-node-table";
+            wrapper.appendChild(table);
+            content.appendChild(wrapper);
+          });
+
+          var flowLine = document.createElement("div");
+          flowLine.id = "supplement-audit-flow";
+          flowLine.className = "supplement-audit-flow-line";
+          content.appendChild(flowLine);
+
+          panel.style.height = (1363 + addedHeight) + "px";
+          state.style.height = (1363 + addedHeight) + "px";
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", addSupplementAuditNodes);
+        } else {
+          addSupplementAuditNodes();
         }
       })();
     </script>
