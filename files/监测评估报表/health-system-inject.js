@@ -162,13 +162,6 @@
         left: 760,
         top: 72,
         options: ["请选择", "草稿", "数据可用", "数据不可用", "退出", "删除"]
-      },
-      {
-        id: "ai-health-usable-filter-superior-element",
-        panel: "u88429_state12_content",
-        left: 1328,
-        top: 17,
-        options: ["请选择", "草稿", "数据可用", "数据不可用", "退出", "删除"]
       }
     ];
     configs.forEach(function (config) {
