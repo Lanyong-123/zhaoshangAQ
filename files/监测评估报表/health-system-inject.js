@@ -30,6 +30,18 @@
       ".ai-health-usable-filter select{position:absolute;left:82px;top:0;width:180px;height:30px;padding:2px 6px;border:1px solid #797979;background:#fff;color:#333;font-size:13px;outline:none;}",
       "#ai-health-usable-filter-task-release{width:250px;}",
       "#ai-health-usable-filter-task-release select{width:160px;}",
+      "#ai-self-implemented-breakdown,#ai-supervise-implemented-breakdown{position:absolute;width:973px;height:120px;display:flex;gap:28px;background:#fff;z-index:9993;font-family:'PingFang SC','Microsoft YaHei',Arial,sans-serif;color:#333;}",
+      "#ai-self-implemented-breakdown{left:184px;top:108px;}",
+      "#ai-supervise-implemented-breakdown{left:200px;top:109px;}",
+      ".ai-self-implemented-group{height:120px;display:grid;grid-template-columns:1fr 192px;border:1px solid #d9d9d9;background:#fff;}",
+      ".ai-self-implemented-group.org{width:457px;}",
+      ".ai-self-implemented-group.project{width:488px;}",
+      ".ai-self-implemented-total{display:flex;align-items:center;justify-content:center;gap:54px;text-align:center;font-size:13px;line-height:20px;border-right:1px solid #d9d9d9;}",
+      ".ai-self-implemented-help{display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center;border-radius:50%;background:#000;color:#fff;font-size:14px;font-weight:700;}",
+      ".ai-self-implemented-rows{display:grid;grid-template-rows:repeat(4,30px);}",
+      ".ai-self-implemented-row{display:grid;grid-template-columns:1fr 42px;align-items:center;padding:0 8px;border-bottom:1px dotted #cfcfcf;font-size:13px;}",
+      ".ai-self-implemented-row:last-child{border-bottom:none;}",
+      ".ai-self-implemented-row .ratio{display:flex;align-items:center;justify-content:center;width:31px;height:22px;border:2px solid #9bb4c4;border-radius:50%;font-size:12px;justify-self:end;}",
       "#u88529.ai-health-note-bottom{z-index:9992!important;}",
       "#u88529.ai-health-note-bottom,#u88529.ai-health-note-bottom #u88529_div{width:1500px!important;height:72px!important;}",
       ".ai-hs-title{position:absolute;left:8px;top:10px;font-size:18px;font-weight:700;color:#333;}",
@@ -101,6 +113,8 @@
     if (document.getElementById("ai-health-system-statistics")) return;
     createStyle();
     injectUsableFilter();
+    injectImplementedTaskBreakdown();
+    injectSuperviseTaskBreakdown();
     var card = document.createElement("div");
     card.id = "ai-health-system-statistics";
     card.innerHTML = [
@@ -126,18 +140,90 @@
         panel: "u88429_state3_content",
         left: 880,
         top: 5,
-        options: ["请选择", "数据可用", "数据不可能", "退出"]
+        options: ["请选择", "草稿", "数据可用", "数据不可用", "退出", "删除"]
       },
-      { id: "ai-health-usable-filter-supervise", panel: "u88429_state9_content", left: 1748, top: 50 },
-      { id: "ai-health-usable-filter-self", panel: "u88429_state10_content", left: 1748, top: 50 },
-      { id: "ai-health-usable-filter-element", panel: "u88429_state11_content", left: 760, top: 72 },
-      { id: "ai-health-usable-filter-superior-element", panel: "u88429_state12_content", left: 1328, top: 17 }
+      {
+        id: "ai-health-usable-filter-supervise",
+        panel: "u88429_state9_content",
+        left: 1748,
+        top: 50,
+        options: ["请选择", "草稿", "数据可用", "数据不可用", "退出", "删除"]
+      },
+      {
+        id: "ai-health-usable-filter-self",
+        panel: "u88429_state10_content",
+        left: 1748,
+        top: 50,
+        options: ["请选择", "草稿", "数据可用", "数据不可用", "退出", "删除"]
+      },
+      {
+        id: "ai-health-usable-filter-element",
+        panel: "u88429_state11_content",
+        left: 760,
+        top: 72,
+        options: ["请选择", "草稿", "数据可用", "数据不可用", "退出", "删除"]
+      },
+      {
+        id: "ai-health-usable-filter-superior-element",
+        panel: "u88429_state12_content",
+        left: 1328,
+        top: 17,
+        options: ["请选择", "草稿", "数据可用", "数据不可用", "退出", "删除"]
+      }
     ];
     configs.forEach(function (config) {
       var targetPanel = document.getElementById(config.panel);
       if (!targetPanel || document.getElementById(config.id)) return;
       targetPanel.appendChild(createUsableFilter(config));
     });
+  }
+
+  function injectImplementedTaskBreakdown() {
+    var targetPanel = document.getElementById("u91516_state1_content");
+    if (!targetPanel || document.getElementById("ai-self-implemented-breakdown")) return;
+
+    function groupHtml(type, title, total) {
+      return [
+        '<div class="ai-self-implemented-group ' + type + '">',
+        '<div class="ai-self-implemented-total"><span>' + title + '<br>' + total + '</span><span class="ai-self-implemented-help">?</span></div>',
+        '<div class="ai-self-implemented-rows">',
+        '<div class="ai-self-implemented-row"><span>实施已完成数&nbsp;&nbsp;&nbsp;30</span><span class="ratio">40%</span></div>',
+        '<div class="ai-self-implemented-row"><span>实施未完成数&nbsp;&nbsp;&nbsp;20</span><span class="ratio">40%</span></div>',
+        '<div class="ai-self-implemented-row"><span>' + (type === "org" ? "组织" : "项目") + '删除数&nbsp;&nbsp;&nbsp;5</span><span class="ratio">10%</span></div>',
+        '<div class="ai-self-implemented-row"><span>' + (type === "org" ? "组织" : "项目") + '退出数&nbsp;&nbsp;&nbsp;5</span><span class="ratio">10%</span></div>',
+        '</div></div>'
+      ].join("");
+    }
+
+    var breakdown = document.createElement("div");
+    breakdown.id = "ai-self-implemented-breakdown";
+    breakdown.innerHTML = groupHtml("org", "组织实施任务数", "80") +
+      groupHtml("project", "项目实施任务数", "100");
+    targetPanel.appendChild(breakdown);
+  }
+
+  function injectSuperviseTaskBreakdown() {
+    var targetPanel = document.getElementById("u90550_state1_content");
+    if (!targetPanel || document.getElementById("ai-supervise-implemented-breakdown")) return;
+
+    function groupHtml(type, title, total) {
+      return [
+        '<div class="ai-self-implemented-group ' + type + '">',
+        '<div class="ai-self-implemented-total"><span>' + title + '<br>' + total + '</span><span class="ai-self-implemented-help">?</span></div>',
+        '<div class="ai-self-implemented-rows">',
+        '<div class="ai-self-implemented-row"><span>实施已完成数&nbsp;&nbsp;&nbsp;30</span><span class="ratio">40%</span></div>',
+        '<div class="ai-self-implemented-row"><span>实施未完成数&nbsp;&nbsp;&nbsp;20</span><span class="ratio">40%</span></div>',
+        '<div class="ai-self-implemented-row"><span>' + (type === "org" ? "组织" : "项目") + '删除数&nbsp;&nbsp;&nbsp;5</span><span class="ratio">10%</span></div>',
+        '<div class="ai-self-implemented-row"><span>' + (type === "org" ? "组织" : "项目") + '退出数&nbsp;&nbsp;&nbsp;5</span><span class="ratio">10%</span></div>',
+        '</div></div>'
+      ].join("");
+    }
+
+    var breakdown = document.createElement("div");
+    breakdown.id = "ai-supervise-implemented-breakdown";
+    breakdown.innerHTML = groupHtml("org", "组织实施任务数", "80") +
+      groupHtml("project", "项目实施任务数", "100");
+    targetPanel.appendChild(breakdown);
   }
 
   function createUsableFilter(config) {
