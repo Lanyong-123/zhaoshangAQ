@@ -1,0 +1,184 @@
+#pvTabButton {
+  position: absolute;
+  left: 2595px;
+  top: 242px;
+  width: 112px;
+  height: 48px;
+  z-index: 9998;
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: 1px solid #d9d9d9;
+  background: #fff;
+  color: #333;
+  font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  cursor: pointer;
+}
+#pvTabButton:hover { color: #00b894; }
+#pvTabButton.active {
+  color: #00b894;
+  border-bottom: 2px solid #00b894;
+  font-weight: 600;
+}
+#pvTabPanel {
+  display: none;
+  position: absolute;
+  left: 243px;
+  top: 290px;
+  width: 3134px;
+  min-height: 3500px;
+  padding: 24px 30px 50px;
+  box-sizing: border-box;
+  z-index: 9997;
+  background: #fff;
+  color: #333;
+  font: 14px/1.5 "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+}
+#pvTabPanel.active { display: block; }
+.pv-section {
+  width: 1240px;
+  margin-bottom: 24px;
+  border: 1px solid #e5e8eb;
+  background: #fff;
+}
+.pv-section-title {
+  height: 42px;
+  padding: 0 18px;
+  border-bottom: 1px solid #e5e8eb;
+  background: #f6f8fa;
+  color: #222;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 42px;
+}
+.pv-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 44px;
+  row-gap: 18px;
+  padding: 22px 26px;
+}
+.pv-field {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: center;
+  min-height: 34px;
+}
+.pv-field-wide { grid-column: 1 / -1; }
+.pv-label { padding-right: 12px; text-align: right; color: #555; }
+.pv-required::before { content: "*"; margin-right: 3px; color: #f5222d; }
+.pv-control {
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  background: #fff;
+  color: #333;
+  outline: none;
+}
+.pv-control:focus { border-color: #00b894; }
+.pv-inline { display: flex; align-items: center; gap: 16px; }
+.pv-radio, .pv-check { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.pv-radio input, .pv-check input { accent-color: #00b894; }
+.pv-unit { margin-left: -38px; color: #777; pointer-events: none; }
+.pv-upload {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pv-upload-button {
+  height: 32px;
+  padding: 0 15px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+}
+.pv-upload-button:hover { color: #00b894; border-color: #00b894; }
+.pv-upload-note { color: #999; font-size: 12px; }
+.pv-file-list { padding: 0 26px 18px; }
+.pv-file-group {
+  display: grid;
+  grid-template-columns: 210px 120px minmax(0, 1fr);
+  align-items: center;
+  min-height: 52px;
+  border-bottom: 1px solid #edf0f2;
+}
+.pv-file-group:last-child { border-bottom: 0; }
+.pv-file-type { padding-right: 18px; color: #333; font-weight: 500; }
+.pv-file-desc { padding: 10px 0 10px 12px; color: #999; line-height: 1.6; }
+.pv-file-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0;
+  text-align: left;
+}
+.pv-file-upload-line {
+  display: flex;
+  align-items: center;
+}
+.pv-file-add {
+  width: 28px;
+  height: 30px;
+  margin-left: 5px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f5222d;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 30px;
+  cursor: pointer;
+}
+.pv-file-add:hover { color: #cf1322; }
+.pv-subrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+}
+.pv-subrow input[type="text"] { flex: 1; }
+.pv-tip {
+  margin: -10px 26px 18px 176px;
+  color: #999;
+  font-size: 12px;
+}
+.pv-personnel-list {
+  grid-column: 1 / -1;
+}
+.pv-personnel-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 150px minmax(0, 1fr) 36px;
+  align-items: center;
+  min-height: 46px;
+}
+.pv-personnel-row + .pv-personnel-row {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #e5e8eb;
+}
+.pv-personnel-add {
+  width: 30px;
+  height: 30px;
+  margin-left: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f5222d;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 30px;
+  cursor: pointer;
+}
+.pv-personnel-add:hover { color: #cf1322; }
+@media (max-width: 1100px) {
+  #pvTabPanel { width: 3134px; }
+  .pv-section { width: 1000px; }
+  .pv-form-grid { grid-template-columns: 1fr; }
+  .pv-field-wide { grid-column: auto; }
+  .pv-personnel-list { grid-column: auto; }
+}
