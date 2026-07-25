@@ -95,8 +95,24 @@
     return { button: button, panel: panel };
   }
 
+  function shiftProjectCycleTab() {
+    var spans = Array.prototype.slice.call(document.querySelectorAll("span"));
+    var label = spans.find(function (span) {
+      return (span.textContent || "").trim() === "项目周期";
+    });
+    var widget = label && label.parentElement && label.parentElement.parentElement &&
+      label.parentElement.parentElement.parentElement;
+    if (!widget || widget.dataset.pvShifted === "yes") return;
+    var left = parseFloat(window.getComputedStyle(widget).left);
+    if (!isNaN(left)) {
+      widget.style.left = (left + 112) + "px";
+      widget.dataset.pvShifted = "yes";
+    }
+  }
+
   function init() {
     if (document.getElementById("pvTabButton")) return;
+    shiftProjectCycleTab();
     var ui = createPanel();
     var involved = ui.panel.querySelectorAll('input[name="pvInvolved"]');
     var content = ui.panel.querySelectorAll(".pv-involved-content");
