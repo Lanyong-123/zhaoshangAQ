@@ -67,13 +67,21 @@
       field("投运时间", '<input class="pv-control" type="date">', false, true) +
       '</div></div></div>' +
 
-      '<div class="pv-section pv-involved-content"><div class="pv-section-title">建设参与单位</div><div class="pv-form-grid">' +
-      field("产权单位", input("请输入产权单位"), false, true) +
-      field("建设单位", input("请输入建设单位"), false, true) +
-      field("监理单位", input("请输入监理单位"), false, false) +
-      field("监理单位资质", upload("上传资质文件"), false, false) +
-      field("施工单位", input("请输入施工单位"), false, true) +
-      field("施工单位资质", input("请输入资质名称或等级"), false, false) +
+      '<div class="pv-section pv-involved-content"><div class="pv-section-title">参建单位</div><div class="pv-party-list">' +
+      '<div class="pv-party-row"><div class="pv-label">产权单位：</div>' +
+      '<select class="pv-control pv-party-presence" aria-label="产权单位有无"><option value="">请选择</option><option value="yes">有</option><option value="no">无</option></select>' +
+      '<div class="pv-party-details pv-party-details-single"><input class="pv-control" type="text" placeholder="请输入产权单位"></div></div>' +
+      '<div class="pv-party-row"><div class="pv-label">建设单位：</div>' +
+      '<select class="pv-control pv-party-presence" aria-label="建设单位有无"><option value="">请选择</option><option value="yes">有</option><option value="no">无</option></select>' +
+      '<div class="pv-party-details pv-party-details-single"><input class="pv-control" type="text" placeholder="请输入建设单位"></div></div>' +
+      '<div class="pv-party-row"><div class="pv-label">监理单位：</div>' +
+      '<select class="pv-control pv-party-presence" aria-label="监理单位有无"><option value="">请选择</option><option value="yes">有</option><option value="no">无</option></select>' +
+      '<div class="pv-party-details pv-party-details-paired"><input class="pv-control" type="text" placeholder="请输入监理单位">' +
+      '<div class="pv-party-inner-label">监理单位资质：</div><div>' + upload("上传资质文件") + '</div></div></div>' +
+      '<div class="pv-party-row"><div class="pv-label">施工单位：</div>' +
+      '<select class="pv-control pv-party-presence" aria-label="施工单位有无"><option value="">请选择</option><option value="yes">有</option><option value="no">无</option></select>' +
+      '<div class="pv-party-details pv-party-details-paired"><input class="pv-control" type="text" placeholder="请输入施工单位">' +
+      '<div class="pv-party-inner-label">施工单位资质：</div><div>' + upload("上传资质文件") + '</div></div></div>' +
       '</div></div>' +
 
       '<div class="pv-section pv-involved-content"><div class="pv-section-title">运维信息</div><div class="pv-form-grid">' +
@@ -171,6 +179,18 @@
       facilityTrigger.setAttribute("aria-expanded", "false");
     });
     ui.panel.addEventListener("change", function (event) {
+      if (event.target.classList.contains("pv-party-presence")) {
+        var partyRow = event.target.closest(".pv-party-row");
+        var partyDetails = partyRow.querySelector(".pv-party-details");
+        var partyShow = event.target.value === "yes";
+        partyDetails.classList.toggle("active", partyShow);
+        if (!partyShow) {
+          Array.prototype.forEach.call(partyDetails.querySelectorAll("input"), function (input) {
+            input.value = "";
+          });
+        }
+        return;
+      }
       if (!event.target.classList.contains("pv-file-presence")) return;
       var fileGroup = event.target.closest(".pv-file-group");
       var details = fileGroup.querySelector(".pv-file-details");

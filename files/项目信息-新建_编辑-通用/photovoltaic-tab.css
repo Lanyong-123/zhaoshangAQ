@@ -257,6 +257,35 @@
   cursor: pointer;
 }
 .pv-personnel-add:hover { color: #cf1322; }
+.pv-party-list {
+  padding: 4px 26px 16px;
+}
+.pv-party-row {
+  display: grid;
+  grid-template-columns: 150px 110px minmax(0, 1fr);
+  align-items: center;
+  min-height: 58px;
+  border-bottom: 1px solid #edf0f2;
+}
+.pv-party-row:last-child { border-bottom: 0; }
+.pv-party-presence { width: 96px; }
+.pv-party-details {
+  display: none;
+  align-items: center;
+  min-width: 0;
+}
+.pv-party-details.active { display: grid; }
+.pv-party-details-single {
+  grid-template-columns: minmax(0, 430px);
+}
+.pv-party-details-paired {
+  grid-template-columns: minmax(0, 1fr) 140px minmax(0, 1fr);
+}
+.pv-party-inner-label {
+  padding: 0 12px;
+  color: #555;
+  text-align: right;
+}
 @media (max-width: 1100px) {
   #pvTabPanel { width: 3134px; }
   .pv-section { width: 1000px; }
