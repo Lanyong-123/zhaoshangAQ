@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>不符合项管理</title>
   <link rel="stylesheet" href="files/不符合项管理/styles.css">
-  <link rel="stylesheet" href="files/不符合项管理/field-layout.css">
+  <link rel="stylesheet" href="files/不符合项管理/field-layout.css?v=element-names-20260803">
   <style>
     .help-wrap{position:relative;display:inline-flex;align-items:center;margin-left:4px;vertical-align:middle}
     .help-tip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;padding:0;border:1px solid #2e7dd7;border-radius:50%;color:#2e7dd7;font-size:12px;line-height:1;cursor:help;background:#fff}
@@ -65,7 +65,19 @@
           <div class="field"><label for="status">整改完成情况</label><select id="status"><option value="">请选择</option><option>未完成</option><option>整改中</option><option>已完成</option></select></div>
           <div class="field"><label for="dueStatus">到期状态</label><select id="dueStatus"><option value="">请选择</option><option>已到期</option><option>未到期</option></select></div>
           <div class="field"><label for="dataStatus">可用状态</label><select id="dataStatus"><option value="">请选择</option><option>草稿</option><option>数据可用</option><option>数据不可用</option><option>退出</option></select></div>
-          <div class="field"><label for="elementName">要素名称</label><input id="elementName" placeholder="请输入要素名称"></div>
+          <div class="field element-name-group" id="elementNameGroup">
+            <label>要素名称</label>
+            <div id="elementRows" class="element-rows">
+              <div class="element-row">
+                <input data-level="l1" placeholder="一级要素名称">
+                <input data-level="l2" placeholder="二级要素名称">
+                <input data-level="l3" placeholder="三级要素名称">
+                <input data-level="l4" placeholder="四级要素名称">
+                <input data-level="l5" placeholder="五级要素名称">
+                <button class="element-add" type="button" aria-label="增加要素名称条件">+</button>
+              </div>
+            </div>
+          </div>
           <div class="field date time-field publish-time"><label for="cycleStart">任务发布时间</label><div><input id="cycleStart" type="date"><span>至</span><input id="cycleEnd" type="date"></div></div>
           <div class="field time-field due-time"><label for="planEndDate">到期时间 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="截止该日期隐患整改状态查询" title="截止该日期隐患整改状态查询" aria-label="截止该日期隐患整改状态查询">?</button></span></label><input id="planEndDate" type="date"></div>
           <div class="field date time-field implement-time"><label for="implementStartDate">任务实施时间</label><div><input id="implementStartDate" type="date"><span>至</span><input id="implementEndDate" type="date"></div></div>
@@ -74,15 +86,32 @@
         </section>
 
         <section class="result-panel">
-          <div class="list-toolbar"><div>已选择 <b id="selectedCount">0</b> 项</div></div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th><input id="checkAll" type="checkbox" aria-label="全选"></th><th class="assessment-no">评估编号</th><th class="org-type">所属组织/业态</th><th class="org-name">组织/项目名称</th><th class="cycle">评估周期</th><th class="assessment-form">评估形式</th><th class="publisher">任务发布人</th><th class="publisher-org">任务发布人所属组织</th><th class="sequence">一级要素序号</th><th class="element">一级要素名称</th><th class="sequence">二级要素序号</th><th class="element">二级要素名称</th><th class="sequence">三级要素序号</th><th class="element">三级要素名称</th><th class="sequence">四级要素序号</th><th class="element">四级要素名称</th><th class="sequence">五级要素序号</th><th class="element">五级要素名称</th><th class="problem">达标标准</th><th>必须项</th><th class="problem">评分方式</th><th class="problem-type">隐患类型</th><th class="rectify-date">计划整改完成时间</th><th class="due-status">到期状态</th><th class="rectify-date">整改时间</th><th>整改资料</th><th class="problem">整改说明</th><th class="status-col">整改完成情况</th></tr></thead>
-              <tbody id="resultBody"></tbody>
-            </table>
+          <div class="result-tabs" role="tablist">
+            <button id="tabList" class="active" type="button" data-tab="list" role="tab" aria-selected="true">不符合项清单</button>
+            <button id="tabStats" type="button" data-tab="stats" role="tab" aria-selected="false">不符合项统计</button>
           </div>
-          <div id="emptyState" class="empty" hidden>未查询到符合条件的不符合项</div>
-          <footer class="pagination"><span>每页显示</span><select><option>10</option><option>20</option><option>50</option></select><span>条，共 <b id="footerCount">8</b> 条记录</span><div><button disabled>上一页</button><button class="current">1</button><button>下一页</button></div></footer>
+          <div id="listView" class="tab-view active">
+            <div class="list-toolbar"><div>已选择 <b id="selectedCount">0</b> 项</div></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th><input id="checkAll" type="checkbox" aria-label="全选"></th><th class="assessment-no">评估编号</th><th class="org-type">所属组织/业态</th><th class="org-name">组织/项目名称</th><th class="cycle">评估周期</th><th class="assessment-form">评估形式</th><th class="publisher">任务发布人</th><th class="publisher-org">任务发布人所属组织</th><th class="sequence">一级要素序号</th><th class="element">一级要素名称</th><th class="sequence">二级要素序号</th><th class="element">二级要素名称</th><th class="sequence">三级要素序号</th><th class="element">三级要素名称</th><th class="sequence">四级要素序号</th><th class="element">四级要素名称</th><th class="sequence">五级要素序号</th><th class="element">五级要素名称</th><th class="problem">达标标准</th><th>必须项</th><th class="problem">评分方式</th><th class="problem-type">隐患类型</th><th class="rectify-date">计划整改完成时间</th><th class="due-status">到期状态</th><th class="rectify-date">整改时间</th><th>整改资料</th><th class="problem">整改说明</th><th class="status-col">整改完成情况</th></tr></thead>
+                <tbody id="resultBody"></tbody>
+              </table>
+            </div>
+            <div id="emptyState" class="empty" hidden>未查询到符合条件的不符合项</div>
+            <footer class="pagination"><span>每页显示</span><select><option>10</option><option>20</option><option>50</option></select><span>条，共 <b id="footerCount">8</b> 条记录</span><div><button disabled>上一页</button><button class="current">1</button><button>下一页</button></div></footer>
+          </div>
+          <div id="statsView" class="tab-view" hidden>
+            <div class="stats-table-wrap">
+              <table class="stats-table">
+                <thead>
+                  <tr><th>组织名称</th><th>累计重大不符合总数<br>（累计求和，动态更新）</th><th class="risk-major">重大事故隐患数 <span class="help-wrap"><button type="button" class="help-tip" data-tooltip="任务发布时间范围内重大事故隐患总数，重大事故隐患到期应整改数+重大事故隐患未到期数" title="任务发布时间范围内重大事故隐患总数，重大事故隐患到期应整改数+重大事故隐患未到期数" aria-label="任务发布时间范围内重大事故隐患总数，重大事故隐患到期应整改数+重大事故隐患未到期数">?</button></span></th><th class="risk-major">重大事故隐患到期应整改数</th><th class="risk-major">重大事故隐患到期已整改数</th><th class="risk-major">重大事故隐患未到期数</th><th class="risk-major">重大事故隐患未到期已整改数</th><th class="risk-negative">集团负面清单数</th><th class="risk-negative">集团负面清单到期应整改数</th><th class="risk-negative">集团负面清单到期已整改数</th><th class="risk-negative">集团负面清单未到期数</th><th class="risk-negative">集团负面清单未到期已整改数</th><th class="risk-redline">公司管理红线数</th><th class="risk-redline">公司管理红线到期应整改数</th><th class="risk-redline">公司管理红线到期已整改数</th><th class="risk-redline">公司管理红线未到期数</th><th class="risk-redline">公司管理红线未到期已整改数</th></tr>
+                </thead>
+                <tbody id="statsBody"></tbody>
+              </table>
+            </div>
+            <div id="statsEmptyState" class="empty" hidden>未查询到符合条件的统计数据</div>
+          </div>
         </section>
           </div>
         </div>
@@ -90,7 +119,7 @@
     </main>
   </div>
   <div id="toast" class="toast" role="status"></div>
-  <script src="files/不符合项管理/script.js"></script>
+  <script src="files/不符合项管理/script.js?v=element-names-20260803"></script>
   <!-- pages-refresh: 2026-07-20-nonconformity-audit-hidden -->
 </body>
 </html>
