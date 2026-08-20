@@ -1,20 +1,20 @@
 (function () {
   var rows = [
-    {org:"上海公司",level:3,type:"重大隐患",total:13,due:13,completed:0,overdue:13,excluded:0,date:"2026-01-15",usableStatus:"数据可用"},
-    {org:"上海公司",level:3,type:"公司管理红线",total:17,due:17,completed:0,overdue:17,excluded:0,date:"2026-02-20",usableStatus:"数据可用"},
-    {org:"合肥公司",level:3,type:"重大隐患",total:4,due:4,completed:2,overdue:2,excluded:0,date:"2026-03-12",usableStatus:"数据可用"},
-    {org:"合肥公司",level:3,type:"公司管理红线",total:7,due:7,completed:6,overdue:1,excluded:0,date:"2026-03-26",usableStatus:"数据可用"},
-    {org:"安全生产监督管理部",level:2,type:"重大隐患",total:24,due:24,completed:18,overdue:6,excluded:0,date:"2026-04-08",usableStatus:"数据可用"},
-    {org:"安全生产监督管理部",level:2,type:"集团负面清单",total:9,due:6,completed:4,overdue:2,excluded:3,date:"2026-04-22",usableStatus:"草稿"},
-    {org:"安全生产监督管理部",level:2,type:"公司管理红线",total:51,due:45,completed:40,overdue:5,excluded:6,date:"2026-05-06",usableStatus:"数据可用"},
-    {org:"成都公司",level:3,type:"重大隐患",total:4,due:0,completed:0,overdue:0,excluded:4,date:"2026-05-18",usableStatus:"退出"},
-    {org:"成都公司",level:3,type:"集团负面清单",total:2,due:1,completed:1,overdue:0,excluded:1,date:"2026-05-29",usableStatus:"数据不可用"},
-    {org:"成都公司",level:3,type:"公司管理红线",total:4,due:0,completed:0,overdue:0,excluded:4,date:"2026-06-03",usableStatus:"退出"},
-    {org:"招商产园",level:2,type:"重大隐患",total:2,due:2,completed:2,overdue:0,excluded:0,date:"2026-06-16",usableStatus:"数据可用"},
-    {org:"招商产园",level:2,type:"集团负面清单",total:8,due:6,completed:6,overdue:0,excluded:2,date:"2026-06-28",usableStatus:"数据可用"},
-    {org:"深圳公司",level:3,type:"重大隐患",total:104,due:91,completed:38,overdue:53,excluded:13,date:"2026-07-02",usableStatus:"数据可用"},
-    {org:"华南区域",level:2,type:"公司管理红线",total:244,due:220,completed:99,overdue:121,excluded:24,date:"2026-07-05",usableStatus:"数据可用"},
-    {org:"上海公司",level:3,type:"集团负面清单",total:97,due:83,completed:42,overdue:41,excluded:14,date:"2026-07-08",usableStatus:"数据可用"}
+    {org:"上海公司",level:3,type:"重大隐患",total:13,due:13,completed:0,expiredCompleted:0,overdue:13,excluded:0,date:"2026-01-15",usableStatus:"数据可用"},
+    {org:"上海公司",level:3,type:"公司管理红线",total:17,due:17,completed:0,expiredCompleted:0,overdue:17,excluded:0,date:"2026-02-20",usableStatus:"数据可用"},
+    {org:"合肥公司",level:3,type:"重大隐患",total:4,due:4,completed:2,expiredCompleted:1,overdue:2,excluded:0,date:"2026-03-12",usableStatus:"数据可用"},
+    {org:"合肥公司",level:3,type:"公司管理红线",total:7,due:7,completed:6,expiredCompleted:2,overdue:1,excluded:0,date:"2026-03-26",usableStatus:"数据可用"},
+    {org:"安全生产监督管理部",level:2,type:"重大隐患",total:24,due:24,completed:18,expiredCompleted:5,overdue:6,excluded:0,date:"2026-04-08",usableStatus:"数据可用"},
+    {org:"安全生产监督管理部",level:2,type:"集团负面清单",total:9,due:6,completed:4,expiredCompleted:1,overdue:2,excluded:3,date:"2026-04-22",usableStatus:"草稿"},
+    {org:"安全生产监督管理部",level:2,type:"公司管理红线",total:51,due:45,completed:40,expiredCompleted:7,overdue:5,excluded:6,date:"2026-05-06",usableStatus:"数据可用"},
+    {org:"成都公司",level:3,type:"重大隐患",total:4,due:0,completed:0,expiredCompleted:0,overdue:0,excluded:4,date:"2026-05-18",usableStatus:"退出"},
+    {org:"成都公司",level:3,type:"集团负面清单",total:2,due:1,completed:1,expiredCompleted:0,overdue:0,excluded:1,date:"2026-05-29",usableStatus:"数据不可用"},
+    {org:"成都公司",level:3,type:"公司管理红线",total:4,due:0,completed:0,expiredCompleted:0,overdue:0,excluded:4,date:"2026-06-03",usableStatus:"退出"},
+    {org:"招商产园",level:2,type:"重大隐患",total:2,due:2,completed:2,expiredCompleted:0,overdue:0,excluded:0,date:"2026-06-16",usableStatus:"数据可用"},
+    {org:"招商产园",level:2,type:"集团负面清单",total:8,due:6,completed:6,expiredCompleted:2,overdue:0,excluded:2,date:"2026-06-28",usableStatus:"数据可用"},
+    {org:"深圳公司",level:3,type:"重大隐患",total:104,due:91,completed:38,expiredCompleted:13,overdue:53,excluded:13,date:"2026-07-02",usableStatus:"数据可用"},
+    {org:"华南区域",level:2,type:"公司管理红线",total:244,due:220,completed:99,expiredCompleted:24,overdue:121,excluded:24,date:"2026-07-05",usableStatus:"数据可用"},
+    {org:"上海公司",level:3,type:"集团负面清单",total:97,due:83,completed:42,expiredCompleted:9,overdue:41,excluded:14,date:"2026-07-08",usableStatus:"数据可用"}
   ];
   var current = rows.slice();
   var activeTaskScope = "all";
@@ -26,7 +26,7 @@
   function rate(a,b){return b ? (a*100/b).toFixed(2)+"%" : "0.00%"}
   function esc(s){return String(s).replace(/[&<>\"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'\"':"&quot;"}[c]})}
   function statLink(value,type,metric,org){var params="source=report&type="+encodeURIComponent(type)+"&metric="+encodeURIComponent(metric)+(org?"&org="+encodeURIComponent(org):"");return '<a class="stat-link" href="不符合项管理.html?'+params+'">'+esc(value)+'</a>'}
-  function emptyStats(){return {total:0,due:0,completed:0,notDue:0,notDueCompleted:0}}
+  function emptyStats(){return {total:0,due:0,completed:0,expiredCompleted:0,notDue:0,notDueCompleted:0}}
   function orgSummary(data){
     var map={};
     data.forEach(function(r){
@@ -36,6 +36,7 @@
       item.total+=r.total;
       item.due+=r.due;
       item.completed+=r.completed;
+      item.expiredCompleted+=r.expiredCompleted||0;
       item.notDue+=notDue;
       item.notDueCompleted+=notDueCompleted;
     });
@@ -43,7 +44,7 @@
   }
   function typeCells(row,type){
     var item=row.types[type]||emptyStats();
-    return '<td>'+statLink(item.total,type,type+"数",row.org)+'</td><td>'+statLink(item.due,type,type+"到期应整改数",row.org)+'</td><td>'+statLink(item.completed,type,type+"到期已整改数",row.org)+'</td><td>'+statLink(item.notDue,type,type+"未到期数",row.org)+'</td><td>'+statLink(item.notDueCompleted,type,type+"未到期已整改数",row.org)+'</td>';
+    return '<td>'+statLink(item.total,type,type+"数",row.org)+'</td><td>'+statLink(item.due,type,type+"到期应整改数",row.org)+'</td><td>'+statLink(item.completed,type,type+"到期已整改数",row.org)+'</td><td>'+statLink(item.expiredCompleted,type,type+"超期已整改数",row.org)+'</td><td>'+statLink(item.notDue,type,type+"未到期数",row.org)+'</td><td>'+statLink(item.notDueCompleted,type,type+"未到期已整改数",row.org)+'</td>';
   }
   function render(data){
     current=data;
@@ -52,13 +53,14 @@
       var items=data.filter(function(r){return r.type===type}),
         total=items.reduce(function(n,r){return n+r.total},0),
         dueCompleted=items.reduce(function(n,r){return n+Math.min(r.completed,r.due)},0),
+        expiredCompleted=items.reduce(function(n,r){return n+(r.expiredCompleted||0)},0),
         notDueCompleted=items.reduce(function(n,r){return n+Math.max(r.completed-r.due,0)},0),
         overdueUnfinished=items.reduce(function(n,r){return n+r.overdue},0),
         notDueUnfinished=items.reduce(function(n,r){return n+Math.max((r.total-r.due)-Math.max(r.completed-r.due,0),0)},0);
-      return '<tr><td>'+type+'</td><td>'+statLink(total,type,"隐患总数")+'</td><td>'+statLink(dueCompleted,type,"到期已整改数")+'</td><td>'+statLink(notDueCompleted,type,"未到期已整改数")+'</td><td>'+statLink(overdueUnfinished,type,"超期未完成数")+'</td><td>'+statLink(notDueUnfinished,type,"未到期未完成数")+'</td></tr>';
+      return '<tr><td>'+type+'</td><td>'+statLink(total,type,"隐患总数")+'</td><td>'+statLink(dueCompleted,type,"到期已整改数")+'</td><td>'+statLink(expiredCompleted,type,"超期已整改数")+'</td><td>'+statLink(notDueCompleted,type,"未到期已整改数")+'</td><td>'+statLink(overdueUnfinished,type,"超期未完成数")+'</td><td>'+statLink(notDueUnfinished,type,"未到期未完成数")+'</td></tr>';
     }).join("");
     var orgRows=orgSummary(data);
-    document.getElementById("detailBody").innerHTML=orgRows.length?orgRows.map(function(r){var total=["重大隐患","集团负面清单","公司管理红线"].reduce(function(sum,type){return sum+((r.types[type]&&r.types[type].total)||0)},0);return '<tr><td>'+esc(r.org)+'</td><td>'+statLink(total,"全部","累计重大不符合总数",r.org)+'</td>'+typeCells(r,"重大隐患")+typeCells(r,"集团负面清单")+typeCells(r,"公司管理红线")+'</tr>'}).join(""):'<tr><td class="empty" colspan="17">未查询到符合条件的统计数据</td></tr>';
+    document.getElementById("detailBody").innerHTML=orgRows.length?orgRows.map(function(r){var total=["重大隐患","集团负面清单","公司管理红线"].reduce(function(sum,type){return sum+((r.types[type]&&r.types[type].total)||0)},0);return '<tr><td>'+esc(r.org)+'</td><td>'+statLink(total,"全部","累计重大不符合总数",r.org)+'</td>'+typeCells(r,"重大隐患")+typeCells(r,"集团负面清单")+typeCells(r,"公司管理红线")+'</tr>'}).join(""):'<tr><td class="empty" colspan="20">未查询到符合条件的统计数据</td></tr>';
     var recordCount=document.getElementById("recordCount");
     if(recordCount)recordCount.textContent=orgRows.length;
   }
@@ -73,8 +75,8 @@
   function setDefaultDueDate(){document.getElementById("dueDate").value=today()}
   function setDefaultAssessmentForm(){document.getElementById("assessmentForm").value=""}
   function reset(){["orgName","issueType","assessmentForm","usableStatus","statStart","statEnd","orgLevel","dueDate","implementStart","implementEnd"].forEach(function(id){document.getElementById(id).value=""});setDefaultDueDate();setDefaultAssessmentForm();syncTaskScopeTabs(false);document.querySelectorAll(".multi-panel input").forEach(function(input){input.checked=false});updateMultiLabel("orgTreeSelect","请选择组织范围");render(rows)}
-  function exportCsv(){var headers=["组织名称","累计重大不符合总数（累计求和，动态更新）","重大事故隐患数","重大事故隐患到期应整改数","重大事故隐患到期已整改数","重大事故隐患未到期数","重大事故隐患未到期已整改数","集团负面清单数","集团负面清单到期应整改数","集团负面清单到期已整改数","集团负面清单未到期数","集团负面清单未到期已整改数","公司管理红线数","公司管理红线到期应整改数","公司管理红线到期已整改数","公司管理红线未到期数","公司管理红线未到期已整改数"],orgRows=orgSummary(current),rowValues=function(row){var result=[row.org],total=["重大隐患","集团负面清单","公司管理红线"].reduce(function(sum,type){return sum+((row.types[type]&&row.types[type].total)||0)},0);result.push(total);["重大隐患","集团负面清单","公司管理红线"].forEach(function(type){var item=row.types[type]||emptyStats();result.push(item.total,item.due,item.completed,item.notDue,item.notDueCompleted)});return result},csv="\ufeff"+headers.join(",")+"\n"+orgRows.map(function(r){return rowValues(r).map(function(v){return '"'+String(v).replace(/"/g,'""')+'"'}).join(",")}).join("\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="不符合项统计_"+new Date().toISOString().slice(0,10)+".csv";a.click();URL.revokeObjectURL(a.href)}
-  function exportListCsv(){if(!current.length){return}var headers=["组织名称","组织层级","评估形式","隐患类型","隐患总数","到期应整改数","到期已整改数","未到期数","未到期已整改数","超期未完成数","未到期未完成数","任务发布时间","任务实施时间"],csv="\ufeff"+headers.join(",")+"\n"+current.map(function(r){var notDue=r.total-r.due,notDueCompleted=Math.max(r.completed-r.due,0),notDueUnfinished=Math.max(notDue-notDueCompleted,0),implementDate=r.implementDate||r.date,form=r.assessmentForm||"监督评审",values=[r.org,r.level+"级",form,r.type,r.total,r.due,Math.min(r.completed,r.due),notDue,notDueCompleted,r.overdue,notDueUnfinished,r.date,implementDate];return values.map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'}).join(",")}).join("\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="不符合项清单_"+new Date().toISOString().slice(0,10)+".csv";a.click();URL.revokeObjectURL(a.href)}
+  function exportCsv(){var headers=["组织名称","累计重大不符合总数（累计求和，动态更新）","重大事故隐患数","重大事故隐患到期应整改数","重大事故隐患到期已整改数","重大事故隐患超期已整改数","重大事故隐患未到期数","重大事故隐患未到期已整改数","集团负面清单数","集团负面清单到期应整改数","集团负面清单到期已整改数","集团负面清单超期已整改数","集团负面清单未到期数","集团负面清单未到期已整改数","公司管理红线数","公司管理红线到期应整改数","公司管理红线到期已整改数","公司管理红线超期已整改数","公司管理红线未到期数","公司管理红线未到期已整改数"],orgRows=orgSummary(current),rowValues=function(row){var result=[row.org],total=["重大隐患","集团负面清单","公司管理红线"].reduce(function(sum,type){return sum+((row.types[type]&&row.types[type].total)||0)},0);result.push(total);["重大隐患","集团负面清单","公司管理红线"].forEach(function(type){var item=row.types[type]||emptyStats();result.push(item.total,item.due,item.completed,item.expiredCompleted,item.notDue,item.notDueCompleted)});return result},csv="\ufeff"+headers.join(",")+"\n"+orgRows.map(function(r){return rowValues(r).map(function(v){return '"'+String(v).replace(/"/g,'""')+'"'}).join(",")}).join("\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="不符合项统计_"+new Date().toISOString().slice(0,10)+".csv";a.click();URL.revokeObjectURL(a.href)}
+  function exportListCsv(){if(!current.length){return}var headers=["组织名称","组织层级","评估形式","隐患类型","隐患总数","到期应整改数","到期已整改数","超期已整改数","未到期数","未到期已整改数","超期未完成数","未到期未完成数","任务发布时间","任务实施时间"],csv="\ufeff"+headers.join(",")+"\n"+current.map(function(r){var notDue=r.total-r.due,notDueCompleted=Math.max(r.completed-r.due,0),notDueUnfinished=Math.max(notDue-notDueCompleted,0),implementDate=r.implementDate||r.date,form=r.assessmentForm||"监督评审",values=[r.org,r.level+"级",form,r.type,r.total,r.due,Math.min(r.completed,r.due),r.expiredCompleted||0,notDue,notDueCompleted,r.overdue,notDueUnfinished,r.date,implementDate];return values.map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"'}).join(",")}).join("\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="不符合项清单_"+new Date().toISOString().slice(0,10)+".csv";a.click();URL.revokeObjectURL(a.href)}
   function updateMultiLabel(id,placeholder){var root=document.getElementById(id),checked=root.querySelectorAll("input:checked"),trigger=root.querySelector(".multi-trigger");trigger.textContent=checked.length?"已选择 "+checked.length+" 项":placeholder}
   document.querySelectorAll(".multi-select").forEach(function(root){var trigger=root.querySelector(".multi-trigger");trigger.onclick=function(event){event.stopPropagation();var open=!root.classList.contains("open");document.querySelectorAll(".multi-select.open").forEach(function(el){el.classList.remove("open");el.querySelector(".multi-trigger").setAttribute("aria-expanded","false")});root.classList.toggle("open",open);trigger.setAttribute("aria-expanded",open?"true":"false")};root.querySelectorAll("input").forEach(function(input){input.onchange=function(){updateMultiLabel(root.id,"请选择组织范围")}})});
   document.addEventListener("click",function(event){if(!event.target.closest(".multi-select"))document.querySelectorAll(".multi-select.open").forEach(function(el){el.classList.remove("open");el.querySelector(".multi-trigger").setAttribute("aria-expanded","false")})});

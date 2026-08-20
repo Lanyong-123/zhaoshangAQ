@@ -90,7 +90,7 @@
       var total=typeOrder.reduce(function(sum,type){return sum+row.types[type].total},0);
       var cells=typeOrder.map(function(type){
         var item=row.types[type];
-        return '<td>'+statLink(item.total,type,type+"数",row.org)+'</td><td>'+statLink(item.due,type,type+"到期应整改数",row.org)+'</td><td>'+statLink(item.dueCompleted,type,type+"到期已整改数",row.org)+'</td><td>'+statLink(item.expiredCompleted,type,type+"过期已整改数",row.org)+'</td><td>'+statLink(item.notDue,type,type+"未到期数",row.org)+'</td><td>'+statLink(item.notDueCompleted,type,type+"未到期已整改数",row.org)+'</td>';
+        return '<td>'+statLink(item.total,type,type+"数",row.org)+'</td><td>'+statLink(item.due,type,type+"到期应整改数",row.org)+'</td><td>'+statLink(item.dueCompleted,type,type+"到期已整改数",row.org)+'</td><td>'+statLink(item.expiredCompleted,type,type+"超期已整改数",row.org)+'</td><td>'+statLink(item.notDue,type,type+"未到期数",row.org)+'</td><td>'+statLink(item.notDueCompleted,type,type+"未到期已整改数",row.org)+'</td>';
       }).join("");
       return '<tr><td>'+esc(row.org)+'</td><td>'+statLink(total,"全部","累计重大不符合总数",row.org)+'</td>'+cells+'</tr>';
     }).join("");
