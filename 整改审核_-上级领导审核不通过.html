@@ -7,6 +7,8 @@
     <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
     <link href="data/styles.css" type="text/css" rel="stylesheet"/>
     <link href="files/整改审核_-上级领导审核不通过/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="files/整改审核流程展示/styles.css?v=20260817" type="text/css" rel="stylesheet"/>
+    <link href="files/整改审核重排/styles.css?v=20260817" type="text/css" rel="stylesheet"/>
     <script src="resources/scripts/jquery-3.2.1.min.js"></script>
     <script src="resources/scripts/axure/axQuery.js"></script>
     <script src="resources/scripts/axure/globals.js"></script>
@@ -4283,7 +4285,7 @@
       <div id="u74067" class="ax_default box_1" selectiongroup="Tab标签">
         <div id="u74067_div" class=""></div>
         <div id="u74067_text" class="text ">
-          <p><span>20260701整改审核</span></p>
+          <p><span>整改审核</span></p>
         </div>
       </div>
 
@@ -4303,7 +4305,11 @@
         </div>
       </div>
     </div>
+    <div id="rectifyAuditFlowApp" class="rectify-audit-flow-app" data-page="leader"></div>
+    <div id="rectifyRebuildApp"></div>
     <script src="resources/scripts/axure/ios.js"></script>
+    <script src="files/整改审核重排/script.js?v=20260817"></script>
+    <script src="files/整改审核流程展示/script.js?v=20260817"></script>
     <script>
       (function () {
         var batches = {
@@ -4370,6 +4376,7 @@
         }
 
         function initRectifyAuditTabs() {
+          return;
           var firstTab = document.getElementById("u74067");
           var secondTab = document.getElementById("rectify_audit_tab_20260712");
           var reportTab = document.getElementById("u74068");

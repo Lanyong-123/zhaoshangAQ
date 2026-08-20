@@ -104,11 +104,14 @@ var toolBarOnly = true;
             if (!QQ && !UC) appendOutOfDateNotification();
         }
 
-        if (CHROME_5_LOCAL && !$('body').attr('pluginDetected')) {
+        // AI开发版：允许直接以 file:// 打开本地原型。
+        // Axure 默认会在 Chrome/Edge 本地文件模式下跳到 resources/chrome/chrome.html，
+        // 要求安装扩展；这里关闭该拦截，方便无需扩展直接查看原型。
+        if (false && CHROME_5_LOCAL && !$('body').attr('pluginDetected')) {
             window.location = 'resources/chrome/chrome.html';
         }
 
-        if (FIREFOX && BROWSER_VERSION >= 68 && document.location.href.indexOf('file://') >= 0) { //detecting firefox and local
+        if (false && FIREFOX && BROWSER_VERSION >= 68 && document.location.href.indexOf('file://') >= 0) { //detecting firefox and local
             window.location = 'resources/chrome/firefox.html';
         }
     });

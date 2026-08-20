@@ -39,6 +39,7 @@
     <script src="resources/scripts/axure/jquery.nicescroll.min.js"></script>
     <script src="data/document.js"></script>
     <script src="files/项目信息-新建_编辑-通用/data.js"></script>
+    <script src="files/项目信息-新建_编辑-通用/ai-coordinate-city-validation.js"></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return 'resources/images/transparent.gif'; };
       $axure.utils.getOtherPath = function() { return 'resources/Other.html'; };
@@ -1860,8 +1861,13 @@
 
             <!-- Unnamed (文本框) -->
             <div id="u4456" class="ax_default text_field">
-              <div id="u4456_div" class=""></div>
-              <input id="u4456_input" type="text" value="113.923964,22.493604" class="u4456_input"/>
+              <div id="u4456_div" class="" style="border-color:#D9001B;"></div>
+              <input id="u4456_input" type="text" value="113.923964,22.493604" class="u4456_input" style="color:#D9001B;border-color:#D9001B;box-shadow:0 0 0 1px #D9001B inset;"/>
+            </div>
+
+            <!-- AI新增：经纬度与所在城市一致性校验提示 -->
+            <div id="ai_coord_city_mismatch_static_tip" style="position:absolute;left:232px;top:463px;width:400px;line-height:20px;font-size:12px;font-family:PingFangSC-Regular, 'PingFang SC', Arial, sans-serif;color:#D9001B;z-index:9999;">
+              经纬度与所在城市不一致请调整；
             </div>
 
             <!-- Unnamed (图片 ) -->
