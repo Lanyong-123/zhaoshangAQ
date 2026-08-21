@@ -60,16 +60,19 @@
     Array.prototype.forEach.call(document.querySelectorAll(".row-check"),function(input){input.onchange=updateSelectionCount});
     renderStats(data);
   }
-  function emptyStats(){return {total:0,due:0,dueCompleted:0,expiredCompleted:0,notDue:0,notDueCompleted:0}}
+  function emptyStats(){return {total:0,due:0,dueCompleted:0,completed:0,expiredCompleted:0,overdue:0,notDue:0,notDueCompleted:0}}
   function isCompleted(row){return row.status==="已完成"||!!row.date}
   function normalizeProblemType(type){return type==="重大隐患"?"重大事故隐患":type}
   function addStatsItem(target,row){
     target.total+=1;
+    if(isCompleted(row))target.completed+=1;
     if(row.dueStatus==="已到期"){
       target.due+=1;
       if(isCompleted(row)){
         target.dueCompleted+=1;
         target.expiredCompleted+=1;
+      }else{
+        target.overdue+=1;
       }
     }else{
       target.notDue+=1;
@@ -90,9 +93,13 @@
       var total=typeOrder.reduce(function(sum,type){return sum+row.types[type].total},0);
       var cells=typeOrder.map(function(type){
         var item=row.types[type];
-        return '<td>'+statLink(item.total,type,type+"数",row.org)+'</td><td>'+statLink(item.due,type,type+"到期应整改数",row.org)+'</td><td>'+statLink(item.dueCompleted,type,type+"到期已整改数",row.org)+'</td><td>'+statLink(item.expiredCompleted,type,type+"超期已整改数",row.org)+'</td><td>'+statLink(item.notDue,type,type+"未到期数",row.org)+'</td><td>'+statLink(item.notDueCompleted,type,type+"未到期已整改数",row.org)+'</td>';
+        var onTimeCompleted=Math.max(item.completed-item.expiredCompleted,0),
+          overdueCompleted=item.expiredCompleted,
+          notDueUnfinished=Math.max(item.notDue-item.notDueCompleted,0),
+          overdueUnfinished=item.overdue||0;
+        return '<td>'+statLink(item.total,type,type+"数",row.org)+'</td><td>'+statLink(onTimeCompleted,type,type+"按期整改数",row.org)+'</td><td>'+statLink(overdueCompleted,type,type+"超期整改数",row.org)+'</td><td>'+statLink(notDueUnfinished,type,type+"未到期未整改数",row.org)+'</td><td>'+statLink(overdueUnfinished,type,type+"超期未整改数",row.org)+'</td>';
       }).join("");
-      return '<tr><td>'+esc(row.org)+'</td><td>'+statLink(total,"全部","累计重大不符合总数",row.org)+'</td>'+cells+'</tr>';
+      return '<tr><td>'+esc(row.org)+'</td><td>'+statLink(total,"全部","累计隐患总数",row.org)+'</td>'+cells+'</tr>';
     }).join("");
     statsEmpty.hidden=orgRows.length!==0;
   }
