@@ -359,6 +359,16 @@
   text-align: right;
   white-space: nowrap;
 }
+.ha-range {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+}
+.ha-range span {
+  color: #666;
+  text-align: center;
+}
 .ha-query-actions {
   grid-column: 1 / -1;
   display: flex;
@@ -380,6 +390,50 @@
 }
 .ha-table-wrap {
   overflow-x: auto;
+}
+.ha-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 8px 14px;
+  border-top: 1px solid #e5e8eb;
+  color: #555;
+  font-size: 13px;
+}
+.ha-page-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ha-page-size {
+  width: 58px;
+  height: 30px;
+  border: 1px solid #d7d7d7;
+  background: #fff;
+}
+.ha-page-right {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.ha-page-btn {
+  min-width: 34px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid #d7d7d7;
+  border-left: 0;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+}
+.ha-page-btn:first-child {
+  border-left: 1px solid #d7d7d7;
+}
+.ha-page-btn.active {
+  background: #1777ed;
+  border-color: #1777ed;
+  color: #fff;
 }
 .ha-table {
   min-width: 1340px;

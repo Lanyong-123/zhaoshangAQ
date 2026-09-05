@@ -54,6 +54,11 @@
   }
 
   function applianceQueryField(column) {
+    if (column.key === "quantity") {
+      return '<div class="ha-query-field"><div class="ha-query-label">' + column.label + '：</div>' +
+        '<div class="ha-range"><input class="pv-control" data-field="quantityMin" type="number" placeholder="最小值">' +
+        '<span>至</span><input class="pv-control" data-field="quantityMax" type="number" placeholder="最大值"></div></div>';
+    }
     return '<div class="ha-query-field"><div class="ha-query-label">' + column.label + '：</div>' +
       applianceControl(column, "", false) + '</div>';
   }
@@ -65,7 +70,8 @@
 
   function applianceRows(rows) {
     return rows.map(function (item, index) {
-      return '<tr data-index="' + index + '">' +
+      var dataIndex = typeof item.__applianceIndex === "number" ? item.__applianceIndex : index;
+      return '<tr data-index="' + dataIndex + '">' +
         applianceColumns.map(function (column) {
           return '<td>' + (item[column.key] || "") + '</td>';
         }).join("") +
@@ -194,6 +200,7 @@
       '<div class="ha-table-wrap"><table class="ha-table"><thead><tr>' +
       applianceColumns.map(function (column) { return '<th>' + column.label + '</th>'; }).join("") +
       '<th>操作</th></tr></thead><tbody>' + applianceRows(applianceData) + '</tbody></table></div>' +
+      '<div class="ha-pagination"></div>' +
       '</div>' +
       '<div class="ha-modal-mask" aria-hidden="true">' +
       '<div class="ha-modal" role="dialog" aria-modal="true" aria-label="家用电器维护">' +
@@ -343,14 +350,51 @@
     });
 
     var applianceRowsData = applianceData.slice();
+    var applianceFilteredRows = applianceRowsData.slice();
+    var applianceCurrentPage = 1;
+    var appliancePageSize = 10;
     var editingIndex = -1;
     var applianceTbody = applianceUi.panel.querySelector(".ha-table tbody");
+    var appliancePager = applianceUi.panel.querySelector(".ha-pagination");
     var applianceModalMask = applianceUi.panel.querySelector(".ha-modal-mask");
     var applianceModalTitle = applianceUi.panel.querySelector(".ha-modal-title");
     var applianceModal = applianceUi.panel.querySelector(".ha-modal");
 
-    function renderApplianceTable(rows) {
-      applianceTbody.innerHTML = applianceRows(rows);
+    function renderAppliancePager(total, totalPages) {
+      var buttons = [];
+      var page;
+      for (page = 1; page <= totalPages; page += 1) {
+        buttons.push('<button type="button" class="ha-page-btn' + (page === applianceCurrentPage ? ' active' : '') + '" data-page="' + page + '">' + page + '</button>');
+      }
+      appliancePager.innerHTML =
+        '<div class="ha-page-left">每页显示 <select class="ha-page-size">' +
+        [10, 20, 50].map(function (size) {
+          return '<option value="' + size + '"' + (size === appliancePageSize ? ' selected' : '') + '>' + size + '</option>';
+        }).join("") +
+        '</select> 记录，共' + total + '条记录</div>' +
+        '<div class="ha-page-right"><button type="button" class="ha-page-btn" data-page="prev">上一页</button>' +
+        buttons.join("") +
+        '<button type="button" class="ha-page-btn" data-page="next">下一页</button></div>';
+    }
+
+    function renderApplianceTable(rows, resetPage) {
+      applianceFilteredRows = rows || applianceRowsData.slice();
+      if (resetPage) applianceCurrentPage = 1;
+      var total = applianceFilteredRows.length;
+      var totalPages = Math.max(1, Math.ceil(total / appliancePageSize));
+      if (applianceCurrentPage > totalPages) applianceCurrentPage = totalPages;
+      var start = (applianceCurrentPage - 1) * appliancePageSize;
+      var pageRows = applianceFilteredRows.slice(start, start + appliancePageSize).map(function (item) {
+        var row = {};
+        applianceColumns.forEach(function (column) {
+          row[column.key] = item[column.key];
+        });
+        row.__applianceIndex = applianceRowsData.indexOf(item);
+        return row;
+      });
+      applianceTbody.innerHTML = pageRows.length ? applianceRows(pageRows) :
+        '<tr><td colspan="' + (applianceColumns.length + 1) + '">暂无数据</td></tr>';
+      renderAppliancePager(total, totalPages);
     }
 
     function collectApplianceValues(scope) {
@@ -358,6 +402,9 @@
       applianceColumns.forEach(function (column) {
         var control = scope.querySelector('[data-field="' + column.key + '"]');
         values[column.key] = control ? control.value.replace(/^\s+|\s+$/g, "") : "";
+      });
+      Array.prototype.forEach.call(scope.querySelectorAll('[data-field="quantityMin"], [data-field="quantityMax"]'), function (control) {
+        values[control.getAttribute("data-field")] = control.value.replace(/^\s+|\s+$/g, "");
       });
       return values;
     }
@@ -401,14 +448,20 @@
 
     function filterApplianceRows() {
       var filters = collectApplianceValues(applianceUi.panel.querySelector(".ha-query"));
+      var minQuantity = filters.quantityMin === "" ? null : Number(filters.quantityMin);
+      var maxQuantity = filters.quantityMax === "" ? null : Number(filters.quantityMax);
       var result = applianceRowsData.filter(function (row) {
+        var rowQuantity = Number(row.quantity);
+        if (minQuantity !== null && !isNaN(minQuantity) && rowQuantity < minQuantity) return false;
+        if (maxQuantity !== null && !isNaN(maxQuantity) && rowQuantity > maxQuantity) return false;
         return applianceColumns.every(function (column) {
+          if (column.key === "quantity") return true;
           var value = filters[column.key];
           if (!value) return true;
           return String(row[column.key] || "").toLowerCase().indexOf(value.toLowerCase()) > -1;
         });
       });
-      renderApplianceTable(result);
+      renderApplianceTable(result, true);
     }
 
     applianceUi.panel.querySelector(".ha-add").addEventListener("click", function () {
@@ -419,7 +472,7 @@
       Array.prototype.forEach.call(applianceUi.panel.querySelectorAll(".ha-query [data-field]"), function (control) {
         control.value = "";
       });
-      renderApplianceTable(applianceRowsData);
+      renderApplianceTable(applianceRowsData, true);
     });
     applianceUi.panel.querySelector(".ha-import").addEventListener("click", function () {
       alert("支持按家电电器管理台账模板导入");
@@ -436,8 +489,27 @@
       } else {
         applianceRowsData.unshift(values);
       }
-      renderApplianceTable(applianceRowsData);
+      filterApplianceRows();
       closeApplianceModal();
+    });
+    appliancePager.addEventListener("click", function (event) {
+      var button = event.target.closest(".ha-page-btn");
+      if (!button) return;
+      var totalPages = Math.max(1, Math.ceil(applianceFilteredRows.length / appliancePageSize));
+      var page = button.getAttribute("data-page");
+      if (page === "prev") {
+        applianceCurrentPage = Math.max(1, applianceCurrentPage - 1);
+      } else if (page === "next") {
+        applianceCurrentPage = Math.min(totalPages, applianceCurrentPage + 1);
+      } else {
+        applianceCurrentPage = parseInt(page, 10) || 1;
+      }
+      renderApplianceTable(applianceFilteredRows, false);
+    });
+    appliancePager.addEventListener("change", function (event) {
+      if (!event.target.classList.contains("ha-page-size")) return;
+      appliancePageSize = parseInt(event.target.value, 10) || 10;
+      renderApplianceTable(applianceFilteredRows, true);
     });
     applianceModalMask.addEventListener("click", function (event) {
       if (event.target === applianceModalMask) closeApplianceModal();
@@ -451,9 +523,10 @@
       }
       if (event.target.classList.contains("ha-delete")) {
         applianceRowsData.splice(index, 1);
-        renderApplianceTable(applianceRowsData);
+        filterApplianceRows();
       }
     });
+    renderApplianceTable(applianceRowsData, true);
     updateInvolved();
   }
 
