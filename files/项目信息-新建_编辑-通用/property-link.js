@@ -2,12 +2,12 @@
   "use strict";
 
   var buildingNames = [
-    "1号楼",
-    "2号楼",
-    "3号楼",
-    "综合楼",
-    "商业裙楼",
-    "地下车库"
+    "招商蛇口项目-1号楼",
+    "招商蛇口项目-2号楼",
+    "招商蛇口项目-3号楼",
+    "招商蛇口项目-综合楼",
+    "招商蛇口项目-商业裙楼",
+    "招商蛇口项目-地下车库"
   ];
 
   var emergencyResources = [
@@ -64,7 +64,7 @@
     all.indeterminate = visibleChecked.length > 0 && visibleChecked.length < visibleItems.length;
     root.querySelector(".ai-property-selected").textContent = checked.length ?
       "已选择：" + checked.map(function (input) { return input.value; }).join("、") :
-      "请选择需关联的建筑名称";
+      "请选择需关联的项目名称-楼栋";
   }
 
   function syncChecked(root, selectedValues) {
@@ -100,15 +100,15 @@
       '<div class="ai-property-modal" role="dialog" aria-modal="true" aria-label="物业信息关联">' +
       '<div class="ai-property-modal-title">物业信息关联</div>' +
       '<div class="ai-property-modal-body">' +
-      '<div class="ai-property-modal-label">建筑名称</div>' +
-      '<input class="ai-property-search" type="text" placeholder="请输入楼栋名称搜索">' +
+      '<div class="ai-property-modal-label">项目名称-楼栋</div>' +
+      '<input class="ai-property-search" type="text" placeholder="请输入项目名称或楼栋名称搜索">' +
       '<div class="ai-property-check-list">' +
       createOption("全选", true) +
       '<div class="ai-property-divider"></div>' +
       buildingNames.map(function (name) { return createOption(name, false); }).join("") +
-      '<div class="ai-property-no-result" hidden>未找到匹配的楼栋</div>' +
+      '<div class="ai-property-no-result" hidden>未找到匹配的项目名称-楼栋</div>' +
       '</div>' +
-      '<div class="ai-property-selected">请选择需关联的建筑名称</div>' +
+      '<div class="ai-property-selected">请选择需关联的项目名称-楼栋</div>' +
       '</div>' +
       '<div class="ai-property-modal-footer">' +
       '<button type="button" class="ai-property-cancel">取消</button>' +
@@ -873,6 +873,86 @@
     createInlineLabel({ id: "aiOtherSpecialStatusLabel", parentId: "u7834_state1_content", text: "状态", left: 620, top: 6 });
   }
 
+  function textOf(node) {
+    return (node && (node.innerText || node.textContent) || "").replace(/\s+/g, "").replace(/\u00a0/g, "");
+  }
+
+  function numericStyle(element, prop, fallback) {
+    var value = numberValue(element.style[prop] || window.getComputedStyle(element)[prop], fallback);
+    return isNaN(value) ? fallback : value;
+  }
+
+  function createRelatedProjectCell(parent, sourceCell, text, width, className) {
+    var cell = document.createElement("div");
+    cell.className = "ax_default table_cell ai-related-project-cell " + (className || "");
+    cell.style.left = numericStyle(sourceCell, "left", 0) + "px";
+    cell.style.top = numericStyle(sourceCell, "top", 0) + "px";
+    cell.style.width = width + "px";
+    cell.style.height = numericStyle(sourceCell, "height", 30) + "px";
+    cell.innerHTML = '<div class="text"><p><span>' + text + '</span></p></div>';
+    parent.appendChild(cell);
+  }
+
+  function insertRelatedProjectColumn(config) {
+    var parent = document.getElementById(config.tableId);
+    if (!parent || parent.dataset.aiRelatedProjectColumn === "yes") return;
+
+    var cells = Array.prototype.slice.call(parent.children).filter(function (child) {
+      return child.classList && child.classList.contains("table_cell");
+    });
+    var operationHeader = cells.find(function (cell) {
+      return textOf(cell) === "操作";
+    });
+    if (!operationHeader) return;
+
+    var insertWidth = config.width || 160;
+    var operationLeft = numericStyle(operationHeader, "left", 0);
+    var operationCells = cells.filter(function (cell) {
+      return Math.abs(numericStyle(cell, "left", -9999) - operationLeft) < 2;
+    });
+    var valueRows = operationCells
+      .filter(function (cell) {
+        return numericStyle(cell, "top", 0) > numericStyle(operationHeader, "top", 0) && textOf(cell);
+      })
+      .sort(function (a, b) {
+        return numericStyle(a, "top", 0) - numericStyle(b, "top", 0);
+      });
+
+    createRelatedProjectCell(parent, operationHeader, "关联项目", insertWidth, "ai-related-project-header");
+    valueRows.forEach(function (cell, index) {
+      createRelatedProjectCell(parent, cell, config.values[index] || "-", insertWidth, "");
+    });
+    operationCells.forEach(function (cell) {
+      cell.style.left = (numericStyle(cell, "left", 0) + insertWidth) + "px";
+    });
+    parent.style.width = (numericStyle(parent, "width", parent.offsetWidth || 0) + insertWidth) + "px";
+
+    parent.dataset.aiRelatedProjectColumn = "yes";
+  }
+
+  function addRelatedProjectColumns() {
+    insertRelatedProjectColumn({
+      tableId: "u7313",
+      width: 170,
+      values: ["招商蛇口项目-1号楼", "招商蛇口项目-2号楼", "招商蛇口项目-综合楼", "-"]
+    });
+    insertRelatedProjectColumn({
+      tableId: "u7853",
+      width: 170,
+      values: ["招商蛇口项目-1号楼", "-", "招商蛇口项目-综合楼", "-", "招商蛇口项目-商业裙楼", "-", "-"]
+    });
+    Array.prototype.slice.call(document.querySelectorAll(".ax_default")).forEach(function (parent) {
+      if (parent.dataset.aiRelatedProjectColumn === "yes") return;
+      var content = textOf(parent);
+      if (content.indexOf("设备名称") === -1 || content.indexOf("楼栋名称") === -1 || content.indexOf("操作") === -1) return;
+      insertRelatedProjectColumn({
+        tableId: parent.id,
+        width: 170,
+        values: ["招商蛇口项目-1号楼", "-", "招商蛇口项目-综合楼", "-", "-"]
+      });
+    });
+  }
+
   function init() {
     createPropertyLink({
       rootId: "aiPropertyLink",
@@ -924,6 +1004,7 @@
 
     adjustSpecialEquipmentFilters();
     adjustOtherEquipmentFilters();
+    addRelatedProjectColumns();
   }
 
   if (document.readyState === "loading") {
