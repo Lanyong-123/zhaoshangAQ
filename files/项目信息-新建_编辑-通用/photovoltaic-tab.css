@@ -531,6 +531,13 @@
 .ha-invalid {
   border-color: #f5222d !important;
 }
+.ha-custom-name-row {
+  display: none;
+  margin-top: 10px;
+}
+.ha-custom-name-row .pv-control {
+  width: 100%;
+}
 @media (max-width: 1100px) {
   #pvTabPanel,
   #haTabPanel { width: 3134px; }

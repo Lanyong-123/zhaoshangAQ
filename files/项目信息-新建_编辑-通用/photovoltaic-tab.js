@@ -64,6 +64,12 @@
   }
 
   function applianceFormField(column, value) {
+    if (column.key === "name") {
+      return '<div class="pv-field ha-name-field"><div class="pv-label pv-required">' + column.label + '：</div><div>' +
+        applianceControl(column, value || "", true) + '<div class="ha-error">请选择' + column.label + '</div>' +
+        '<div class="ha-custom-name-row"><input class="pv-control" data-field="customName" type="text" placeholder="请输入自定义名称">' +
+        '<div class="ha-error">请填写自定义名称</div></div></div></div>';
+    }
     return '<div class="pv-field"><div class="pv-label pv-required">' + column.label + '：</div><div>' +
       applianceControl(column, value || "", true) + '<div class="ha-error">请填写' + column.label + '</div></div></div>';
   }
@@ -73,6 +79,9 @@
       var dataIndex = typeof item.__applianceIndex === "number" ? item.__applianceIndex : index;
       return '<tr data-index="' + dataIndex + '">' +
         applianceColumns.map(function (column) {
+          if (column.key === "name" && item.name === "自定义" && item.customName) {
+            return '<td>' + item.customName + '</td>';
+          }
           return '<td>' + (item[column.key] || "") + '</td>';
         }).join("") +
         '<td><button type="button" class="ha-link ha-edit">修改</button><span class="ha-divider">|</span><button type="button" class="ha-link ha-delete">删除</button></td>' +
@@ -389,6 +398,7 @@
         applianceColumns.forEach(function (column) {
           row[column.key] = item[column.key];
         });
+        row.customName = item.customName;
         row.__applianceIndex = applianceRowsData.indexOf(item);
         return row;
       });
@@ -406,7 +416,22 @@
       Array.prototype.forEach.call(scope.querySelectorAll('[data-field="quantityMin"], [data-field="quantityMax"]'), function (control) {
         values[control.getAttribute("data-field")] = control.value.replace(/^\s+|\s+$/g, "");
       });
+      var customNameControl = scope.querySelector('[data-field="customName"]');
+      if (customNameControl) values.customName = customNameControl.value.replace(/^\s+|\s+$/g, "");
       return values;
+    }
+
+    function updateApplianceCustomName() {
+      var nameControl = applianceModal.querySelector('[data-field="name"]');
+      var customRow = applianceModal.querySelector(".ha-custom-name-row");
+      var customControl = applianceModal.querySelector('[data-field="customName"]');
+      var show = nameControl && nameControl.value === "自定义";
+      if (customRow) customRow.style.display = show ? "block" : "none";
+      if (!show && customControl) {
+        customControl.value = "";
+        customControl.classList.remove("ha-invalid");
+        if (customControl.nextElementSibling) customControl.nextElementSibling.style.display = "none";
+      }
     }
 
     function fillApplianceForm(values) {
@@ -417,6 +442,13 @@
         if (error) error.style.display = "none";
         if (control) control.classList.remove("ha-invalid");
       });
+      var customNameControl = applianceModal.querySelector('[data-field="customName"]');
+      if (customNameControl) {
+        customNameControl.value = values && values.customName ? values.customName : "";
+        customNameControl.classList.remove("ha-invalid");
+        if (customNameControl.nextElementSibling) customNameControl.nextElementSibling.style.display = "none";
+      }
+      updateApplianceCustomName();
     }
 
     function openApplianceModal(title, values, index) {
@@ -443,6 +475,14 @@
         if (error) error.style.display = empty ? "block" : "none";
         if (empty) ok = false;
       });
+      var nameControl = applianceModal.querySelector('[data-field="name"]');
+      var customControl = applianceModal.querySelector('[data-field="customName"]');
+      if (nameControl && nameControl.value === "自定义") {
+        var customEmpty = !customControl || !customControl.value.replace(/^\s+|\s+$/g, "");
+        if (customControl) customControl.classList.toggle("ha-invalid", customEmpty);
+        if (customControl && customControl.nextElementSibling) customControl.nextElementSibling.style.display = customEmpty ? "block" : "none";
+        if (customEmpty) ok = false;
+      }
       return ok;
     }
 
@@ -458,6 +498,10 @@
           if (column.key === "quantity") return true;
           var value = filters[column.key];
           if (!value) return true;
+          if (column.key === "name") {
+            return String(row.name || "").toLowerCase().indexOf(value.toLowerCase()) > -1 ||
+              String(row.customName || "").toLowerCase().indexOf(value.toLowerCase()) > -1;
+          }
           return String(row[column.key] || "").toLowerCase().indexOf(value.toLowerCase()) > -1;
         });
       });
@@ -491,6 +535,9 @@
       }
       filterApplianceRows();
       closeApplianceModal();
+    });
+    applianceModal.addEventListener("change", function (event) {
+      if (event.target.getAttribute("data-field") === "name") updateApplianceCustomName();
     });
     appliancePager.addEventListener("click", function (event) {
       var button = event.target.closest(".ha-page-btn");
