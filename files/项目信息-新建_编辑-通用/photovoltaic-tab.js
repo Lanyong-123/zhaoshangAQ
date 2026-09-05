@@ -17,6 +17,63 @@
       '</select>';
   }
 
+  var applianceNameOptions = [
+    "家用空调", "洗（烘）衣机", "冰箱", "电磁炉", "电烤箱", "消毒碗柜", "电热水器", "抽油烟机", "微波炉", "电热水壶", "电吹风", "空气净化器", "除湿机", "电视机", "空调", "电视", "咖啡机", "自定义"
+  ];
+
+  var applianceColumns = [
+    { key: "name", label: "家电电器名称", type: "select", options: applianceNameOptions },
+    { key: "model", label: "型号", type: "text", placeholder: "请输入型号" },
+    { key: "quantity", label: "数量", type: "number", placeholder: "请输入数量" },
+    { key: "productionDate", label: "生产日期", type: "date", placeholder: "" },
+    { key: "ccc", label: "是否有3C认证", type: "select", options: ["是", "否"] },
+    { key: "scrapYears", label: "建议判废年限", type: "text", placeholder: "请输入建议判废年限" },
+    { key: "scrapDate", label: "判废日期", type: "date", placeholder: "" },
+    { key: "maintenanceCycle", label: "检查维护周期", type: "select", options: ["每日", "每周", "每月", "每季度", "每半年", "每年"] },
+    { key: "location", label: "存放（使用）位置", type: "text", placeholder: "请输入存放（使用）位置" }
+  ];
+
+  var applianceData = [
+    { name: "抽油烟机", model: "CXW-268", quantity: "2", productionDate: "2026-01-01", ccc: "是", scrapYears: "8年", scrapDate: "2034-01-01", maintenanceCycle: "每周", location: "1号楼-3层-厨房" },
+    { name: "电热水器", model: "ES60H", quantity: "4", productionDate: "2025-06-15", ccc: "是", scrapYears: "8年", scrapDate: "2033-06-15", maintenanceCycle: "每月", location: "2号楼-5层-设备间" },
+    { name: "空调", model: "KFR-35GW", quantity: "12", productionDate: "2024-09-20", ccc: "是", scrapYears: "10年", scrapDate: "2034-09-20", maintenanceCycle: "每季度", location: "综合楼-办公区" },
+    { name: "冰箱", model: "BCD-220", quantity: "3", productionDate: "2023-04-12", ccc: "是", scrapYears: "10年", scrapDate: "2033-04-12", maintenanceCycle: "每月", location: "商业裙楼-餐饮区" }
+  ];
+
+  function applianceControl(column, value, required) {
+    if (column.type === "select") {
+      return '<select class="pv-control" data-field="' + column.key + '"' + (required ? ' required' : '') + '>' +
+        '<option value="">请选择</option>' +
+        column.options.map(function (item) {
+          return '<option' + (item === value ? ' selected' : '') + '>' + item + '</option>';
+        }).join("") +
+        '</select>';
+    }
+    return '<input class="pv-control" data-field="' + column.key + '" type="' + column.type + '" value="' + (value || "") +
+      '" placeholder="' + (column.placeholder || "") + '"' + (required ? ' required' : '') + '>';
+  }
+
+  function applianceQueryField(column) {
+    return '<div class="ha-query-field"><div class="ha-query-label">' + column.label + '：</div>' +
+      applianceControl(column, "", false) + '</div>';
+  }
+
+  function applianceFormField(column, value) {
+    return '<div class="pv-field"><div class="pv-label pv-required">' + column.label + '：</div><div>' +
+      applianceControl(column, value || "", true) + '<div class="ha-error">请填写' + column.label + '</div></div></div>';
+  }
+
+  function applianceRows(rows) {
+    return rows.map(function (item, index) {
+      return '<tr data-index="' + index + '">' +
+        applianceColumns.map(function (column) {
+          return '<td>' + (item[column.key] || "") + '</td>';
+        }).join("") +
+        '<td><button type="button" class="ha-link ha-edit">修改</button><span class="ha-divider">|</span><button type="button" class="ha-link ha-delete">删除</button></td>' +
+        '</tr>';
+    }).join("");
+  }
+
   function upload(note) {
     var noteHtml = note === "" ? "" :
       '<span class="pv-upload-note">' + (note || '支持常用文档及图片格式') + '</span>';
@@ -112,6 +169,48 @@
     return { button: button, panel: panel };
   }
 
+  function createAppliancePanel() {
+    var button = document.createElement("button");
+    button.id = "haTabButton";
+    button.type = "button";
+    button.textContent = "家用电器";
+
+    var panel = document.createElement("section");
+    panel.id = "haTabPanel";
+    panel.setAttribute("aria-label", "家用电器");
+    panel.innerHTML =
+      '<div class="ha-page">' +
+      '<div class="ha-toolbar">' +
+      '<button type="button" class="ha-primary ha-add">新增</button>' +
+      '<button type="button" class="ha-primary ha-import">导入</button>' +
+      '<button type="button" class="ha-primary ha-export">导出</button>' +
+      '</div>' +
+      '<div class="ha-query">' +
+      applianceColumns.map(applianceQueryField).join("") +
+      '<div class="ha-query-actions"><button type="button" class="ha-default ha-reset">重置</button><button type="button" class="ha-primary ha-search">查询</button></div>' +
+      '</div>' +
+      '<div class="ha-table-card">' +
+      '<div class="ha-table-title">家用电器列表</div>' +
+      '<div class="ha-table-wrap"><table class="ha-table"><thead><tr>' +
+      applianceColumns.map(function (column) { return '<th>' + column.label + '</th>'; }).join("") +
+      '<th>操作</th></tr></thead><tbody>' + applianceRows(applianceData) + '</tbody></table></div>' +
+      '</div>' +
+      '<div class="ha-modal-mask" aria-hidden="true">' +
+      '<div class="ha-modal" role="dialog" aria-modal="true" aria-label="家用电器维护">' +
+      '<div class="ha-modal-title">新增家用电器</div>' +
+      '<div class="ha-modal-body"><div class="pv-form-grid">' +
+      applianceColumns.map(function (column) { return applianceFormField(column, ""); }).join("") +
+      '</div></div>' +
+      '<div class="ha-modal-footer"><button type="button" class="ha-default ha-cancel">取消</button><button type="button" class="ha-primary ha-save">保存</button></div>' +
+      '</div>' +
+      '</div>' +
+      '</div>';
+
+    document.body.appendChild(button);
+    document.body.appendChild(panel);
+    return { button: button, panel: panel };
+  }
+
   function shiftProjectCycleTab() {
     var spans = Array.prototype.slice.call(document.querySelectorAll("span"));
     var label = spans.find(function (span) {
@@ -122,7 +221,7 @@
     if (!widget || widget.dataset.pvShifted === "yes") return;
     var left = parseFloat(window.getComputedStyle(widget).left);
     if (!isNaN(left)) {
-      widget.style.left = (left + 112) + "px";
+      widget.style.left = (left + 224) + "px";
       widget.dataset.pvShifted = "yes";
     }
   }
@@ -131,6 +230,7 @@
     if (document.getElementById("pvTabButton")) return;
     shiftProjectCycleTab();
     var ui = createPanel();
+    var applianceUi = createAppliancePanel();
     var involved = ui.panel.querySelectorAll('input[name="pvInvolved"]');
     var content = ui.panel.querySelectorAll(".pv-involved-content");
     var detailFields = ui.panel.querySelector("#pvDetailFields");
@@ -139,9 +239,20 @@
       ui.button.classList.remove("active");
       ui.panel.classList.remove("active");
     }
+    function closeAppliance() {
+      applianceUi.button.classList.remove("active");
+      applianceUi.panel.classList.remove("active");
+    }
     function openPhotovoltaic() {
+      closeAppliance();
       ui.button.classList.add("active");
       ui.panel.classList.add("active");
+      window.scrollTo({ left: 0, top: 210, behavior: "smooth" });
+    }
+    function openAppliance() {
+      closePhotovoltaic();
+      applianceUi.button.classList.add("active");
+      applianceUi.panel.classList.add("active");
       window.scrollTo({ left: 0, top: 210, behavior: "smooth" });
     }
     function updateInvolved() {
@@ -153,8 +264,12 @@
     }
 
     ui.button.addEventListener("click", openPhotovoltaic);
+    applianceUi.button.addEventListener("click", openAppliance);
     Array.prototype.forEach.call(document.querySelectorAll('[selectiongroup="Tab标签"]'), function (tab) {
-      tab.addEventListener("click", closePhotovoltaic);
+      tab.addEventListener("click", function () {
+        closePhotovoltaic();
+        closeAppliance();
+      });
     });
     Array.prototype.forEach.call(involved, function (radio) {
       radio.addEventListener("change", updateInvolved);
@@ -225,6 +340,119 @@
         '<div class="pv-label">运维人员资质：</div><div>' + upload("上传人员资质文件") + '</div>';
       list.appendChild(row);
       row.appendChild(addButton);
+    });
+
+    var applianceRowsData = applianceData.slice();
+    var editingIndex = -1;
+    var applianceTbody = applianceUi.panel.querySelector(".ha-table tbody");
+    var applianceModalMask = applianceUi.panel.querySelector(".ha-modal-mask");
+    var applianceModalTitle = applianceUi.panel.querySelector(".ha-modal-title");
+    var applianceModal = applianceUi.panel.querySelector(".ha-modal");
+
+    function renderApplianceTable(rows) {
+      applianceTbody.innerHTML = applianceRows(rows);
+    }
+
+    function collectApplianceValues(scope) {
+      var values = {};
+      applianceColumns.forEach(function (column) {
+        var control = scope.querySelector('[data-field="' + column.key + '"]');
+        values[column.key] = control ? control.value.replace(/^\s+|\s+$/g, "") : "";
+      });
+      return values;
+    }
+
+    function fillApplianceForm(values) {
+      applianceColumns.forEach(function (column) {
+        var control = applianceModal.querySelector('[data-field="' + column.key + '"]');
+        var error = control && control.parentElement.querySelector(".ha-error");
+        if (control) control.value = values && values[column.key] ? values[column.key] : "";
+        if (error) error.style.display = "none";
+        if (control) control.classList.remove("ha-invalid");
+      });
+    }
+
+    function openApplianceModal(title, values, index) {
+      editingIndex = typeof index === "number" ? index : -1;
+      applianceModalTitle.textContent = title;
+      fillApplianceForm(values);
+      applianceModalMask.classList.add("open");
+      applianceModalMask.setAttribute("aria-hidden", "false");
+    }
+
+    function closeApplianceModal() {
+      applianceModalMask.classList.remove("open");
+      applianceModalMask.setAttribute("aria-hidden", "true");
+      editingIndex = -1;
+    }
+
+    function validateApplianceForm() {
+      var ok = true;
+      applianceColumns.forEach(function (column) {
+        var control = applianceModal.querySelector('[data-field="' + column.key + '"]');
+        var error = control && control.parentElement.querySelector(".ha-error");
+        var empty = !control || !control.value.replace(/^\s+|\s+$/g, "");
+        if (control) control.classList.toggle("ha-invalid", empty);
+        if (error) error.style.display = empty ? "block" : "none";
+        if (empty) ok = false;
+      });
+      return ok;
+    }
+
+    function filterApplianceRows() {
+      var filters = collectApplianceValues(applianceUi.panel.querySelector(".ha-query"));
+      var result = applianceRowsData.filter(function (row) {
+        return applianceColumns.every(function (column) {
+          var value = filters[column.key];
+          if (!value) return true;
+          return String(row[column.key] || "").toLowerCase().indexOf(value.toLowerCase()) > -1;
+        });
+      });
+      renderApplianceTable(result);
+    }
+
+    applianceUi.panel.querySelector(".ha-add").addEventListener("click", function () {
+      openApplianceModal("新增家用电器", null, -1);
+    });
+    applianceUi.panel.querySelector(".ha-search").addEventListener("click", filterApplianceRows);
+    applianceUi.panel.querySelector(".ha-reset").addEventListener("click", function () {
+      Array.prototype.forEach.call(applianceUi.panel.querySelectorAll(".ha-query [data-field]"), function (control) {
+        control.value = "";
+      });
+      renderApplianceTable(applianceRowsData);
+    });
+    applianceUi.panel.querySelector(".ha-import").addEventListener("click", function () {
+      alert("支持按家电电器管理台账模板导入");
+    });
+    applianceUi.panel.querySelector(".ha-export").addEventListener("click", function () {
+      alert("已触发家用电器台账导出");
+    });
+    applianceUi.panel.querySelector(".ha-cancel").addEventListener("click", closeApplianceModal);
+    applianceUi.panel.querySelector(".ha-save").addEventListener("click", function () {
+      if (!validateApplianceForm()) return;
+      var values = collectApplianceValues(applianceModal);
+      if (editingIndex > -1) {
+        applianceRowsData[editingIndex] = values;
+      } else {
+        applianceRowsData.unshift(values);
+      }
+      renderApplianceTable(applianceRowsData);
+      closeApplianceModal();
+    });
+    applianceModalMask.addEventListener("click", function (event) {
+      if (event.target === applianceModalMask) closeApplianceModal();
+    });
+    applianceTbody.addEventListener("click", function (event) {
+      var row = event.target.closest("tr");
+      if (!row) return;
+      var index = parseInt(row.getAttribute("data-index"), 10);
+      if (event.target.classList.contains("ha-edit")) {
+        openApplianceModal("修改家用电器", applianceRowsData[index], index);
+      }
+      if (event.target.classList.contains("ha-delete")) {
+        applianceRowsData.splice(index, 1);
+        renderApplianceTable(applianceRowsData);
+      }
     });
     updateInvolved();
   }
