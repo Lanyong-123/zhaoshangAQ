@@ -10,6 +10,9 @@
     "招商蛇口项目-地下车库"
   ];
 
+  var propertyLinkTip = "按来源物业分别保存。保存当前物业不会覆盖其他物业的选择。关联后以物业为准，物业删除业主信息不联动删除";
+  var relatedPropertySourceTip = "来源于关联的物业信息，以物业维护为主，关联后需删除关联信息通过取消关联勾选或手动删除";
+
   var emergencyResources = [
     { name: "XX公安局", type: "公安救援机构", contact: "张三", phone: "0755-88888888", address: "广东省深圳市南山区海运路1号" },
     { name: "XX交通救援站", type: "交通救援机构", contact: "张三", phone: "075588888888", address: "江苏南京栖霞区燕城大道1号" },
@@ -99,6 +102,7 @@
       '<div class="ai-property-mask" aria-hidden="true">' +
       '<div class="ai-property-modal" role="dialog" aria-modal="true" aria-label="物业信息关联">' +
       '<div class="ai-property-modal-title">物业信息关联</div>' +
+      '<div class="ai-property-modal-tip">' + propertyLinkTip + '</div>' +
       '<div class="ai-property-modal-body">' +
       '<div class="ai-property-modal-label">项目名称-楼栋</div>' +
       '<input class="ai-property-search" type="text" placeholder="请输入项目名称或楼栋名称搜索">' +
@@ -283,6 +287,7 @@
       '<div class="ai-property-mask" aria-hidden="true">' +
       '<div class="ai-property-modal ai-emergency-modal ai-emergency-team-modal" role="dialog" aria-modal="true" aria-label="物业信息关联">' +
       '<div class="ai-property-modal-title">物业信息关联</div>' +
+      '<div class="ai-property-modal-tip">' + propertyLinkTip + '</div>' +
       '<div class="ai-emergency-filter">' +
       '<label>队伍类型</label>' +
       '<select class="ai-emergency-type">' +
@@ -470,6 +475,7 @@
       '<div class="ai-property-mask" aria-hidden="true">' +
       '<div class="ai-property-modal ai-emergency-modal ai-emergency-material-modal" role="dialog" aria-modal="true" aria-label="物业信息关联">' +
       '<div class="ai-property-modal-title">物业信息关联</div>' +
+      '<div class="ai-property-modal-tip">' + propertyLinkTip + '</div>' +
       '<div class="ai-emergency-filter">' +
       '<label>资源类型</label>' +
       '<select class="ai-emergency-type">' +
@@ -655,6 +661,7 @@
       '<div class="ai-property-mask" aria-hidden="true">' +
       '<div class="ai-property-modal ai-emergency-modal" role="dialog" aria-modal="true" aria-label="物业信息关联">' +
       '<div class="ai-property-modal-title">物业信息关联</div>' +
+      '<div class="ai-property-modal-tip">' + propertyLinkTip + '</div>' +
       '<div class="ai-emergency-filter">' +
       '<label>资源类型</label>' +
       '<select class="ai-emergency-type">' +
@@ -889,7 +896,11 @@
     cell.style.top = numericStyle(sourceCell, "top", 0) + "px";
     cell.style.width = width + "px";
     cell.style.height = numericStyle(sourceCell, "height", 30) + "px";
-    cell.innerHTML = '<div class="text"><p><span>' + text + '</span></p></div>';
+    if (className && className.indexOf("ai-related-project-header") > -1) {
+      cell.innerHTML = '<div class="text"><p><span>' + text + '</span><span class="ai-related-tip-wrap"><button type="button" class="ai-related-tip">?</button><span class="ai-related-tooltip">' + relatedPropertySourceTip + '</span></span></p></div>';
+    } else {
+      cell.innerHTML = '<div class="text"><p><span>' + text + '</span></p></div>';
+    }
     parent.appendChild(cell);
   }
 
@@ -912,13 +923,13 @@
     });
     var valueRows = operationCells
       .filter(function (cell) {
-        return numericStyle(cell, "top", 0) > numericStyle(operationHeader, "top", 0) && textOf(cell);
+        return numericStyle(cell, "top", 0) > numericStyle(operationHeader, "top", 0);
       })
       .sort(function (a, b) {
         return numericStyle(a, "top", 0) - numericStyle(b, "top", 0);
       });
 
-    createRelatedProjectCell(parent, operationHeader, "关联项目", insertWidth, "ai-related-project-header");
+    createRelatedProjectCell(parent, operationHeader, "关联物业来源", insertWidth, "ai-related-project-header");
     valueRows.forEach(function (cell, index) {
       createRelatedProjectCell(parent, cell, config.values[index] || "-", insertWidth, "");
     });
@@ -941,6 +952,21 @@
       width: 170,
       values: ["招商蛇口项目-1号楼", "-", "招商蛇口项目-综合楼", "-", "招商蛇口项目-商业裙楼", "-", "-"]
     });
+    insertRelatedProjectColumn({
+      tableId: "u6477",
+      width: 170,
+      values: ["招商蛇口项目-1号楼", "招商蛇口项目-2号楼", "-", "招商蛇口项目-综合楼", "-", "招商蛇口项目-商业裙楼", "-"]
+    });
+    insertRelatedProjectColumn({
+      tableId: "u8318",
+      width: 170,
+      values: ["招商蛇口项目-1号楼", "-", "招商蛇口项目-综合楼", "招商蛇口项目-商业裙楼", "-", "-", "-"]
+    });
+    insertRelatedProjectColumn({
+      tableId: "u8431",
+      width: 170,
+      values: ["招商蛇口项目-1号楼", "招商蛇口项目-2号楼", "-", "招商蛇口项目-综合楼", "-", "招商蛇口项目-商业裙楼", "-"]
+    });
     Array.prototype.slice.call(document.querySelectorAll(".ax_default")).forEach(function (parent) {
       if (parent.dataset.aiRelatedProjectColumn === "yes") return;
       var content = textOf(parent);
@@ -950,6 +976,21 @@
         width: 170,
         values: ["招商蛇口项目-1号楼", "-", "招商蛇口项目-综合楼", "-", "-"]
       });
+    });
+  }
+
+  function bindRelatedTooltips() {
+    if (document.body.dataset.aiRelatedTooltipBound === "yes") return;
+    document.body.dataset.aiRelatedTooltipBound = "yes";
+    document.addEventListener("click", function (event) {
+      var tip = event.target.closest(".ai-related-tip");
+      Array.prototype.forEach.call(document.querySelectorAll(".ai-related-tip-wrap.open"), function (wrap) {
+        if (!tip || !wrap.contains(tip)) wrap.classList.remove("open");
+      });
+      if (!tip) return;
+      event.preventDefault();
+      event.stopPropagation();
+      tip.closest(".ai-related-tip-wrap").classList.toggle("open");
     });
   }
 
@@ -1005,6 +1046,7 @@
     adjustSpecialEquipmentFilters();
     adjustOtherEquipmentFilters();
     addRelatedProjectColumns();
+    bindRelatedTooltips();
   }
 
   if (document.readyState === "loading") {
