@@ -1,0 +1,155 @@
+.ai-fire-warranty {
+  position: absolute;
+  left: 660px;
+  top: 67px;
+  width: 890px;
+  min-height: 30px;
+  z-index: 9800;
+  display: none;
+  font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  font-size: 13px;
+  color: #333;
+}
+
+.ai-fire-warranty.is-visible {
+  display: block;
+}
+
+.ai-fire-warranty__row {
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  margin-bottom: 12px;
+}
+
+.ai-fire-warranty__field {
+  display: flex;
+  align-items: center;
+  margin-right: 56px;
+  white-space: nowrap;
+}
+
+.ai-fire-warranty__field--wide {
+  width: 100%;
+}
+
+.ai-fire-warranty__label {
+  width: 126px;
+  margin-right: 8px;
+  text-align: right;
+}
+
+.ai-fire-warranty__label .required {
+  color: #d9001b;
+  margin-right: 2px;
+}
+
+.ai-fire-warranty select,
+.ai-fire-warranty input[type="text"],
+.ai-fire-warranty input[type="file"] {
+  height: 30px;
+  border: 1px solid #d7d7d7;
+  box-sizing: border-box;
+  background: #fff;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.ai-fire-warranty select {
+  width: 180px;
+  padding: 0 8px;
+}
+
+.ai-fire-warranty input[type="text"] {
+  width: 180px;
+  padding: 0 8px;
+}
+
+.ai-fire-warranty input[type="file"] {
+  width: 320px;
+  padding: 3px 6px;
+}
+
+.ai-fire-warranty__date-sep {
+  margin: 0 10px;
+  color: #555;
+}
+
+.ai-fire-warranty__button {
+  height: 30px;
+  min-width: 80px;
+  margin-left: 10px;
+  padding: 0 18px;
+  border: 0;
+  background: #1777ed;
+  color: #fff;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ai-fire-warranty__button:hover {
+  opacity: 0.88;
+}
+
+.ai-fire-warranty__detail {
+  display: none;
+  position: absolute;
+  left: -622px;
+  top: 58px;
+  width: 1510px;
+  padding-top: 0;
+}
+
+.ai-fire-warranty.is-in-warranty .ai-fire-warranty__detail {
+  display: block;
+}
+
+.ai-fire-hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.ai-no-fire-entrust {
+  position: absolute;
+  left: 741px;
+  top: 106px;
+  width: 820px;
+  height: 72px;
+  z-index: 9800;
+  display: none;
+  font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  font-size: 13px;
+  color: #333;
+}
+
+.ai-no-fire-entrust.is-visible {
+  display: block;
+}
+
+.ai-no-fire-entrust__row {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.ai-no-fire-entrust__label {
+  width: 138px;
+  margin-right: 8px;
+  text-align: right;
+}
+
+.ai-no-fire-entrust__label .required {
+  color: #d9001b;
+  margin-right: 2px;
+}
+
+.ai-no-fire-entrust input {
+  width: 360px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid #d7d7d7;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 13px;
+}
