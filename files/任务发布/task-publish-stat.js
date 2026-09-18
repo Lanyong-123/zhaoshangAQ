@@ -2,30 +2,9 @@
   "use strict";
 
   var statData = {
-    shouldProject: {
-      title: "应发项目数",
-      value: 42,
-      rows: [
-        ["产业园区", "蛇口网谷项目"],
-        ["在建工程", "青羊158亩项目部"],
-        ["物业管理", "招商局海南区域总部写字楼"],
-        ["邮轮母港", "深圳邮轮母港"],
-        ["商业管理", "招商蛇口项目-商业裙楼"]
-      ]
-    },
-    unpubProject: {
-      title: "未发项目数",
-      value: 5,
-      rows: [
-        ["产业园区", "招商蛇口项目-1号楼"],
-        ["物业管理", "招商蛇口项目-综合楼"],
-        ["商业管理", "招商蛇口项目-商业裙楼"],
-        ["交通枢纽", "深圳邮轮母港停车楼"],
-        ["办公物业", "总部写字楼"]
-      ]
-    },
-    shouldOrg: {
-      title: "应发组织数",
+    orgShouldTask: {
+      group: "组织统计",
+      title: "应发任务数",
       value: 18,
       rows: [
         ["区域公司", "华南区域"],
@@ -35,13 +14,59 @@
         ["城市公司", "珠海公司"]
       ]
     },
-    unpubOrg: {
-      title: "未发组织数",
+    orgUnpubTask: {
+      group: "组织统计",
+      title: "未发任务数",
       value: 3,
       rows: [
         ["区域公司", "华中区域"],
         ["城市公司", "湛江公司"],
         ["专业公司", "邮轮母港事业部"]
+      ]
+    },
+    orgNoEval: {
+      group: "组织统计",
+      title: "不参评估数",
+      value: 2,
+      rows: [
+        ["城市公司", "惠州公司"],
+        ["专业公司", "海外发展事业部"]
+      ]
+    },
+    projectShouldTask: {
+      group: "项目统计",
+      title: "应发任务数",
+      value: 42,
+      rows: [
+        ["产业园区", "蛇口网谷项目"],
+        ["在建工程", "青羊158亩项目部"],
+        ["物业管理", "招商局海南区域总部写字楼"],
+        ["邮轮母港", "深圳邮轮母港"],
+        ["商业管理", "招商蛇口项目-商业裙楼"]
+      ]
+    },
+    projectUnpubTask: {
+      group: "项目统计",
+      title: "未发任务数",
+      value: 5,
+      rows: [
+        ["产业园区", "招商蛇口项目-1号楼"],
+        ["物业管理", "招商蛇口项目-综合楼"],
+        ["商业管理", "招商蛇口项目-商业裙楼"],
+        ["交通枢纽", "深圳邮轮母港停车楼"],
+        ["办公物业", "总部写字楼"]
+      ]
+    },
+    projectNoEval: {
+      group: "项目统计",
+      title: "不参评估数",
+      value: 6,
+      rows: [
+        ["产业园区", "低风险仓储项目"],
+        ["商业管理", "临时闭店商铺"],
+        ["物业管理", "已退出管理项目"],
+        ["办公物业", "空置办公楼"],
+        ["在建工程", "停工项目"]
       ]
     }
   };
@@ -56,15 +81,53 @@
       '<div class="ai-task-publish-stat__tip" title="剔除不参与HSE监测评估的组织、项目，根据查询条件统计去重后的组织、项目已发布数和未发布数">' +
       "统计提示：剔除不参与HSE监测评估的组织、项目，根据查询条件统计去重后的组织、项目已发布数和未发布数" +
       "</div>" +
-      '<div class="ai-task-publish-stat__items">' +
-      createItem("shouldProject") +
-      createItem("unpubProject") +
-      createItem("shouldOrg") +
-      createItem("unpubOrg") +
-      "</div>";
+      createStatRow("组织统计", ["orgShouldTask", "orgUnpubTask", "orgNoEval"]) +
+      createStatRow("项目统计", ["projectShouldTask", "projectUnpubTask", "projectNoEval"]);
 
     var base = document.getElementById("base");
     (base || document.body).appendChild(bar);
+  }
+
+  function createEvalObjectFilter() {
+    if (document.getElementById("aiTaskPublishEvalObject")) return;
+
+    var wrap = document.createElement("div");
+    wrap.id = "aiTaskPublishEvalObject";
+    wrap.className = "ai-task-publish-eval-object";
+    wrap.innerHTML =
+      '<div class="ai-task-publish-eval-object__label">评估对象</div>' +
+      '<select class="ai-task-publish-eval-object__select" id="aiTaskPublishEvalObjectSelect">' +
+      '<option value="组织+项目" selected>组织+项目</option>' +
+      '<option value="组织">组织</option>' +
+      '<option value="项目">项目</option>' +
+      "</select>";
+
+    var base = document.getElementById("base");
+    (base || document.body).appendChild(wrap);
+  }
+
+  function syncEvalObjectFilter() {
+    var select = document.getElementById("aiTaskPublishEvalObjectSelect");
+    var industryLabel = document.getElementById("u52458");
+    var industrySelect = document.getElementById("u52457");
+    if (!select || !industryLabel || !industrySelect) return;
+
+    var showIndustry = select.value !== "组织";
+    industryLabel.style.display = showIndustry ? "flex" : "none";
+    industryLabel.style.visibility = showIndustry ? "visible" : "hidden";
+    industrySelect.style.display = showIndustry ? "flex" : "none";
+    industrySelect.style.visibility = showIndustry ? "visible" : "hidden";
+  }
+
+  function createStatRow(title, keys) {
+    return (
+      '<div class="ai-task-publish-stat__row">' +
+      '<span class="ai-task-publish-stat__group">' +
+      title +
+      "：</span>" +
+      keys.map(createItem).join("") +
+      "</div>"
+    );
   }
 
   function createItem(key) {
@@ -124,7 +187,7 @@
     var data = statData[key];
     if (!data) return;
 
-    document.getElementById("aiTaskPublishModalTitle").textContent = data.title + "明细";
+    document.getElementById("aiTaskPublishModalTitle").textContent = data.group + "-" + data.title + "明细";
     document.getElementById("aiTaskPublishModalCount").textContent = "共 " + data.rows.length + " 条记录";
     document.getElementById("aiTaskPublishModalBody").innerHTML = data.rows
       .map(function (row) {
@@ -151,7 +214,7 @@
     var url = URL.createObjectURL(blob);
     var link = document.createElement("a");
     link.href = url;
-    link.download = data.title + "明细.csv";
+    link.download = (data.group || "") + data.title + "明细.csv";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -179,13 +242,19 @@
         openModal(target.getAttribute("data-stat-key"));
       }
     });
+
+    document.addEventListener("change", function (event) {
+      if (event.target && event.target.id === "aiTaskPublishEvalObjectSelect") {
+        syncEvalObjectFilter();
+      }
+    });
   }
 
   function makeRoomForStatBar() {
     var base = document.getElementById("base");
     if (!base || base.getAttribute("data-ai-task-publish-stat-shifted") === "1") return;
 
-    var shiftY = 74;
+    var shiftY = 108;
     Array.prototype.forEach.call(base.children, function (el) {
       if (!el || el.id === "aiTaskPublishStat") return;
       if (!/^u\d+/.test(el.id || "")) return;
@@ -202,10 +271,13 @@
   }
 
   function init() {
+    createEvalObjectFilter();
+    syncEvalObjectFilter();
     createStatBar();
     createModal();
     makeRoomForStatBar();
     bindEvents();
+    window.setInterval(syncEvalObjectFilter, 500);
   }
 
   if (document.readyState === "loading") {
