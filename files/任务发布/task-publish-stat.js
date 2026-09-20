@@ -1,74 +1,65 @@
 (function () {
   "use strict";
 
+  var orgRows = {
+    available: [["区域公司", "华南区域"], ["专业公司", "招商积余"], ["城市公司", "深圳公司"], ["城市公司", "广州公司"], ["城市公司", "珠海公司"]],
+    draft: [["城市公司", "湛江公司"], ["专业公司", "邮轮母港事业部"]],
+    unavailable: [["区域公司", "华中区域"], ["城市公司", "惠州公司"], ["专业公司", "海外发展事业部"]]
+  };
+
+  var projectRows = {
+    available: [["产业园区", "蛇口网谷项目"], ["在建工程", "青羊158亩项目部"], ["物业管理", "招商局海南区域总部写字楼"], ["邮轮母港", "深圳邮轮母港"], ["商业管理", "招商蛇口项目-商业裙楼"]],
+    draft: [["产业园区", "招商蛇口项目-1号楼"], ["物业管理", "招商蛇口项目-综合楼"], ["交通枢纽", "深圳邮轮母港停车楼"], ["办公物业", "总部写字楼"]],
+    unavailable: [["产业园区", "低风险仓储项目"], ["商业管理", "临时闭店商铺"], ["物业管理", "已退出管理项目"], ["办公物业", "空置办公楼"], ["在建工程", "停工项目"]]
+  };
+
+  function createStatData(group, category, title, value, rows) {
+    return { group: group + "-" + category, title: title, value: value, rows: rows, detailType: getDetailType(category) };
+  }
+
+  function createTotalData(group, title, value, rows) {
+    return { group: group, title: title, value: value, rows: rows, detailType: getDetailType(title) };
+  }
+
+  function getDetailType(title) {
+    if (title === "已发布任务数") return "published";
+    if (title === "未发布任务数") return "unpublished";
+    return "default";
+  }
+
   var statData = {
-    orgShouldTask: {
-      group: "组织统计",
-      title: "应发任务数",
-      value: 18,
-      rows: [
-        ["区域公司", "华南区域"],
-        ["专业公司", "招商积余"],
-        ["城市公司", "深圳公司"],
-        ["城市公司", "广州公司"],
-        ["城市公司", "珠海公司"]
-      ]
-    },
-    orgUnpubTask: {
-      group: "组织统计",
-      title: "未发任务数",
-      value: 3,
-      rows: [
-        ["区域公司", "华中区域"],
-        ["城市公司", "湛江公司"],
-        ["专业公司", "邮轮母港事业部"]
-      ]
-    },
-    orgNoEval: {
-      group: "组织统计",
-      title: "不参评估数",
-      value: 2,
-      rows: [
-        ["城市公司", "惠州公司"],
-        ["专业公司", "海外发展事业部"]
-      ]
-    },
-    projectShouldTask: {
-      group: "项目统计",
-      title: "应发任务数",
-      value: 42,
-      rows: [
-        ["产业园区", "蛇口网谷项目"],
-        ["在建工程", "青羊158亩项目部"],
-        ["物业管理", "招商局海南区域总部写字楼"],
-        ["邮轮母港", "深圳邮轮母港"],
-        ["商业管理", "招商蛇口项目-商业裙楼"]
-      ]
-    },
-    projectUnpubTask: {
-      group: "项目统计",
-      title: "未发任务数",
-      value: 5,
-      rows: [
-        ["产业园区", "招商蛇口项目-1号楼"],
-        ["物业管理", "招商蛇口项目-综合楼"],
-        ["商业管理", "招商蛇口项目-商业裙楼"],
-        ["交通枢纽", "深圳邮轮母港停车楼"],
-        ["办公物业", "总部写字楼"]
-      ]
-    },
-    projectNoEval: {
-      group: "项目统计",
-      title: "不参评估数",
-      value: 6,
-      rows: [
-        ["产业园区", "低风险仓储项目"],
-        ["商业管理", "临时闭店商铺"],
-        ["物业管理", "已退出管理项目"],
-        ["办公物业", "空置办公楼"],
-        ["在建工程", "停工项目"]
-      ]
-    }
+    orgCurrentTotal: createTotalData("组织数据", "当前组织数", 18, orgRows.available.concat(orgRows.draft, orgRows.unavailable)),
+    orgPublishedTotal: createTotalData("组织数据", "已发布任务数", 13, orgRows.available.concat(orgRows.draft, orgRows.unavailable)),
+    orgUnpublishedTotal: createTotalData("组织数据", "未发布任务数", 3, orgRows.available.concat(orgRows.draft)),
+    orgNoEvalTotal: createTotalData("组织数据", "不参与评估数", 2, orgRows.available.concat(orgRows.unavailable)),
+    orgCurrentAvailable: createStatData("组织数据", "当前组织数", "数据可用数", 13, orgRows.available),
+    orgCurrentDraft: createStatData("组织数据", "当前组织数", "草稿数", 2, orgRows.draft),
+    orgCurrentUnavailable: createStatData("组织数据", "当前组织数", "数据不可用数", 3, orgRows.unavailable),
+    orgPublishedAvailable: createStatData("组织数据", "已发布任务数", "数据可用数", 10, orgRows.available),
+    orgPublishedDraft: createStatData("组织数据", "已发布任务数", "草稿数", 1, orgRows.draft),
+    orgPublishedUnavailable: createStatData("组织数据", "已发布任务数", "数据不可用数", 2, orgRows.unavailable),
+    orgUnpublishedAvailable: createStatData("组织数据", "未发布任务数", "数据可用数", 2, orgRows.available),
+    orgUnpublishedDraft: createStatData("组织数据", "未发布任务数", "草稿数", 1, orgRows.draft),
+    orgUnpublishedUnavailable: createStatData("组织数据", "未发布任务数", "数据不可用数", 0, orgRows.unavailable),
+    orgNoEvalAvailable: createStatData("组织数据", "不参与评估数", "数据可用数", 1, orgRows.available),
+    orgNoEvalDraft: createStatData("组织数据", "不参与评估数", "草稿数", 0, orgRows.draft),
+    orgNoEvalUnavailable: createStatData("组织数据", "不参与评估数", "数据不可用数", 1, orgRows.unavailable),
+    projectCurrentTotal: createTotalData("项目数据", "当前项目数", 42, projectRows.available.concat(projectRows.draft, projectRows.unavailable)),
+    projectPublishedTotal: createTotalData("项目数据", "已发布任务数", 31, projectRows.available.concat(projectRows.draft, projectRows.unavailable)),
+    projectUnpublishedTotal: createTotalData("项目数据", "未发布任务数", 5, projectRows.available.concat(projectRows.draft)),
+    projectNoEvalTotal: createTotalData("项目数据", "不参与评估数", 6, projectRows.available.concat(projectRows.draft, projectRows.unavailable)),
+    projectCurrentAvailable: createStatData("项目数据", "当前项目数", "数据可用数", 33, projectRows.available),
+    projectCurrentDraft: createStatData("项目数据", "当前项目数", "草稿数", 4, projectRows.draft),
+    projectCurrentUnavailable: createStatData("项目数据", "当前项目数", "数据不可用数", 5, projectRows.unavailable),
+    projectPublishedAvailable: createStatData("项目数据", "已发布任务数", "数据可用数", 26, projectRows.available),
+    projectPublishedDraft: createStatData("项目数据", "已发布任务数", "草稿数", 2, projectRows.draft),
+    projectPublishedUnavailable: createStatData("项目数据", "已发布任务数", "数据不可用数", 3, projectRows.unavailable),
+    projectUnpublishedAvailable: createStatData("项目数据", "未发布任务数", "数据可用数", 4, projectRows.available),
+    projectUnpublishedDraft: createStatData("项目数据", "未发布任务数", "草稿数", 1, projectRows.draft),
+    projectUnpublishedUnavailable: createStatData("项目数据", "未发布任务数", "数据不可用数", 0, projectRows.unavailable),
+    projectNoEvalAvailable: createStatData("项目数据", "不参与评估数", "数据可用数", 3, projectRows.available),
+    projectNoEvalDraft: createStatData("项目数据", "不参与评估数", "草稿数", 1, projectRows.draft),
+    projectNoEvalUnavailable: createStatData("项目数据", "不参与评估数", "数据不可用数", 2, projectRows.unavailable)
   };
 
   function createStatBar() {
@@ -78,11 +69,21 @@
     bar.id = "aiTaskPublishStat";
     bar.className = "ai-task-publish-stat";
     bar.innerHTML =
-      '<div class="ai-task-publish-stat__tip" title="剔除不参与HSE监测评估的组织、项目，根据查询条件统计去重后的组织、项目已发布数和未发布数">' +
-      "统计提示：剔除不参与HSE监测评估的组织、项目，根据查询条件统计去重后的组织、项目已发布数和未发布数" +
+      '<div class="ai-task-publish-stat__tip" title="根据查询条件统计去重后的组织、项目数据状态及任务发布情况">' +
+      "统计提示：根据查询条件统计去重后的组织、项目数据状态及任务发布情况" +
       "</div>" +
-      createStatRow("组织统计", ["orgShouldTask", "orgUnpubTask", "orgNoEval"]) +
-      createStatRow("项目统计", ["projectShouldTask", "projectUnpubTask", "projectNoEval"]);
+      createStatGroup("组织数据", [
+        ["当前组织数", "orgCurrentTotal", ["orgCurrentAvailable", "orgCurrentDraft", "orgCurrentUnavailable"]],
+        ["已发布任务数", "orgPublishedTotal", ["orgPublishedAvailable", "orgPublishedDraft", "orgPublishedUnavailable"]],
+        ["未发布任务数", "orgUnpublishedTotal", ["orgUnpublishedAvailable", "orgUnpublishedDraft", "orgUnpublishedUnavailable"]],
+        ["不参与评估数", "orgNoEvalTotal", ["orgNoEvalAvailable", "orgNoEvalDraft", "orgNoEvalUnavailable"]]
+      ]) +
+      createStatGroup("项目数据", [
+        ["当前项目数", "projectCurrentTotal", ["projectCurrentAvailable", "projectCurrentDraft", "projectCurrentUnavailable"]],
+        ["已发布任务数", "projectPublishedTotal", ["projectPublishedAvailable", "projectPublishedDraft", "projectPublishedUnavailable"]],
+        ["未发布任务数", "projectUnpublishedTotal", ["projectUnpublishedAvailable", "projectUnpublishedDraft", "projectUnpublishedUnavailable"]],
+        ["不参与评估数", "projectNoEvalTotal", ["projectNoEvalAvailable", "projectNoEvalDraft", "projectNoEvalUnavailable"]]
+      ]);
 
     var base = document.getElementById("base");
     (base || document.body).appendChild(bar);
@@ -119,13 +120,27 @@
     industrySelect.style.visibility = showIndustry ? "visible" : "hidden";
   }
 
-  function createStatRow(title, keys) {
+  function createStatGroup(title, columns) {
     return (
-      '<div class="ai-task-publish-stat__row">' +
+      '<div class="ai-task-publish-stat__group-block">' +
       '<span class="ai-task-publish-stat__group">' +
       title +
       "：</span>" +
-      keys.map(createItem).join("") +
+      '<div class="ai-task-publish-stat__matrix">' +
+      columns.map(createStatColumn).join("") +
+      "</div>" +
+      "</div>"
+    );
+  }
+
+  function createStatColumn(column) {
+    var total = statData[column[1]];
+    return (
+      '<div class="ai-task-publish-stat__column">' +
+      '<div class="ai-task-publish-stat__column-title"><span>' + column[0] + "：</span>" +
+      '<button type="button" class="ai-task-publish-stat__num ai-task-publish-stat__total-num" data-stat-key="' +
+      column[1] + '">' + total.value + "</button></div>" +
+      '<div class="ai-task-publish-stat__breakdown">' + column[2].map(createItem).join("") + "</div>" +
       "</div>"
     );
   }
@@ -163,7 +178,7 @@
       '<button type="button" class="ai-task-publish-modal__export">导出</button>' +
       "</div>" +
       "<table>" +
-      "<thead><tr><th>所属组织/业态</th><th>组织/项目名称</th></tr></thead>" +
+      '<thead><tr id="aiTaskPublishModalHead"></tr></thead>' +
       '<tbody id="aiTaskPublishModalBody"></tbody>' +
       "</table>" +
       "</div>" +
@@ -188,14 +203,64 @@
     if (!data) return;
 
     document.getElementById("aiTaskPublishModalTitle").textContent = data.group + "-" + data.title + "明细";
-    document.getElementById("aiTaskPublishModalCount").textContent = "共 " + data.rows.length + " 条记录";
-    document.getElementById("aiTaskPublishModalBody").innerHTML = data.rows
+    document.getElementById("aiTaskPublishModalCount").textContent = "共 " + data.value + " 条记录";
+    document.getElementById("aiTaskPublishModalHead").innerHTML = getDetailColumns(data)
+      .map(function (column) {
+        return "<th>" + escapeHtml(column) + "</th>";
+      })
+      .join("");
+    document.getElementById("aiTaskPublishModalBody").innerHTML = buildDetailRows(data)
       .map(function (row) {
-        return "<tr><td>" + escapeHtml(row[0]) + "</td><td>" + escapeHtml(row[1]) + "</td></tr>";
+        return "<tr>" + row.map(function (cell) {
+          return "<td>" + escapeHtml(cell) + "</td>";
+        }).join("") + "</tr>";
       })
       .join("");
 
+    var modal = document.querySelector(".ai-task-publish-modal");
+    modal.classList.remove("is-published", "is-unpublished");
+    if (data.detailType === "published") modal.classList.add("is-published");
+    if (data.detailType === "unpublished") modal.classList.add("is-unpublished");
+
     document.getElementById("aiTaskPublishModalMask").classList.add("is-open");
+  }
+
+  function getDetailColumns(data) {
+    var columns = ["所属组织/业态", "组织/项目名称"];
+    if (data.detailType === "published") {
+      columns.push("报告审核状态", "整改审核状态");
+    } else if (data.detailType === "unpublished") {
+      columns.push("未发布原因");
+    }
+    return columns;
+  }
+
+  function buildDetailRows(data) {
+    var reportStatuses = ["审核通过", "审核不通过", "待审核"];
+    var rectificationStatuses = ["整改实施", "待审核", "审核通过", "审核不通过"];
+    var unpublishedReasons = ["无监测管理员", "无模板内容", "未发布任务"];
+
+    return normalizeRows(data).map(function (row, index) {
+      var detailRow = row.slice(0, 2);
+      if (data.detailType === "published") {
+        detailRow.push(reportStatuses[index % reportStatuses.length]);
+        detailRow.push(rectificationStatuses[index % rectificationStatuses.length]);
+      } else if (data.detailType === "unpublished") {
+        detailRow.push(unpublishedReasons[index % unpublishedReasons.length]);
+      }
+      return detailRow;
+    });
+  }
+
+  function normalizeRows(data) {
+    var count = Math.max(0, Number(data.value) || 0);
+    if (!count || !data.rows.length) return [];
+
+    var rows = [];
+    for (var index = 0; index < count; index += 1) {
+      rows.push(data.rows[index % data.rows.length].slice(0, 2));
+    }
+    return rows;
   }
 
   function closeModal() {
@@ -207,7 +272,7 @@
     var data = statData[currentKey];
     if (!data) return;
 
-    var csv = "所属组织/业态,组织/项目名称\n" + data.rows.map(function (row) {
+    var csv = getDetailColumns(data).map(csvCell).join(",") + "\n" + buildDetailRows(data).map(function (row) {
       return row.map(csvCell).join(",");
     }).join("\n");
     var blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
@@ -254,7 +319,7 @@
     var base = document.getElementById("base");
     if (!base || base.getAttribute("data-ai-task-publish-stat-shifted") === "1") return;
 
-    var shiftY = 108;
+    var shiftY = 198;
     Array.prototype.forEach.call(base.children, function (el) {
       if (!el || el.id === "aiTaskPublishStat") return;
       if (!/^u\d+/.test(el.id || "")) return;

@@ -3,13 +3,13 @@
   left: 448px;
   top: 205px;
   width: 1580px;
-  height: 90px;
+  height: 180px;
   z-index: 9800;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  gap: 8px;
+  justify-content: flex-start;
+  gap: 6px;
   padding: 8px 14px;
   box-sizing: border-box;
   border: 1px solid #d9e3ef;
@@ -65,17 +65,56 @@
   line-height: 20px;
 }
 
-.ai-task-publish-stat__row {
+.ai-task-publish-stat__group-block {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 59px;
+}
+
+.ai-task-publish-stat__matrix {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  flex: 1;
+  border-top: 1px solid #d9e3ef;
+  border-bottom: 1px solid #d9e3ef;
+  border-right: 1px solid #d9e3ef;
+  background: #fff;
+}
+
+.ai-task-publish-stat__column {
+  min-width: 0;
+  border-left: 1px solid #d9e3ef;
+}
+
+.ai-task-publish-stat__column-title {
+  height: 25px;
   display: flex;
   align-items: center;
-  gap: 24px;
-  flex-wrap: nowrap;
-  height: 20px;
+  justify-content: center;
+  gap: 3px;
+  font-weight: 600;
+  color: #2c3e50;
+  background: #edf6ff;
+  border-bottom: 1px solid #d9e3ef;
+}
+
+.ai-task-publish-stat__total-num {
+  font-weight: 600;
+}
+
+.ai-task-publish-stat__breakdown {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  height: 31px;
+  align-items: center;
 }
 
 .ai-task-publish-stat__group {
   display: inline-block;
   min-width: 68px;
+  height: 20px;
+  line-height: 20px;
   color: #34495e;
   font-weight: 600;
 }
@@ -83,7 +122,17 @@
 .ai-task-publish-stat__item {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
+  min-width: 0;
+  height: 31px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  border-right: 1px solid #e5eaf0;
+}
+
+.ai-task-publish-stat__item:last-child {
+  border-right: 0;
 }
 
 .ai-task-publish-stat__num {
@@ -119,9 +168,18 @@
 .ai-task-publish-modal {
   width: 720px;
   max-width: calc(100vw - 80px);
+  max-height: calc(100vh - 40px);
   background: #fff;
   border: 1px solid #cfd8e3;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+}
+
+.ai-task-publish-modal.is-published {
+  width: 980px;
+}
+
+.ai-task-publish-modal.is-unpublished {
+  width: 840px;
 }
 
 .ai-task-publish-modal__header {
@@ -154,6 +212,9 @@
 
 .ai-task-publish-modal__body {
   padding: 16px 18px 18px;
+  max-height: calc(100vh - 92px);
+  overflow: auto;
+  box-sizing: border-box;
 }
 
 .ai-task-publish-modal__toolbar {
