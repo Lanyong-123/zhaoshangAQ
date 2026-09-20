@@ -366,11 +366,21 @@
       if (!el || el.id === "aiTaskPublishStat") return;
       if (!/^u\d+/.test(el.id || "")) return;
 
-      var top = parseFloat(window.getComputedStyle(el).top);
-      if (isNaN(top)) return;
+      var computedStyle = window.getComputedStyle(el);
+      var top = parseFloat(computedStyle.top);
+      var left = parseFloat(computedStyle.left);
+      var dataTop = parseFloat(el.getAttribute("data-top"));
+      var dataLeft = parseFloat(el.getAttribute("data-left"));
+      var layoutTop = isNaN(dataTop) ? top : dataTop;
+      var layoutLeft = isNaN(dataLeft) ? left : dataLeft;
+      if (isNaN(layoutTop) || isNaN(layoutLeft)) return;
 
-      if (top >= 203) {
-        el.style.top = top + shiftY + "px";
+      if (layoutTop >= 203 && layoutLeft >= 438) {
+        if (el.offsetWidth === 0 && el.offsetHeight === 0 && top === 0 && left === 0) {
+          el.style.top = shiftY + "px";
+        } else {
+          el.style.top = top + shiftY + "px";
+        }
       }
     });
 
