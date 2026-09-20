@@ -80,6 +80,18 @@
     projectNoEvalExited: createStatData("项目数据", "不参与评估数", "退出数", 1, projectRows.exited)
   };
 
+  Object.keys(statData).forEach(function (key) {
+    var match = key.match(/^(org|project)(Current|Published|Unpublished|NoEval)(Available|Draft|Unavailable|Exited)$/);
+    if (!match) return;
+    statData[key].parentKey = match[1] + match[2] + "Total";
+    statData[key].availabilityStatus = {
+      Available: "数据可用",
+      Draft: "草稿",
+      Unavailable: "数据不可用",
+      Exited: "退出"
+    }[match[3]];
+  });
+
   function createStatBar() {
     if (document.getElementById("aiTaskPublishStat")) return;
 
@@ -167,13 +179,13 @@
 
   function getStatTip(key) {
     var tips = {
-      orgCurrentTotal: "当前组织为数据可用、草稿状态的记录，不包含数据不可用、退出的组织记录",
+      orgCurrentTotal: "当前组织为数据可用、草稿状态的记录数，不包含数据不可用、退出的组织记录数",
       orgPublishedTotal: "已发布任务数为数据可用、草稿状态的发布任务数，不包含数据不可用、退出的任务",
-      orgUnpublishedTotal: "未发布任务数为数据可用、草稿状态的未发布任务，不包含数据不可用、退出的组织",
+      orgUnpublishedTotal: "未发布任务数为数据可用、草稿状态的未发布任务数，不包含数据不可用、退出的组织",
       orgNoEvalTotal: "不参与评估数通过HSE配置后、发布时设置不参考评估的组织数；如：不负责管理",
-      projectCurrentTotal: "当前项目为数据可用、草稿状态的记录，不包含数据不可用、退出的项目记录",
+      projectCurrentTotal: "当前项目为数据可用、草稿状态的记录数，不包含数据不可用、退出的项目记录数",
       projectPublishedTotal: "已发布任务数为数据可用、草稿状态的发布任务数，不包含数据不可用、退出的任务",
-      projectUnpublishedTotal: "未发布任务数为数据可用、草稿状态的未发布任务，不包含数据不可用、退出的项目",
+      projectUnpublishedTotal: "未发布任务数为数据可用、草稿状态的未发布任务数，不包含数据不可用、退出的项目",
       projectNoEvalTotal: "不参与评估数通过HSE配置后、发布时设置不参考评估的项目数；如：不负责管理"
     };
     return tips[key] || "";
@@ -307,7 +319,7 @@
 
   function getDetailColumns(data) {
     var columns = ["所属组织/业态", "组织/项目名称"];
-    if (supportsAvailabilityFilter(data)) columns.push("可用状态");
+    if (hasAvailabilityDetail(data)) columns.push("可用状态");
     if (data.detailType === "published") {
       columns.push("评估编号", "评估得分", "报告审核状态", "整改审核状态");
     } else if (data.detailType === "unpublished") {
@@ -332,6 +344,10 @@
 
   function supportsAvailabilityFilter(data) {
     return !!(data && data.availabilityCounts);
+  }
+
+  function hasAvailabilityDetail(data) {
+    return supportsAvailabilityFilter(data) || !!(data && data.parentKey);
   }
 
   function createModalFilters(data) {
@@ -432,6 +448,12 @@
     var reportStatuses = ["审核通过", "审核不通过", "待审核"];
     var rectificationStatuses = ["整改实施", "待审核", "审核通过", "审核不通过"];
     var unpublishedReasons = ["无监测管理员", "无模板内容", "未发布任务"];
+
+    if (data.parentKey && statData[data.parentKey]) {
+      return buildDetailRows(statData[data.parentKey]).filter(function (row) {
+        return row[2] === data.availabilityStatus;
+      });
+    }
 
     var sourceRows = supportsAvailabilityFilter(data) ? buildAvailabilityDetailRows(data) : normalizeRows(data);
     return sourceRows.map(function (row, index) {
