@@ -193,6 +193,30 @@
     });
 
     mask.querySelector(".ai-task-publish-modal__export").addEventListener("click", exportCurrentRows);
+
+    mask.addEventListener("mouseover", function (event) {
+      if (event.target.classList && event.target.classList.contains("ai-task-publish-modal__column-tip")) {
+        event.target.classList.add("is-visible");
+      }
+    });
+
+    mask.addEventListener("mouseout", function (event) {
+      if (event.target.classList && event.target.classList.contains("ai-task-publish-modal__column-tip")) {
+        event.target.classList.remove("is-visible");
+      }
+    });
+
+    mask.addEventListener("focusin", function (event) {
+      if (event.target.classList && event.target.classList.contains("ai-task-publish-modal__column-tip")) {
+        event.target.classList.add("is-visible");
+      }
+    });
+
+    mask.addEventListener("focusout", function (event) {
+      if (event.target.classList && event.target.classList.contains("ai-task-publish-modal__column-tip")) {
+        event.target.classList.remove("is-visible");
+      }
+    });
   }
 
   var currentKey = "";
@@ -206,7 +230,7 @@
     document.getElementById("aiTaskPublishModalCount").textContent = "共 " + data.value + " 条记录";
     document.getElementById("aiTaskPublishModalHead").innerHTML = getDetailColumns(data)
       .map(function (column) {
-        return "<th>" + escapeHtml(column) + "</th>";
+        return createDetailHeader(column);
       })
       .join("");
     document.getElementById("aiTaskPublishModalBody").innerHTML = buildDetailRows(data)
@@ -228,11 +252,22 @@
   function getDetailColumns(data) {
     var columns = ["所属组织/业态", "组织/项目名称"];
     if (data.detailType === "published") {
-      columns.push("报告审核状态", "整改审核状态");
+      columns.push("评估编号", "报告审核状态", "整改审核状态");
     } else if (data.detailType === "unpublished") {
-      columns.push("未发布原因");
+      columns.push("评估编号", "未发布原因");
     }
     return columns;
+  }
+
+  function createDetailHeader(column) {
+    if (column !== "评估编号") return "<th>" + escapeHtml(column) + "</th>";
+    var tip = "多个评估任务取最近一次的评估任务";
+    return (
+      "<th>" + escapeHtml(column) +
+      '<span class="ai-task-publish-modal__column-tip" title="' + escapeHtml(tip) +
+      '" data-tip="' + escapeHtml(tip) + '" aria-label="' + escapeHtml(tip) +
+      '" tabindex="0">i</span></th>'
+    );
   }
 
   function buildDetailRows(data) {
@@ -243,13 +278,20 @@
     return normalizeRows(data).map(function (row, index) {
       var detailRow = row.slice(0, 2);
       if (data.detailType === "published") {
+        detailRow.push(createEvaluationNo(index));
         detailRow.push(reportStatuses[index % reportStatuses.length]);
         detailRow.push(rectificationStatuses[index % rectificationStatuses.length]);
       } else if (data.detailType === "unpublished") {
-        detailRow.push(unpublishedReasons[index % unpublishedReasons.length]);
+        var reason = unpublishedReasons[index % unpublishedReasons.length];
+        detailRow.push(reason === "未发布任务" ? "" : createEvaluationNo(index));
+        detailRow.push(reason);
       }
       return detailRow;
     });
+  }
+
+  function createEvaluationNo(index) {
+    return "HSE2026-" + String(index + 1).padStart(3, "0");
   }
 
   function normalizeRows(data) {
