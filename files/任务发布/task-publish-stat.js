@@ -4,13 +4,15 @@
   var orgRows = {
     available: [["区域公司", "华南区域"], ["专业公司", "招商积余"], ["城市公司", "深圳公司"], ["城市公司", "广州公司"], ["城市公司", "珠海公司"]],
     draft: [["城市公司", "湛江公司"], ["专业公司", "邮轮母港事业部"]],
-    unavailable: [["区域公司", "华中区域"], ["城市公司", "惠州公司"], ["专业公司", "海外发展事业部"]]
+    unavailable: [["区域公司", "华中区域"], ["城市公司", "惠州公司"], ["专业公司", "海外发展事业部"]],
+    exited: [["专业公司", "海外发展事业部"]]
   };
 
   var projectRows = {
     available: [["产业园区", "蛇口网谷项目"], ["在建工程", "青羊158亩项目部"], ["物业管理", "招商局海南区域总部写字楼"], ["邮轮母港", "深圳邮轮母港"], ["商业管理", "招商蛇口项目-商业裙楼"]],
     draft: [["产业园区", "招商蛇口项目-1号楼"], ["物业管理", "招商蛇口项目-综合楼"], ["交通枢纽", "深圳邮轮母港停车楼"], ["办公物业", "总部写字楼"]],
-    unavailable: [["产业园区", "低风险仓储项目"], ["商业管理", "临时闭店商铺"], ["物业管理", "已退出管理项目"], ["办公物业", "空置办公楼"], ["在建工程", "停工项目"]]
+    unavailable: [["产业园区", "低风险仓储项目"], ["商业管理", "临时闭店商铺"], ["物业管理", "已退出管理项目"], ["办公物业", "空置办公楼"], ["在建工程", "停工项目"]],
+    exited: [["物业管理", "已退出管理项目"], ["商业管理", "已退出项目"]]
   };
 
   function createStatData(group, category, title, value, rows) {
@@ -28,38 +30,46 @@
   }
 
   var statData = {
-    orgCurrentTotal: createTotalData("组织数据", "当前组织数", 18, orgRows.available.concat(orgRows.draft, orgRows.unavailable)),
-    orgPublishedTotal: createTotalData("组织数据", "已发布任务数", 13, orgRows.available.concat(orgRows.draft, orgRows.unavailable)),
+    orgCurrentTotal: createTotalData("组织数据", "当前组织数", 18, orgRows.available.concat(orgRows.draft, orgRows.unavailable, orgRows.exited)),
+    orgPublishedTotal: createTotalData("组织数据", "已发布任务数", 13, orgRows.available.concat(orgRows.draft, orgRows.unavailable, orgRows.exited)),
     orgUnpublishedTotal: createTotalData("组织数据", "未发布任务数", 3, orgRows.available.concat(orgRows.draft)),
-    orgNoEvalTotal: createTotalData("组织数据", "不参与评估数", 2, orgRows.available.concat(orgRows.unavailable)),
+    orgNoEvalTotal: createTotalData("组织数据", "不参与评估数", 2, orgRows.available.concat(orgRows.unavailable, orgRows.exited)),
     orgCurrentAvailable: createStatData("组织数据", "当前组织数", "数据可用数", 13, orgRows.available),
     orgCurrentDraft: createStatData("组织数据", "当前组织数", "草稿数", 2, orgRows.draft),
-    orgCurrentUnavailable: createStatData("组织数据", "当前组织数", "数据不可用数", 3, orgRows.unavailable),
+    orgCurrentUnavailable: createStatData("组织数据", "当前组织数", "数据不可用数", 2, orgRows.unavailable),
+    orgCurrentExited: createStatData("组织数据", "当前组织数", "退出数", 1, orgRows.exited),
     orgPublishedAvailable: createStatData("组织数据", "已发布任务数", "数据可用数", 10, orgRows.available),
     orgPublishedDraft: createStatData("组织数据", "已发布任务数", "草稿数", 1, orgRows.draft),
-    orgPublishedUnavailable: createStatData("组织数据", "已发布任务数", "数据不可用数", 2, orgRows.unavailable),
+    orgPublishedUnavailable: createStatData("组织数据", "已发布任务数", "数据不可用数", 1, orgRows.unavailable),
+    orgPublishedExited: createStatData("组织数据", "已发布任务数", "退出数", 1, orgRows.exited),
     orgUnpublishedAvailable: createStatData("组织数据", "未发布任务数", "数据可用数", 2, orgRows.available),
     orgUnpublishedDraft: createStatData("组织数据", "未发布任务数", "草稿数", 1, orgRows.draft),
     orgUnpublishedUnavailable: createStatData("组织数据", "未发布任务数", "数据不可用数", 0, orgRows.unavailable),
+    orgUnpublishedExited: createStatData("组织数据", "未发布任务数", "退出数", 0, orgRows.exited),
     orgNoEvalAvailable: createStatData("组织数据", "不参与评估数", "数据可用数", 1, orgRows.available),
     orgNoEvalDraft: createStatData("组织数据", "不参与评估数", "草稿数", 0, orgRows.draft),
     orgNoEvalUnavailable: createStatData("组织数据", "不参与评估数", "数据不可用数", 1, orgRows.unavailable),
-    projectCurrentTotal: createTotalData("项目数据", "当前项目数", 42, projectRows.available.concat(projectRows.draft, projectRows.unavailable)),
-    projectPublishedTotal: createTotalData("项目数据", "已发布任务数", 31, projectRows.available.concat(projectRows.draft, projectRows.unavailable)),
+    orgNoEvalExited: createStatData("组织数据", "不参与评估数", "退出数", 0, orgRows.exited),
+    projectCurrentTotal: createTotalData("项目数据", "当前项目数", 42, projectRows.available.concat(projectRows.draft, projectRows.unavailable, projectRows.exited)),
+    projectPublishedTotal: createTotalData("项目数据", "已发布任务数", 31, projectRows.available.concat(projectRows.draft, projectRows.unavailable, projectRows.exited)),
     projectUnpublishedTotal: createTotalData("项目数据", "未发布任务数", 5, projectRows.available.concat(projectRows.draft)),
-    projectNoEvalTotal: createTotalData("项目数据", "不参与评估数", 6, projectRows.available.concat(projectRows.draft, projectRows.unavailable)),
+    projectNoEvalTotal: createTotalData("项目数据", "不参与评估数", 6, projectRows.available.concat(projectRows.draft, projectRows.unavailable, projectRows.exited)),
     projectCurrentAvailable: createStatData("项目数据", "当前项目数", "数据可用数", 33, projectRows.available),
     projectCurrentDraft: createStatData("项目数据", "当前项目数", "草稿数", 4, projectRows.draft),
-    projectCurrentUnavailable: createStatData("项目数据", "当前项目数", "数据不可用数", 5, projectRows.unavailable),
+    projectCurrentUnavailable: createStatData("项目数据", "当前项目数", "数据不可用数", 3, projectRows.unavailable),
+    projectCurrentExited: createStatData("项目数据", "当前项目数", "退出数", 2, projectRows.exited),
     projectPublishedAvailable: createStatData("项目数据", "已发布任务数", "数据可用数", 26, projectRows.available),
     projectPublishedDraft: createStatData("项目数据", "已发布任务数", "草稿数", 2, projectRows.draft),
-    projectPublishedUnavailable: createStatData("项目数据", "已发布任务数", "数据不可用数", 3, projectRows.unavailable),
+    projectPublishedUnavailable: createStatData("项目数据", "已发布任务数", "数据不可用数", 2, projectRows.unavailable),
+    projectPublishedExited: createStatData("项目数据", "已发布任务数", "退出数", 1, projectRows.exited),
     projectUnpublishedAvailable: createStatData("项目数据", "未发布任务数", "数据可用数", 4, projectRows.available),
     projectUnpublishedDraft: createStatData("项目数据", "未发布任务数", "草稿数", 1, projectRows.draft),
     projectUnpublishedUnavailable: createStatData("项目数据", "未发布任务数", "数据不可用数", 0, projectRows.unavailable),
+    projectUnpublishedExited: createStatData("项目数据", "未发布任务数", "退出数", 0, projectRows.exited),
     projectNoEvalAvailable: createStatData("项目数据", "不参与评估数", "数据可用数", 3, projectRows.available),
     projectNoEvalDraft: createStatData("项目数据", "不参与评估数", "草稿数", 1, projectRows.draft),
-    projectNoEvalUnavailable: createStatData("项目数据", "不参与评估数", "数据不可用数", 2, projectRows.unavailable)
+    projectNoEvalUnavailable: createStatData("项目数据", "不参与评估数", "数据不可用数", 1, projectRows.unavailable),
+    projectNoEvalExited: createStatData("项目数据", "不参与评估数", "退出数", 1, projectRows.exited)
   };
 
   function createStatBar() {
@@ -73,16 +83,16 @@
       "统计提示：根据查询条件统计去重后的组织、项目数据状态及任务发布情况" +
       "</div>" +
       createStatGroup("组织数据", [
-        ["当前组织数", "orgCurrentTotal", ["orgCurrentAvailable", "orgCurrentDraft", "orgCurrentUnavailable"]],
-        ["已发布任务数", "orgPublishedTotal", ["orgPublishedAvailable", "orgPublishedDraft", "orgPublishedUnavailable"]],
-        ["未发布任务数", "orgUnpublishedTotal", ["orgUnpublishedAvailable", "orgUnpublishedDraft", "orgUnpublishedUnavailable"]],
-        ["不参与评估数", "orgNoEvalTotal", ["orgNoEvalAvailable", "orgNoEvalDraft", "orgNoEvalUnavailable"]]
+        ["当前组织数", "orgCurrentTotal", ["orgCurrentAvailable", "orgCurrentDraft", "orgCurrentUnavailable", "orgCurrentExited"]],
+        ["已发布任务数", "orgPublishedTotal", ["orgPublishedAvailable", "orgPublishedDraft", "orgPublishedUnavailable", "orgPublishedExited"]],
+        ["未发布任务数", "orgUnpublishedTotal", ["orgUnpublishedAvailable", "orgUnpublishedDraft", "orgUnpublishedUnavailable", "orgUnpublishedExited"]],
+        ["不参与评估数", "orgNoEvalTotal", ["orgNoEvalAvailable", "orgNoEvalDraft", "orgNoEvalUnavailable", "orgNoEvalExited"]]
       ]) +
       createStatGroup("项目数据", [
-        ["当前项目数", "projectCurrentTotal", ["projectCurrentAvailable", "projectCurrentDraft", "projectCurrentUnavailable"]],
-        ["已发布任务数", "projectPublishedTotal", ["projectPublishedAvailable", "projectPublishedDraft", "projectPublishedUnavailable"]],
-        ["未发布任务数", "projectUnpublishedTotal", ["projectUnpublishedAvailable", "projectUnpublishedDraft", "projectUnpublishedUnavailable"]],
-        ["不参与评估数", "projectNoEvalTotal", ["projectNoEvalAvailable", "projectNoEvalDraft", "projectNoEvalUnavailable"]]
+        ["当前项目数", "projectCurrentTotal", ["projectCurrentAvailable", "projectCurrentDraft", "projectCurrentUnavailable", "projectCurrentExited"]],
+        ["已发布任务数", "projectPublishedTotal", ["projectPublishedAvailable", "projectPublishedDraft", "projectPublishedUnavailable", "projectPublishedExited"]],
+        ["未发布任务数", "projectUnpublishedTotal", ["projectUnpublishedAvailable", "projectUnpublishedDraft", "projectUnpublishedUnavailable", "projectUnpublishedExited"]],
+        ["不参与评估数", "projectNoEvalTotal", ["projectNoEvalAvailable", "projectNoEvalDraft", "projectNoEvalUnavailable", "projectNoEvalExited"]]
       ]);
 
     var base = document.getElementById("base");
