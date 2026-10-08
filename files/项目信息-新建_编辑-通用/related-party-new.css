@@ -1,0 +1,232 @@
+#rpnTabButton {
+  position: absolute;
+  left: 2827px;
+  top: 242px;
+  width: 148px;
+  height: 48px;
+  z-index: 10000;
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: 1px solid #d9d9d9;
+  background: #fff;
+  color: #333;
+  font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  cursor: pointer;
+}
+
+#rpnTabButton:hover,
+#rpnTabButton.active {
+  color: #00a88f;
+}
+
+#rpnTabButton.active {
+  border-bottom: 2px solid #00a88f;
+  font-weight: 600;
+}
+
+#rpnTabPanel {
+  display: none;
+  position: absolute;
+  left: 243px;
+  top: 290px;
+  width: 3134px;
+  min-height: 3500px;
+  padding: 24px 30px 80px;
+  box-sizing: border-box;
+  z-index: 9999;
+  background: #f5f7f9;
+  color: #333;
+  font: 14px/1.5 "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+}
+
+#rpnTabPanel.active {
+  display: block;
+}
+
+.rpn-page {
+  width: 2320px;
+}
+
+.rpn-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-height: 46px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #dfe5e8;
+  background: #fff;
+}
+
+.rpn-record-tabs,
+.rpn-toolbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.rpn-record-tab {
+  min-width: 150px;
+  height: 46px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: #fff;
+  color: #34495e;
+  font: 600 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.rpn-record-tab.active {
+  border-bottom-color: #00a88f;
+  color: #00a88f;
+}
+
+.rpn-toolbar-actions {
+  align-self: center;
+  gap: 10px;
+  padding-right: 12px;
+}
+
+.rpn-action-button {
+  min-width: 72px;
+  height: 34px;
+  padding: 0 18px;
+  box-sizing: border-box;
+  border: 1px solid #cfd7dc;
+  border-radius: 2px;
+  background: #fff;
+  color: #34495e;
+  font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.rpn-action-button:hover {
+  border-color: #00a88f;
+  color: #00a88f;
+}
+
+.rpn-action-button--primary {
+  border-color: #00a88f;
+  background: #00a88f;
+  color: #fff;
+}
+
+.rpn-action-button--primary:hover {
+  background: #00977f;
+  color: #fff;
+}
+
+.rpn-section {
+  margin-bottom: 22px;
+  border: 1px solid #dfe5e8;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(31, 45, 61, 0.04);
+}
+
+.rpn-section-title {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 20px;
+  border-bottom: 1px solid #dfe5e8;
+  background: #eef8f6;
+  color: #1f3d37;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.rpn-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 24px;
+  padding: 18px;
+}
+
+.rpn-group {
+  grid-column: 1 / -1;
+  border: 1px solid #e6ebee;
+  background: #fff;
+}
+
+.rpn-group-title {
+  min-height: 38px;
+  padding: 9px 16px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e6ebee;
+  background: #f7f9fa;
+  color: #34495e;
+  font-weight: 600;
+}
+
+.rpn-field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 24px;
+  padding: 18px;
+}
+
+.rpn-field {
+  min-width: 0;
+}
+
+.rpn-field--wide {
+  grid-column: 1 / -1;
+}
+
+.rpn-field-label {
+  min-height: 22px;
+  margin-bottom: 7px;
+  color: #4b5964;
+  line-height: 22px;
+}
+
+.rpn-required {
+  margin-right: 3px;
+  color: #d9001b;
+}
+
+.rpn-control {
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border: 1px solid #cfd7dc;
+  border-radius: 2px;
+  background: #fff;
+  color: #333;
+  font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  outline: none;
+}
+
+select.rpn-control {
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+.rpn-control:focus {
+  border-color: #00a88f;
+  box-shadow: 0 0 0 2px rgba(0, 168, 143, 0.1);
+}
+
+textarea.rpn-control {
+  min-height: 82px;
+  padding: 8px 10px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.rpn-empty::placeholder {
+  color: #a6adb4;
+}
+
+.rpn-source-note {
+  margin: -4px 0 18px;
+  color: #7a8790;
+  font-size: 13px;
+}
+
+@media (max-width: 1900px) {
+  .rpn-page {
+    width: 2100px;
+  }
+}
