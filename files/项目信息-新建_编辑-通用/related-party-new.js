@@ -2,7 +2,7 @@
   "use strict";
 
   var fields = [
-    { col: "D", section: "项目及单位信息", group: "基本信息", label: "端口", value: "非开发板块", required: true, type: "select", options: ["开发板块", "非开发板块"] },
+    { col: "D", section: "项目及单位信息", group: "基本信息", label: "端口", value: "非开发板块", required: true, type: "select", options: ["开发板块", "非开发板块"], hidden: true },
     { col: "E", section: "项目及单位信息", group: "基本信息", label: "我方角色", value: "使用人", required: true, type: "text" },
 
     { col: "F", section: "外包分包单位情况摸排", group: "基本信息", label: "相关方角色", value: "外包供应商", type: "text" },
@@ -10,8 +10,8 @@
     { col: "H", section: "外包分包单位情况摸排", group: "基本信息", label: "是否存在业务转包", value: "否", type: "select", options: ["是", "否"] },
     { col: "I", section: "外包分包单位情况摸排", group: "基本信息", label: "转包业务单位名称（存在转包时填写）", value: "/", type: "text" },
     { col: "J", section: "外包分包单位情况摸排", group: "基本信息", label: "业务描述（指在本单位开展的业务或服务）", value: "档案整理服务", type: "textarea" },
-    { col: "STORE_TYPE", section: "外包分包单位情况摸排", group: "基本信息", label: "门店类型", value: "", type: "select", options: ["直营门店", "加盟门店", "不涉及"] },
-    { col: "K", section: "外包分包单位情况摸排", group: "是否内部单位", label: "是否内部单位", value: "集团内部单位", required: true, type: "select", options: ["集团内部单位", "公司内部单位", "外部单位"] },
+    { col: "STORE_TYPE", section: "外包分包单位情况摸排", group: "基本信息", label: "门店类型", value: "", type: "select", options: ["直营门店", "加盟门店", "不涉及"], hidden: true },
+    { col: "K", section: "外包分包单位情况摸排", group: "基本信息", label: "是否内部单位", value: "集团内部单位", required: true, type: "select", options: ["集团内部单位", "公司内部单位", "外部单位"] },
 
     { col: "L", section: "外包分包单位情况摸排", group: "安全准入条件", label: "经营资质", value: "是，符合经营资质范围", type: "select", options: ["是，符合经营资质范围", "否，法规无要求", "是，但超出经营资质范围", "否，无经营资质"] },
     { col: "M", section: "外包分包单位情况摸排", group: "安全准入条件", label: "安全许可情况", value: "是，具备安全许可", required: true, type: "select", options: ["是，具备安全许可", "否，法规无要求", "否，缺少安全许可"] },
@@ -55,6 +55,7 @@
     { col: "AW", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "有无机制", value: "有", type: "select", options: ["有", "无"] },
     { col: "AX", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "黑名单管理", value: "有", required: true, type: "select", options: ["有", "无"] },
 
+    { col: "PROBLEM_EXISTS", section: "存在问题及举措建议", group: "存在问题及举措建议", label: "是否存在问题/难点", value: "", required: true, type: "select", options: ["是", "否"] },
     { col: "AY", section: "存在问题及举措建议", group: "存在问题及举措建议", label: "存在问题/难点", value: "", required: true, type: "textarea", wide: true },
     { col: "AZ", section: "存在问题及举措建议", group: "存在问题及举措建议", label: "改进举措", value: "", required: true, type: "textarea", wide: true },
     { col: "BA", section: "备注", group: "备注", label: "备注", value: "", type: "textarea", wide: true }
@@ -122,7 +123,7 @@
           '<button class="rpn-action-button rpn-action-button--primary" type="button">新增</button>' +
         '</div>' +
       '</div>' + sectionOrder.map(function (section) {
-      var sectionFields = fields.filter(function (field) { return field.section === section; });
+      var sectionFields = fields.filter(function (field) { return field.section === section && !field.hidden; });
       var groups = [];
       sectionFields.forEach(function (field) {
         if (groups.indexOf(field.group) === -1) groups.push(field.group);
@@ -131,6 +132,9 @@
         '<div class="rpn-section-title">' + escapeHtml(section) + '</div>' +
         '<div class="rpn-groups">' + groups.map(function (group) {
           var groupFields = sectionFields.filter(function (field) { return field.group === group; });
+          if (section === "项目及单位信息" && group === "基本信息") {
+            return groupFields.map(fieldHtml).join("");
+          }
           if (groupFields.length === 1 && groupFields[0].label === group) {
             return fieldHtml(groupFields[0]);
           }
@@ -173,6 +177,34 @@
     var recordStates = {};
     var activeRecordId = "1";
 
+    function setConditionalField(control, visible) {
+      var field = control && control.closest(".rpn-field");
+      if (!control || !field) return;
+      field.classList.toggle("rpn-conditional-hidden", !visible);
+      control.disabled = !visible;
+      if (visible) {
+        control.required = control.getAttribute("data-conditional-required") === "true";
+        if (control.required) control.setAttribute("aria-required", "true");
+      } else {
+        if (!control.hasAttribute("data-conditional-required")) {
+          control.setAttribute("data-conditional-required", control.required ? "true" : "false");
+        }
+        control.required = false;
+        control.removeAttribute("aria-required");
+      }
+    }
+
+    function refreshConditionalFields() {
+      var assessmentMode = ui.panel.querySelector("#rpnFieldAT");
+      var assessmentCycle = ui.panel.querySelector("#rpnFieldAU");
+      var problemExists = ui.panel.querySelector("#rpnFieldPROBLEM_EXISTS");
+      var problemDetail = ui.panel.querySelector("#rpnFieldAY");
+      var improvement = ui.panel.querySelector("#rpnFieldAZ");
+      setConditionalField(assessmentCycle, assessmentMode && assessmentMode.value === "定期考核");
+      setConditionalField(problemDetail, problemExists && problemExists.value === "是");
+      setConditionalField(improvement, problemExists && problemExists.value === "是");
+    }
+
     function captureRecordState() {
       var state = {};
       Array.prototype.forEach.call(ui.panel.querySelectorAll("[data-excel-column]"), function (control) {
@@ -187,10 +219,17 @@
         control.value = Object.prototype.hasOwnProperty.call(state, col) ? state[col] : "";
         control.classList.toggle("rpn-empty", !control.value);
       });
+      refreshConditionalFields();
     }
 
     recordStates["1"] = captureRecordState();
     recordStates["2"] = captureRecordState();
+
+    ["rpnFieldAT", "rpnFieldPROBLEM_EXISTS"].forEach(function (id) {
+      var controller = ui.panel.querySelector("#" + id);
+      if (controller) controller.addEventListener("change", refreshConditionalFields);
+    });
+    refreshConditionalFields();
 
     Array.prototype.forEach.call(ui.panel.querySelectorAll(".rpn-record-tab"), function (recordTab) {
       recordTab.addEventListener("click", function () {

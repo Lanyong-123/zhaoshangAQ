@@ -169,6 +169,10 @@
   min-width: 0;
 }
 
+.rpn-field.rpn-conditional-hidden {
+  display: none;
+}
+
 .rpn-field--wide {
   grid-column: 1 / -1;
 }
