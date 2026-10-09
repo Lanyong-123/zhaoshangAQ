@@ -3,10 +3,10 @@
 
   var fields = [
     { col: "D", section: "项目及单位信息", group: "基本信息", label: "端口", value: "非开发板块", required: true, type: "select", options: ["开发板块", "非开发板块"], hidden: true },
-    { col: "E", section: "项目及单位信息", group: "基本信息", label: "我方角色", value: "使用人", required: true, type: "text" },
+    { col: "E", section: "项目及单位信息", group: "基本信息", label: "我方角色", value: "使用人", required: true, type: "text", hidden: true },
 
-    { col: "F", section: "外包分包单位情况摸排", group: "基本信息", label: "相关方角色", value: "外包供应商", type: "text" },
     { col: "G", section: "外包分包单位情况摸排", group: "基本信息", label: "外包分包方名称", value: "", type: "text" },
+    { col: "F", section: "外包分包单位情况摸排", group: "基本信息", label: "相关方角色", value: "外包供应商", type: "text" },
     { col: "H", section: "外包分包单位情况摸排", group: "基本信息", label: "是否存在业务转包", value: "否", type: "select", options: ["是", "否"] },
     { col: "I", section: "外包分包单位情况摸排", group: "基本信息", label: "转包业务单位名称（存在转包时填写）", value: "/", type: "text" },
     { col: "J", section: "外包分包单位情况摸排", group: "基本信息", label: "业务描述（指在本单位开展的业务或服务）", value: "档案整理服务", type: "textarea" },
@@ -122,7 +122,9 @@
           '<button class="rpn-action-button" type="button">导出</button>' +
           '<button class="rpn-action-button rpn-action-button--primary" type="button">新增</button>' +
         '</div>' +
-      '</div>' + sectionOrder.map(function (section) {
+      '</div>' + sectionOrder.filter(function (section) {
+      return fields.some(function (field) { return field.section === section && !field.hidden; });
+    }).map(function (section) {
       var sectionFields = fields.filter(function (field) { return field.section === section && !field.hidden; });
       var groups = [];
       sectionFields.forEach(function (field) {
