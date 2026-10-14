@@ -6,7 +6,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
     <link href="data/styles.css" type="text/css" rel="stylesheet"/>
-    <link href="files/任务结果查询/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="files/任务结果查询/styles.css?v=20261014_3" type="text/css" rel="stylesheet"/>
     <script src="resources/scripts/jquery-3.2.1.min.js"></script>
     <script src="resources/scripts/axure/axQuery.js"></script>
     <script src="resources/scripts/axure/globals.js"></script>
@@ -2373,9 +2373,18 @@
             <div id="u79883" class="ax_default label">
               <div id="u79883_div" class=""></div>
               <div id="u79883_text" class="text ">
-                <p><span>取最新的评估内容</span></p>
+                <p><span>操作说明：报告审核流程最后一个节点审核通过后，展示评估实施内容；否则仅展示评估要素，不展示实施内容。</span></p>
               </div>
             </div>
+
+            <!-- 四期需求：监督评审任务详情须在报告审核最终通过后展示 -->
+            <div id="reportAuditTaskDetailRule" class="report-audit-rule-note">
+              <strong>任务详情展示规则：</strong><br/>
+              监督评审时，报告审核未通过则屏蔽“任务详情”；分管领导、主要负责人均审核通过后，才形成最终结果并展示任务详情。
+            </div>
+            <div class="report-audit-rule-line-horizontal" aria-hidden="true"></div>
+            <div class="report-audit-rule-line-vertical" aria-hidden="true"></div>
+            <div class="report-audit-task-detail-target" aria-hidden="true"></div>
 
             <!-- Unnamed (矩形) -->
             <div id="u79884" class="ax_default box_1">
@@ -2854,7 +2863,7 @@
             <div id="u79934" class="ax_default label">
               <div id="u79934_div" class=""></div>
               <div id="u79934_text" class="text ">
-                <p><span>操作说明：任务实施监测管理员全部审核后出报告后，分数和结果、报告才展示，否则，多人实施时，只一人提交则不展示</span></p>
+                <p><span>操作说明：报告审核流程中，分管领导、主要负责人均审核通过后，分数、最终结果及报告才展示；任一节点未通过均不展示。</span></p>
               </div>
             </div>
 

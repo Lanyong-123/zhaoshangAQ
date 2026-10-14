@@ -10217,8 +10217,8 @@
   position:absolute;
   left:0px;
   top:0px;
-  width:113px;
-  height:20px;
+  width:720px;
+  height:40px;
   background:inherit;
   background-color:rgba(255, 255, 255, 0);
   border:none;
@@ -10236,8 +10236,8 @@
   position:absolute;
   left:1032px;
   top:186px;
-  width:113px;
-  height:20px;
+  width:720px;
+  height:40px;
   display:flex;
   font-family:'PingFangSC-Regular', 'PingFang SC', sans-serif;
   font-weight:400;
@@ -10253,8 +10253,49 @@
 }
 #u79883_text {
   border-width:0px;
-  white-space:nowrap;
+  word-wrap:break-word;
   text-transform:none;
+}
+
+/* 四期需求：报告最终审核通过后，监督评审才展示任务详情。 */
+.report-audit-rule-note {
+  position:absolute;
+  left:2200px;
+  top:270px;
+  width:550px;
+  min-height:76px;
+  box-sizing:border-box;
+  padding:10px 14px;
+  border:2px dashed #D9001B;
+  background-color:rgba(255, 255, 255, 0.96);
+  color:#D9001B;
+  font-family:'PingFangSC-Regular', 'PingFang SC', sans-serif;
+  font-size:14px;
+  line-height:22px;
+  z-index:20;
+}
+.report-audit-rule-line-horizontal {
+  position:absolute;
+  left:1918px;
+  top:310px;
+  width:282px;
+  border-top:2px dashed #D9001B;
+  z-index:19;
+}
+.report-audit-rule-line-vertical {
+  display:none;
+}
+.report-audit-task-detail-target {
+  position:absolute;
+  left:1827px;
+  top:280px;
+  width:91px;
+  height:30px;
+  box-sizing:border-box;
+  border:3px solid #F24848;
+  border-radius:2px;
+  z-index:18;
+  pointer-events:none;
 }
 #u79884_div {
   border-width:0px;
@@ -13334,8 +13375,8 @@
   position:absolute;
   left:0px;
   top:0px;
-  width:393px;
-  height:40px;
+  width:430px;
+  height:60px;
   background:inherit;
   background-color:rgba(255, 255, 255, 0);
   border:none;
@@ -13353,8 +13394,8 @@
   position:absolute;
   left:528px;
   top:166px;
-  width:393px;
-  height:40px;
+  width:430px;
+  height:60px;
   display:flex;
   font-family:'PingFangSC-Regular', 'PingFang SC', sans-serif;
   font-weight:400;
