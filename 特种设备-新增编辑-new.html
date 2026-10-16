@@ -6,7 +6,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
     <link href="data/styles.css" type="text/css" rel="stylesheet"/>
-    <link href="files/特种设备-新增编辑-new/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="files/特种设备-新增编辑-new/styles.css?v=20261016_3" type="text/css" rel="stylesheet"/>
     <script src="resources/scripts/jquery-3.2.1.min.js"></script>
     <script src="resources/scripts/axure/axQuery.js"></script>
     <script src="resources/scripts/axure/globals.js"></script>
@@ -858,6 +858,42 @@
         <img id="u9887_seg1" class="img " src="images/特种设备-新增编辑-new/u9887_seg1.svg" alt="u9887_seg1"/>
         <div id="u9887_text" class="text " style="display:none; visibility: hidden">
           <p></p>
+        </div>
+      </div>
+
+      <!-- 四期需求：维保信息表单（新增、修改共用） -->
+      <div id="specialEquipmentMaintenanceForm" class="special-equipment-maintenance-form">
+        <div class="special-equipment-maintenance-title">维保信息</div>
+        <div class="special-equipment-maintenance-grid">
+          <div class="special-equipment-maintenance-item">
+            <label for="maintenanceCompany">维保单位：</label>
+            <input id="maintenanceCompany" class="maintenance-text-input" type="text" placeholder="请输入维保单位" />
+          </div>
+          <div class="special-equipment-maintenance-item">
+            <label for="maintenanceStartDate">维保周期：</label>
+            <div class="maintenance-date-range">
+              <input id="maintenanceStartDate" type="date" aria-label="维保开始日期" />
+              <span>至</span>
+              <input id="maintenanceEndDate" type="date" aria-label="维保结束日期" />
+            </div>
+          </div>
+          <div class="special-equipment-maintenance-item">
+            <label>维保资质：</label>
+            <label class="maintenance-upload-control">
+              <span class="maintenance-upload-placeholder">请选择资质附件</span>
+              <span class="maintenance-upload-button">上传附件</span>
+              <input type="file" aria-label="上传维保资质附件" />
+            </label>
+          </div>
+          <div class="special-equipment-maintenance-item maintenance-person-item">
+            <label for="maintenancePerson">电梯维保员：</label>
+            <input id="maintenancePerson" class="maintenance-person-input" type="text" placeholder="请输入姓名" />
+            <label class="maintenance-upload-control maintenance-certificate-upload">
+              <span class="maintenance-upload-placeholder">请选择证书附件</span>
+              <span class="maintenance-upload-button">上传附件</span>
+              <input type="file" aria-label="上传电梯维保员证书附件" />
+            </label>
+          </div>
         </div>
       </div>
 
