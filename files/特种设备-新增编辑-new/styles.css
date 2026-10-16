@@ -4847,9 +4847,9 @@
 .special-equipment-maintenance-form {
   position:absolute;
   left:63px;
-  top:1080px;
+  top:1078px;
   width:1080px;
-  height:112px;
+  height:126px;
   box-sizing:border-box;
   color:#333333;
   font-family:'PingFangSC-Regular', 'PingFang SC', sans-serif;
@@ -4857,23 +4857,23 @@
   z-index:20;
 }
 .special-equipment-maintenance-title {
-  height:30px;
+  height:24px;
   padding-left:0;
   font-size:14px;
-  line-height:30px;
+  line-height:24px;
   text-align:left;
 }
 .special-equipment-maintenance-grid {
   display:grid;
   grid-template-columns:440px 620px;
   column-gap:20px;
-  row-gap:8px;
+  row-gap:4px;
 }
 .special-equipment-maintenance-item {
   display:flex;
   align-items:center;
   min-width:0;
-  height:30px;
+  height:28px;
 }
 .special-equipment-maintenance-item > label:first-child {
   width:141px;
@@ -4883,10 +4883,17 @@
   text-align:right;
   white-space:nowrap;
 }
+.maintenance-required-label::before {
+  content:'*';
+  margin-right:3px;
+  color:#D9001B;
+  font-family:'ArialMT', 'Arial', sans-serif;
+}
 .maintenance-text-input,
 .maintenance-person-input,
-.maintenance-date-range input {
-  height:30px;
+.maintenance-date-range input,
+.maintenance-level-select {
+  height:28px;
   box-sizing:border-box;
   padding:4px 8px;
   border:1px solid #D7D7D7;
@@ -4914,7 +4921,7 @@
   position:relative;
   display:flex;
   width:300px;
-  height:30px;
+  height:28px;
   box-sizing:border-box;
   overflow:hidden;
   border:1px solid #D7D7D7;
@@ -4928,7 +4935,7 @@
   padding:4px 8px;
   overflow:hidden;
   color:#A6A6A6;
-  line-height:20px;
+  line-height:18px;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
@@ -4938,7 +4945,7 @@
   border-left:1px solid #D7D7D7;
   background:#F5F5F5;
   color:#555555;
-  line-height:28px;
+  line-height:26px;
   text-align:center;
 }
 .maintenance-upload-control input[type="file"] {
@@ -4955,6 +4962,16 @@
 }
 .maintenance-certificate-upload {
   width:270px;
+}
+.maintenance-level-select {
+  width:300px;
+  padding:3px 8px;
+  border:1px solid #D7D7D7;
+  border-radius:0;
+  background:#FFFFFF;
+  color:#333333;
+  font-family:'PingFangSC-Regular', 'PingFang SC', sans-serif;
+  font-size:14px;
 }
 #u9888_div {
   border-width:0px;
