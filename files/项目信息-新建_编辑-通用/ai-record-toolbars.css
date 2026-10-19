@@ -1,0 +1,158 @@
+/* 租户信息、相关方信息操作区（复用楼栋信息的视觉规范） */
+.ai-record-toolbar {
+  top: 116px;
+}
+
+.ai-record-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.ai-record-toggle span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid #647188;
+  border-bottom: 1.5px solid #647188;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .15s ease;
+}
+
+.ai-building-combobox.ai-open .ai-record-toggle span {
+  transform: translateY(3px) rotate(225deg);
+}
+
+/* 租户信息 */
+#u4329_state12 #u7737,
+#u4329_state12 #u7738,
+#u4329_state12 #u7744,
+#u4329_state12 #u7745 {
+  display: none !important;
+}
+
+#u4329_state12 #u7746 {
+  left: 12px;
+  top: 28px;
+  width: 520px;
+}
+
+#u4329_state12 #u7739,
+#u4329_state12 #u7740 {
+  top: 64px;
+  width: 130px;
+  height: 42px;
+  cursor: pointer;
+}
+
+#u4329_state12 #u7739 { left: 9px; }
+#u4329_state12 #u7740 { left: 139px; }
+
+#u4329_state12 #u7739_div,
+#u4329_state12 #u7740_div {
+  width: 130px;
+  height: 42px;
+  border: 1px solid #d8dee8;
+  background: #fff;
+}
+
+#u4329_state12 #u7739 .text,
+#u4329_state12 #u7740 .text {
+  padding: 0;
+  align-self: center;
+  text-align: center;
+  color: #4d5a70;
+}
+
+#u4329_state12 #u7739.ai-active #u7739_div,
+#u4329_state12 #u7740.ai-active #u7740_div,
+#u4329_state12 #u7739_div.selected,
+#u4329_state12 #u7740_div.selected {
+  border-color: #1688db;
+  background: linear-gradient(180deg, #168ee0 0%, #0878c6 100%);
+  box-shadow: 0 2px 5px rgba(15, 126, 205, .22);
+}
+
+#u4329_state12 #u7739.ai-active .text,
+#u4329_state12 #u7740.ai-active .text,
+#u4329_state12 #u7739.selected .text,
+#u4329_state12 #u7740.selected .text {
+  color: #fff;
+}
+
+#u4329_state12 #u7487 {
+  top: 118px;
+  transition: top .15s ease;
+}
+
+#u4329_state12.ai-tenant-active #u7487 {
+  top: 190px;
+}
+
+#u4329_state12.ai-tenant-active #ai-tenant-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 相关方管理 */
+#u4329_state3 #u4847,
+#u4329_state3 #u4848,
+#u4329_state3 #u4851,
+#u4329_state3 #u4853,
+#u4329_state3 #u4854,
+#u4329_state3 #u4855 {
+  display: none !important;
+}
+
+#u4329_state3 #u4852 {
+  left: 12px;
+  top: 28px;
+  width: 600px;
+}
+
+#u4329_state3 #u4850 {
+  left: 13px;
+  top: 64px;
+  width: 130px;
+  height: 42px;
+  cursor: pointer;
+}
+
+#u4329_state3 #u4850_div {
+  width: 130px;
+  height: 42px;
+  border: 1px solid #1688db;
+  background: linear-gradient(180deg, #168ee0 0%, #0878c6 100%);
+  box-shadow: 0 2px 5px rgba(15, 126, 205, .22);
+}
+
+#u4329_state3 #u4850 .text {
+  padding: 0;
+  align-self: center;
+  text-align: center;
+  color: #fff;
+}
+
+#u4329_state3 #ai-related-toolbar {
+  left: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#u4329_state3 .ai-related-form-shift {
+  transform: translateY(80px);
+}
+
+#u4329_state3 #ai-related-toolbar,
+#u4329_state3 #u4850,
+#u4329_state3 #u4852 {
+  transform: none;
+}

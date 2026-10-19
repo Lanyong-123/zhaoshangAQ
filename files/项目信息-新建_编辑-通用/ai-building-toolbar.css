@@ -1,0 +1,316 @@
+/* 技术信息 / 楼栋信息操作区（AI开发版） */
+#u4329_state10 #u7310,
+#u4329_state10 #u7311,
+#u4329_state10 #u7302,
+#u4329_state10 #u7303 {
+  display: none !important;
+}
+
+#u4329_state10 #u7312 {
+  left: 12px;
+  top: 28px;
+  width: 520px;
+}
+
+#u4329_state10 #u7304,
+#u4329_state10 #u7305 {
+  top: 64px;
+  width: 130px;
+  height: 42px;
+  cursor: pointer;
+}
+
+#u4329_state10 #u7304 {
+  left: 9px;
+}
+
+#u4329_state10 #u7305 {
+  left: 139px;
+}
+
+#u4329_state10 #u7304_div,
+#u4329_state10 #u7305_div {
+  width: 130px;
+  height: 42px;
+  border: 1px solid #d8dee8;
+  background: #fff;
+}
+
+#u4329_state10 #u7304 .text,
+#u4329_state10 #u7305 .text {
+  padding: 0;
+  align-self: center;
+  text-align: center;
+  color: #4d5a70;
+}
+
+#u4329_state10 #u7304.ai-active #u7304_div,
+#u4329_state10 #u7305.ai-active #u7305_div,
+#u4329_state10 #u7304_div.selected,
+#u4329_state10 #u7305_div.selected {
+  border-color: #1688db;
+  background: linear-gradient(180deg, #168ee0 0%, #0878c6 100%);
+  box-shadow: 0 2px 5px rgba(15, 126, 205, .22);
+}
+
+#u4329_state10 #u7304.ai-active .text,
+#u4329_state10 #u7305.ai-active .text,
+#u4329_state10 #u7304.selected .text,
+#u4329_state10 #u7305.selected .text {
+  color: #fff;
+}
+
+#u4329_state10 #u6663 {
+  top: 118px;
+  transition: top .15s ease;
+}
+
+#u4329_state10.ai-building-active #u6663 {
+  top: 190px;
+}
+
+.ai-building-toolbar {
+  box-sizing: border-box;
+  display: none;
+  position: absolute;
+  left: 9px;
+  top: 116px;
+  width: 1452px;
+  min-height: 62px;
+  padding: 10px 10px 11px 20px;
+  border-top: 1px solid #e5e9ef;
+  border-bottom: 1px solid #e5e9ef;
+  background: #fff;
+  color: #445168;
+  font-family: 'PingFangSC-Regular', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+  z-index: 50;
+}
+
+#u4329_state10.ai-building-active .ai-building-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-building-main,
+.ai-building-transfer {
+  display: flex;
+  align-items: center;
+}
+
+.ai-building-main {
+  flex: 1;
+  min-width: 0;
+  gap: 14px;
+}
+
+.ai-building-main > label {
+  width: 70px;
+  flex: 0 0 70px;
+  text-align: right;
+  color: #4f5c70;
+  line-height: 40px;
+}
+
+.ai-building-combobox {
+  position: relative;
+  width: 525px;
+  height: 40px;
+  flex: 0 0 525px;
+  border: 1px solid #d7dde7;
+  border-radius: 2px;
+  background: #fff;
+  box-sizing: border-box;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.ai-building-combobox.ai-open,
+.ai-building-combobox:focus-within {
+  border-color: #1688db;
+  box-shadow: 0 0 0 2px rgba(22, 136, 219, .12);
+}
+
+.ai-building-combobox input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 38px;
+  padding: 0 72px 0 40px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #3d495d;
+  font: inherit;
+}
+
+.ai-building-search-icon {
+  position: absolute;
+  left: 15px;
+  top: 11px;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #738198;
+  border-radius: 50%;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.ai-building-search-icon::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  bottom: -4px;
+  width: 6px;
+  height: 2px;
+  border-radius: 1px;
+  background: #738198;
+  transform: rotate(45deg);
+}
+
+#ai-building-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+#ai-building-toggle span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid #647188;
+  border-bottom: 1.5px solid #647188;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .15s ease;
+}
+
+.ai-building-combobox.ai-open #ai-building-toggle span {
+  transform: translateY(3px) rotate(225deg);
+}
+
+.ai-building-options {
+  display: none;
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  top: 43px;
+  max-height: 224px;
+  overflow-y: auto;
+  padding: 5px 0;
+  border: 1px solid #d7dde7;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(35, 52, 77, .16);
+  z-index: 1000;
+}
+
+.ai-building-combobox.ai-open .ai-building-options {
+  display: block;
+}
+
+.ai-building-option,
+.ai-building-empty {
+  box-sizing: border-box;
+  height: 34px;
+  padding: 7px 14px 7px 40px;
+  color: #3d495d;
+  line-height: 20px;
+}
+
+.ai-building-option {
+  cursor: pointer;
+}
+
+.ai-building-option:hover,
+.ai-building-option[aria-selected='true'] {
+  background: #eaf5fd;
+  color: #0879c9;
+}
+
+.ai-building-empty {
+  color: #919bad;
+}
+
+.ai-building-count {
+  min-width: 68px;
+  color: #4f5c70;
+  white-space: nowrap;
+}
+
+.ai-building-button {
+  box-sizing: border-box;
+  height: 40px;
+  min-width: 104px;
+  padding: 0 20px;
+  border-radius: 2px;
+  font: inherit;
+  cursor: pointer;
+  transition: opacity .15s ease, box-shadow .15s ease;
+  white-space: nowrap;
+}
+
+.ai-building-button:hover {
+  opacity: .88;
+  box-shadow: 0 2px 6px rgba(18, 90, 145, .18);
+}
+
+.ai-building-button-primary {
+  border: 1px solid #1185d5;
+  background: linear-gradient(180deg, #168ee0 0%, #0878c6 100%);
+  color: #fff;
+}
+
+.ai-building-button-danger {
+  min-width: 126px;
+  border: 1px solid #ff5a52;
+  background: #fff;
+  color: #f0443e;
+}
+
+.ai-button-plus {
+  margin-right: 8px;
+  font-size: 18px;
+  line-height: 1;
+  vertical-align: -1px;
+}
+
+.ai-building-transfer {
+  gap: 14px;
+  margin-left: 26px;
+}
+
+.ai-building-transfer .ai-building-button {
+  min-width: 92px;
+}
+
+.ai-building-toast {
+  visibility: hidden;
+  position: absolute;
+  left: 50%;
+  top: 66px;
+  padding: 8px 16px;
+  border-radius: 3px;
+  background: rgba(34, 44, 58, .88);
+  color: #fff;
+  opacity: 0;
+  transform: translateX(-50%) translateY(-4px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.ai-building-toast.ai-show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 1500px) {
+  .ai-building-combobox {
+    width: 430px;
+    flex-basis: 430px;
+  }
+}

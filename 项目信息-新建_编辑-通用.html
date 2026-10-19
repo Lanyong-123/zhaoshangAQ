@@ -7,6 +7,8 @@
     <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
     <link href="data/styles.css" type="text/css" rel="stylesheet"/>
     <link href="files/项目信息-新建_编辑-通用/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="files/项目信息-新建_编辑-通用/ai-building-toolbar.css" type="text/css" rel="stylesheet"/>
+    <link href="files/项目信息-新建_编辑-通用/ai-record-toolbars.css" type="text/css" rel="stylesheet"/>
     <script src="resources/scripts/jquery-3.2.1.min.js"></script>
     <script src="resources/scripts/axure/axQuery.js"></script>
     <script src="resources/scripts/axure/globals.js"></script>
@@ -3728,7 +3730,7 @@
             <div id="u4709" class="ax_default box_1 ax_default_hidden" selectiongroup="Tab标签" style="display:none; visibility: hidden">
               <div id="u4709_div" class=""></div>
               <div id="u4709_text" class="text ">
-                <p><span>XXX管理方</span></p>
+                <p><span>相关方信息</span></p>
               </div>
             </div>
 
@@ -3736,7 +3738,7 @@
             <div id="u4710" class="ax_default box_1 ax_default_hidden" selectiongroup="Tab标签" style="display:none; visibility: hidden">
               <div id="u4710_div" class=""></div>
               <div id="u4710_text" class="text ">
-                <p><span>XXX管理方</span></p>
+                <p><span>相关方信息</span></p>
               </div>
             </div>
 
@@ -4889,7 +4891,7 @@
             <div id="u4850" class="ax_default box_1" selectiongroup="Tab标签">
               <div id="u4850_div" class=""></div>
               <div id="u4850_text" class="text ">
-                <p><span>XXX管理方</span></p>
+                <p><span>相关方信息</span></p>
               </div>
             </div>
 
@@ -4897,7 +4899,7 @@
             <div id="u4851" class="ax_default box_1" selectiongroup="Tab标签">
               <div id="u4851_div" class=""></div>
               <div id="u4851_text" class="text ">
-                <p><span>XXX管理方</span></p>
+                <p><span>相关方信息</span></p>
               </div>
             </div>
 
@@ -4905,7 +4907,7 @@
             <div id="u4852" class="ax_default label">
               <div id="u4852_div" class=""></div>
               <div id="u4852_text" class="text ">
-                <p><span>操作说明：点击新增相关管理方后，相关方名称保存后自动带入tab中</span></p>
+                <p><span>操作说明：点击新增相关方后，相关方名称保存后自动加入下拉列表</span></p>
               </div>
             </div>
 
@@ -4932,6 +4934,27 @@
               <div id="u4855_text" class="text ">
                 <p><span>导出</span></p>
               </div>
+            </div>
+
+            <!-- AI开发：相关方信息操作区 -->
+            <div id="ai-related-toolbar" class="ai-building-toolbar ai-record-toolbar" aria-label="相关方信息操作区">
+              <div class="ai-building-main">
+                <label for="ai-related-search">相关方名称</label>
+                <div id="ai-related-combobox" class="ai-building-combobox" role="combobox" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="ai-building-search-icon" aria-hidden="true"></span>
+                  <input id="ai-related-search" type="text" value="深圳市安保服务有限公司" autocomplete="off" aria-autocomplete="list" aria-controls="ai-related-options"/>
+                  <button id="ai-related-toggle" class="ai-record-toggle" type="button" aria-label="展开相关方列表"><span></span></button>
+                  <div id="ai-related-options" class="ai-building-options" role="listbox"></div>
+                </div>
+                <span id="ai-related-count" class="ai-building-count">共6家</span>
+                <button id="ai-related-add" class="ai-building-button ai-building-button-primary" type="button"><span class="ai-button-plus">+</span>新增相关方</button>
+                <button id="ai-related-delete" class="ai-building-button ai-building-button-danger" type="button">删除当前相关方</button>
+              </div>
+              <div class="ai-building-transfer">
+                <button id="ai-related-import" class="ai-building-button ai-building-button-primary" type="button">导入</button>
+                <button id="ai-related-export" class="ai-building-button ai-building-button-primary" type="button">导出</button>
+              </div>
+              <div id="ai-related-toast" class="ai-building-toast" role="status" aria-live="polite"></div>
             </div>
 
             <!-- Unnamed (矩形) -->
@@ -24522,7 +24545,7 @@
             <div id="u7305" class="ax_default box_1" selectiongroup="Tab标签">
               <div id="u7305_div" class=""></div>
               <div id="u7305_text" class="text ">
-                <p><span>XXX建筑</span></p>
+                <p><span>楼栋信息</span></p>
               </div>
             </div>
 
@@ -24533,7 +24556,7 @@
               <div id="u7307" class="ax_default box_1" selectiongroup="Tab标签">
                 <div id="u7307_div" class=""></div>
                 <div id="u7307_text" class="text ">
-                  <p><span>XXX建筑</span></p>
+                  <p><span>楼栋信息</span></p>
                 </div>
               </div>
 
@@ -24576,6 +24599,27 @@
               <div id="u7312_text" class="text ">
                 <p><span style="font-family:'ArialMT', 'Arial', sans-serif;color:#D9001B;">*</span><span style="font-family:'PingFangSC-Regular', 'PingFang SC', sans-serif;">注：请至少新增一个楼栋信息，同时支持新增多个楼栋</span></p>
               </div>
+            </div>
+
+            <!-- AI开发：楼栋信息操作区 -->
+            <div id="ai-building-toolbar" class="ai-building-toolbar" aria-label="楼栋信息操作区">
+              <div class="ai-building-main">
+                <label for="ai-building-search">楼栋名称</label>
+                <div id="ai-building-combobox" class="ai-building-combobox" role="combobox" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="ai-building-search-icon" aria-hidden="true"></span>
+                  <input id="ai-building-search" type="text" value="12栋" autocomplete="off" aria-autocomplete="list" aria-controls="ai-building-options"/>
+                  <button id="ai-building-toggle" type="button" aria-label="展开楼栋列表"><span></span></button>
+                  <div id="ai-building-options" class="ai-building-options" role="listbox"></div>
+                </div>
+                <span id="ai-building-count" class="ai-building-count">共23栋</span>
+                <button id="ai-building-add" class="ai-building-button ai-building-button-primary" type="button"><span class="ai-button-plus">+</span>新增楼栋</button>
+                <button id="ai-building-delete" class="ai-building-button ai-building-button-danger" type="button">删除当前楼栋</button>
+              </div>
+              <div class="ai-building-transfer">
+                <button id="ai-building-import" class="ai-building-button ai-building-button-primary" type="button">导入</button>
+                <button id="ai-building-export" class="ai-building-button ai-building-button-primary" type="button">导出</button>
+              </div>
+              <div id="ai-building-toast" class="ai-building-toast" role="status" aria-live="polite"></div>
             </div>
           </div>
         </div>
@@ -28099,7 +28143,7 @@
             <div id="u7740" class="ax_default box_1" selectiongroup="Tab标签">
               <div id="u7740_div" class=""></div>
               <div id="u7740_text" class="text ">
-                <p><span>XXX租户</span></p>
+                <p><span>租户信息</span></p>
               </div>
             </div>
 
@@ -28110,7 +28154,7 @@
               <div id="u7742" class="ax_default box_1" selectiongroup="Tab标签">
                 <div id="u7742_div" class=""></div>
                 <div id="u7742_text" class="text ">
-                  <p><span>XXX租户</span></p>
+                  <p><span>租户信息</span></p>
                 </div>
               </div>
 
@@ -28145,6 +28189,27 @@
               <div id="u7746_text" class="text ">
                 <p><span style="font-family:'ArialMT', 'Arial', sans-serif;color:#D9001B;">*</span><span style="font-family:'PingFangSC-Regular', 'PingFang SC', sans-serif;">注：支持新增多个租户</span></p>
               </div>
+            </div>
+
+            <!-- AI开发：租户信息操作区 -->
+            <div id="ai-tenant-toolbar" class="ai-building-toolbar ai-record-toolbar" aria-label="租户信息操作区">
+              <div class="ai-building-main">
+                <label for="ai-tenant-search">租户名称</label>
+                <div id="ai-tenant-combobox" class="ai-building-combobox" role="combobox" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="ai-building-search-icon" aria-hidden="true"></span>
+                  <input id="ai-tenant-search" type="text" value="星巴克（12号铺）" autocomplete="off" aria-autocomplete="list" aria-controls="ai-tenant-options"/>
+                  <button id="ai-tenant-toggle" class="ai-record-toggle" type="button" aria-label="展开租户列表"><span></span></button>
+                  <div id="ai-tenant-options" class="ai-building-options" role="listbox"></div>
+                </div>
+                <span id="ai-tenant-count" class="ai-building-count">共8户</span>
+                <button id="ai-tenant-add" class="ai-building-button ai-building-button-primary" type="button"><span class="ai-button-plus">+</span>新增租户</button>
+                <button id="ai-tenant-delete" class="ai-building-button ai-building-button-danger" type="button">删除当前租户</button>
+              </div>
+              <div class="ai-building-transfer">
+                <button id="ai-tenant-import" class="ai-building-button ai-building-button-primary" type="button">导入</button>
+                <button id="ai-tenant-export" class="ai-building-button ai-building-button-primary" type="button">导出</button>
+              </div>
+              <div id="ai-tenant-toast" class="ai-building-toast" role="status" aria-live="polite"></div>
             </div>
           </div>
         </div>
@@ -44185,6 +44250,8 @@
     <script src="files/项目信息-新建_编辑-通用/property-link.js"></script>
     <script src="files/项目信息-新建_编辑-通用/fire-warranty.js?v=20260916_3"></script>
     <script src="files/项目信息-新建_编辑-通用/related-party-new.js?v=20261009_16"></script>
+    <script src="files/项目信息-新建_编辑-通用/ai-building-toolbar.js?v=20261019_1"></script>
+    <script src="files/项目信息-新建_编辑-通用/ai-record-toolbars.js?v=20261019_1"></script>
     <script src="resources/scripts/axure/ios.js"></script>
   </body>
 </html>
