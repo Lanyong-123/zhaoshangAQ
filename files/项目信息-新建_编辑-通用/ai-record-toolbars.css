@@ -104,6 +104,7 @@
 /* 相关方管理 */
 #u4329_state3 #u4847,
 #u4329_state3 #u4848,
+#u4329_state3 #u4850,
 #u4329_state3 #u4851,
 #u4329_state3 #u4853,
 #u4329_state3 #u4854,
@@ -117,42 +118,19 @@
   width: 600px;
 }
 
-#u4329_state3 #u4850 {
-  left: 13px;
-  top: 64px;
-  width: 130px;
-  height: 42px;
-  cursor: pointer;
-}
-
-#u4329_state3 #u4850_div {
-  width: 130px;
-  height: 42px;
-  border: 1px solid #1688db;
-  background: linear-gradient(180deg, #168ee0 0%, #0878c6 100%);
-  box-shadow: 0 2px 5px rgba(15, 126, 205, .22);
-}
-
-#u4329_state3 #u4850 .text {
-  padding: 0;
-  align-self: center;
-  text-align: center;
-  color: #fff;
-}
-
 #u4329_state3 #ai-related-toolbar {
   left: 13px;
+  top: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 #u4329_state3 .ai-related-form-shift {
-  transform: translateY(80px);
+  transform: translateY(28px);
 }
 
 #u4329_state3 #ai-related-toolbar,
-#u4329_state3 #u4850,
 #u4329_state3 #u4852 {
   transform: none;
 }
