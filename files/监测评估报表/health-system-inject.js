@@ -112,6 +112,7 @@
   function inject() {
     if (document.getElementById("ai-health-system-statistics")) return;
     createStyle();
+    injectOrgLevelFilter();
     injectUsableFilter();
     injectImplementedTaskBreakdown();
     injectSuperviseTaskBreakdown();
@@ -130,6 +131,46 @@
     positionReportBlocks(card);
     window.addEventListener("load", function () { positionReportBlocks(card); });
     window.addEventListener("resize", function () { positionReportBlocks(card); });
+  }
+
+  function injectOrgLevelFilter() {
+    var configs = [
+      {
+        id: "ai-supervision-org-level-filter",
+        panel: "u88429_state9_content",
+        left: 363,
+        top: 115,
+        ariaLabel: "监督评审统计组织层级查询条件"
+      },
+      {
+        id: "ai-self-assessment-org-level-filter",
+        panel: "u88429_state10_content",
+        left: 370,
+        top: 99,
+        ariaLabel: "自评监测统计组织层级查询条件"
+      }
+    ];
+    var levels = ["一级", "二级", "三级", "四级", "五级", "六级", "七级", "八级", "九级"];
+    configs.forEach(function (config) {
+      var targetPanel = document.getElementById(config.panel);
+      if (!targetPanel || document.getElementById(config.id)) return;
+      var filter = document.createElement("div");
+      filter.id = config.id;
+      filter.className = "hse-org-level-filter";
+      filter.setAttribute("aria-label", config.ariaLabel);
+      filter.style.left = config.left + "px";
+      filter.style.top = config.top + "px";
+      filter.innerHTML = [
+        '<label for="' + config.id + '-select">组织层级：</label>',
+        '<select id="' + config.id + '-select">',
+        '<option value="" selected>请选择组织层级</option>',
+        levels.map(function (level, index) {
+          return '<option value="' + (index + 1) + '">' + level + '</option>';
+        }).join(""),
+        '</select>'
+      ].join("");
+      targetPanel.appendChild(filter);
+    });
   }
 
   function injectUsableFilter() {

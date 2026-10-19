@@ -237291,3 +237291,47 @@
   white-space:nowrap;
   text-transform:none;
 }
+
+/* HSE监测报表：自评监测统计、监督评审统计新增组织层级查询条件 */
+.hse-org-level-filter {
+  position:absolute;
+  left:370px;
+  top:99px;
+  width:245px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  box-sizing:border-box;
+  font-family:'PingFangSC-Regular', 'PingFang SC', sans-serif;
+  font-size:13px;
+  color:#333333;
+  z-index:2;
+}
+.hse-org-level-filter label {
+  flex:0 0 70px;
+  text-align:right;
+  white-space:nowrap;
+}
+.hse-org-level-filter select {
+  width:166px;
+  height:30px;
+  padding:2px 24px 2px 6px;
+  box-sizing:border-box;
+  border:1px solid rgba(215, 215, 215, 1);
+  border-radius:0;
+  background-color:#ffffff;
+  color:#333333;
+  font-family:'ArialMT', 'Arial', sans-serif;
+  font-size:13px;
+}
+
+/* 为组织层级腾出完整空间，将原有“发布人”条件移至第二行右侧空位 */
+#u92467,
+#u91460 {
+  left:1240px;
+}
+#u92468,
+#u91461 {
+  left:1309px;
+}
