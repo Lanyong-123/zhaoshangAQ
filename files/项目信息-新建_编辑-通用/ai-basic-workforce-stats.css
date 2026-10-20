@@ -1,0 +1,102 @@
+#u4329,
+#u4329_state0 {
+  height: 3515px !important;
+}
+
+.ai-basic-stat-label,
+.ai-basic-stat-input {
+  position: absolute;
+  height: 30px;
+  box-sizing: border-box;
+}
+
+.ai-basic-stat-label {
+  width: 207px;
+  display: flex;
+  align-items: center;
+  color: #333;
+  font: 13px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+}
+
+.ai-basic-stat-label:first-of-type {
+  left: 19px;
+}
+
+.ai-basic-stat-input {
+  width: 400px;
+  padding: 2px;
+  border: 1px solid #d7d7d7;
+  border-radius: 0;
+  outline: 0;
+  background: #f0f0f0;
+  color: #666;
+  font: 13px Arial, sans-serif;
+}
+
+#aiBasicLongTermLabel { left: 19px; top: 573px; }
+#aiBasicLongTermInput { left: 233px; top: 573px; }
+#aiBasicTemporaryLabel { left: 751px; top: 573px; }
+#aiBasicTemporaryInput { left: 964px; top: 573px; }
+
+.ai-basic-stat-help {
+  position: absolute;
+  top: 579px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #169bd5;
+  color: #fff;
+  font: 600 12px/18px Arial, sans-serif;
+  text-align: center;
+  cursor: help;
+  z-index: 3;
+}
+
+#aiBasicLongTermHelp { left: 642px; }
+#aiBasicTemporaryHelp { left: 1373px; }
+
+.ai-basic-stat-tip {
+  position: absolute;
+  top: 607px;
+  display: none;
+  width: 360px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  border: 1px solid #f1b2b9;
+  background: #fff;
+  color: #d9001b;
+  font: 13px/1.5 "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+}
+
+#aiBasicLongTermTip { left: 273px; }
+#aiBasicTemporaryTip { left: 1004px; }
+
+.ai-basic-stat-help:hover + .ai-basic-stat-tip,
+.ai-basic-stat-help:focus + .ai-basic-stat-tip {
+  display: block;
+}
+
+.ai-basic-stat-input:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+  -webkit-text-fill-color: #666;
+}
+
+#u4685,
+#u4685_div {
+  width: 620px !important;
+  height: 60px !important;
+}
+
+#u4686_seg1 {
+  height: 239px !important;
+}
+
+#u4686_seg2,
+#u4686_seg3 {
+  top: 224px !important;
+}

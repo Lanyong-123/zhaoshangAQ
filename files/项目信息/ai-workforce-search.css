@@ -1,0 +1,52 @@
+#ai-workforce-search {
+  position: absolute;
+  left: 20px;
+  top: 632px;
+  width: 1429px;
+  min-height: 96px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  border: 1px solid #e4e7ed;
+  background: #fff;
+  font: 13px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+}
+
+.ai-workforce-search-title {
+  margin-bottom: 12px;
+  color: #0000ff;
+}
+
+.ai-workforce-search-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.ai-workforce-search-field {
+  display: grid;
+  grid-template-columns: minmax(165px, 1fr) 88px 18px 88px;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ai-workforce-search-label {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ai-workforce-search-input {
+  width: 88px;
+  height: 30px;
+  padding: 2px 7px;
+  box-sizing: border-box;
+  border: 1px solid #d7d7d7;
+  background: #fff;
+  color: #333;
+  font: 13px Arial, sans-serif;
+}
+
+.ai-workforce-search-separator {
+  color: #999;
+  text-align: center;
+}
