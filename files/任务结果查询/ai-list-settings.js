@@ -7,8 +7,8 @@
     { headerId: 'u79606', label: '组织/项目名称', checked: true },
     { headerId: 'u79607', label: '评估形式', checked: true },
     { headerId: 'u79608', label: '评估得分（%）', checked: true },
-    { headerId: 'u79609', label: '加权评估得分（%）', checked: true },
-    { headerId: 'u79610', label: '评估内容', checked: true },
+    { headerId: 'u79609', label: '加权评估得分（%）', checked: false },
+    { headerId: 'u79610', label: '评估内容', checked: false },
     { headerId: 'u79611', label: '第三方检查', checked: false },
     { headerId: 'u79612', label: '发布人', checked: false },
     { headerId: 'u79613', label: '流程节点', checked: true },
@@ -17,7 +17,7 @@
     { headerId: 'u79616', label: '频率', checked: true },
     { headerId: 'u79617', label: '进度', checked: false },
     { headerId: 'u79618', label: '最后更新时间', checked: true },
-    { headerId: 'u79619', label: '操作', checked: false }
+    { headerId: 'u79619', label: '操作', checked: true }
   ];
 
   function initListSettings() {
