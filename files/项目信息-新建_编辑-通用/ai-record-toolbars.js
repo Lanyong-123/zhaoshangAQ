@@ -167,20 +167,15 @@
   }
 
   function initRelatedToolbar() {
-    var content = document.getElementById('u4329_state3_content');
-    var relatedTab = document.getElementById('u4850');
-    if (!content || !relatedTab) return;
+    var newPanel = document.getElementById('rpnTabPanel');
+    var toolbarMount = document.getElementById('rpnRelatedToolbarMount');
+    var toolbar = document.getElementById('ai-related-toolbar');
+    if (!newPanel || !toolbarMount || !toolbar) return;
 
-    Array.prototype.forEach.call(content.children, function (element) {
-      if (element.id === 'ai-related-toolbar') return;
-      if (element.id === 'u4788' || element.offsetTop >= 107) {
-        element.classList.add('ai-related-form-shift');
-      }
-    });
-    relatedTab.classList.add('ai-active');
+    toolbarMount.appendChild(toolbar);
 
     setupSearchableRecords({
-      panelId: 'u4329_state3',
+      panelId: 'rpnTabPanel',
       toolbarId: 'ai-related-toolbar',
       prefix: 'ai-related',
       itemLabel: '相关方',

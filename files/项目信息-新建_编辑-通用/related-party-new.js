@@ -112,17 +112,7 @@
 
   function panelHtml() {
     return '<div class="rpn-page">' +
-      '<div class="rpn-toolbar">' +
-        '<div class="rpn-record-tabs" role="tablist" aria-label="外包方列表">' +
-          '<button class="rpn-record-tab active" type="button" role="tab" aria-selected="true" data-record-id="1">外包方名称1</button>' +
-          '<button class="rpn-record-tab" type="button" role="tab" aria-selected="false" data-record-id="2">外包方名称2</button>' +
-        '</div>' +
-        '<div class="rpn-toolbar-actions">' +
-          '<button class="rpn-action-button" type="button">导入</button>' +
-          '<button class="rpn-action-button" type="button">导出</button>' +
-          '<button class="rpn-action-button rpn-action-button--primary" type="button">新增</button>' +
-        '</div>' +
-      '</div>' + sectionOrder.filter(function (section) {
+      '<div id="rpnRelatedToolbarMount"></div>' + sectionOrder.filter(function (section) {
       return fields.some(function (field) { return field.section === section && !field.hidden; });
     }).map(function (section) {
       var sectionFields = fields.filter(function (field) { return field.section === section && !field.hidden; });
@@ -148,10 +138,10 @@
   }
 
   function createUi() {
-    var projectCycle = document.getElementById("u9644");
+    var oldRelatedTab = document.getElementById("u9651");
     var button = document.createElement("button");
     var panel = document.createElement("section");
-    var cycleLeft;
+    var oldTabStyle;
 
     button.id = "rpnTabButton";
     button.type = "button";
@@ -159,9 +149,12 @@
     button.setAttribute("aria-controls", "rpnTabPanel");
     button.setAttribute("aria-selected", "false");
 
-    if (projectCycle) {
-      cycleLeft = parseFloat(window.getComputedStyle(projectCycle).left);
-      if (!isNaN(cycleLeft)) button.style.left = (cycleLeft + projectCycle.offsetWidth) + "px";
+    if (oldRelatedTab) {
+      oldTabStyle = window.getComputedStyle(oldRelatedTab);
+      button.style.left = oldTabStyle.left;
+      button.style.top = oldTabStyle.top;
+      button.style.width = oldTabStyle.width;
+      button.style.height = oldTabStyle.height;
     }
 
     panel.id = "rpnTabPanel";

@@ -1,17 +1,23 @@
 #rpnTabButton {
   position: absolute;
-  left: 2827px;
-  top: 242px;
-  width: 148px;
-  height: 48px;
+  left: 1944px;
+  top: 250px;
+  width: 99px;
+  height: 40px;
   z-index: 10000;
   box-sizing: border-box;
   border: 0;
   border-bottom: 1px solid #d9d9d9;
   background: #fff;
   color: #333;
-  font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  font: 12px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
   cursor: pointer;
+}
+
+/* 以“相关方管理（新）”替换旧页签入口。 */
+#u9651 {
+  display: none !important;
+  visibility: hidden !important;
 }
 
 #rpnTabButton:hover,
@@ -45,6 +51,21 @@
 
 .rpn-page {
   width: 2320px;
+}
+
+#rpnRelatedToolbarMount {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+#rpnTabPanel #ai-related-toolbar {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .rpn-toolbar {
