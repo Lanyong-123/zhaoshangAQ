@@ -1,0 +1,129 @@
+/* 应急队伍 / 微型消防站人员信息 */
+#u6421_state0 #u6432,
+#u6421_state0 #u6432_div {
+  background: #f3f5f8;
+}
+
+#u6421_state0 #u6432_input {
+  color: #7e8999;
+  cursor: not-allowed;
+}
+
+#u6421_state0 .ai-micro-fire-hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.ai-micro-fire-members {
+  position: absolute;
+  left: 0;
+  top: 153px;
+  width: 1654px;
+  box-sizing: border-box;
+  border: 1px solid #e2e7ee;
+  background: #fff;
+  color: #445168;
+  font-family: 'PingFangSC-Regular', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+}
+
+.ai-micro-fire-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  padding: 0 18px;
+  border-bottom: 1px solid #e2e7ee;
+  background: #f8fafc;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+
+.ai-micro-fire-heading button {
+  height: 32px;
+  padding: 0 18px;
+  border: 1px solid #1185d5;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #168ee0 0%, #0878c6 100%);
+  color: #fff;
+  font: inherit;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.ai-micro-fire-heading button:hover {
+  opacity: .88;
+}
+
+.ai-micro-fire-heading button span {
+  margin-right: 5px;
+  font-size: 17px;
+}
+
+.ai-micro-fire-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ai-micro-fire-table th,
+.ai-micro-fire-table td {
+  height: 52px;
+  padding: 8px 18px;
+  border-right: 1px solid #e2e7ee;
+  border-bottom: 1px solid #e2e7ee;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.ai-micro-fire-table th:last-child,
+.ai-micro-fire-table td:last-child {
+  border-right: 0;
+}
+
+.ai-micro-fire-table th {
+  height: 42px;
+  background: #f5f7fa;
+  color: #4c596d;
+  font-weight: 500;
+}
+
+.ai-micro-fire-table th:nth-child(1),
+.ai-micro-fire-table td:nth-child(1) { width: 28%; }
+.ai-micro-fire-table th:nth-child(2),
+.ai-micro-fire-table td:nth-child(2) { width: 28%; }
+.ai-micro-fire-table th:nth-child(3),
+.ai-micro-fire-table td:nth-child(3) { width: 30%; }
+.ai-micro-fire-table th:nth-child(4),
+.ai-micro-fire-table td:nth-child(4) { width: 14%; text-align: center; }
+
+.ai-micro-fire-table input {
+  width: 100%;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid #d7dde7;
+  border-radius: 2px;
+  outline: none;
+  box-sizing: border-box;
+  color: #3d495d;
+  font: inherit;
+}
+
+.ai-micro-fire-table input:focus {
+  border-color: #1688db;
+  box-shadow: 0 0 0 2px rgba(22, 136, 219, .1);
+}
+
+.ai-micro-fire-delete {
+  padding: 5px 14px;
+  border: 1px solid #ff5a52;
+  border-radius: 2px;
+  background: #fff;
+  color: #f0443e;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ai-micro-fire-delete:hover {
+  background: #fff5f4;
+}
