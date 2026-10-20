@@ -33,7 +33,7 @@
   position: absolute;
   left: 243px;
   top: 290px;
-  width: 3134px;
+  width: calc(100vw - 243px);
   min-height: 3500px;
   padding: 24px 30px 80px;
   box-sizing: border-box;
@@ -45,7 +45,9 @@
 
 #hpTabPanel.active { display: block; }
 
-.hp-page { width: 2320px; }
+.hp-page {
+  width: 100%;
+}
 
 .hp-toolbar {
   position: relative;
@@ -71,7 +73,7 @@
 .hp-toolbar-main {
   flex: 1;
   min-width: 0;
-  gap: 14px;
+  gap: 10px;
 }
 
 .hp-toolbar-main > label {
@@ -84,9 +86,9 @@
 
 .hp-combobox {
   position: relative;
-  width: 525px;
+  width: 320px;
   height: 40px;
-  flex: 0 0 525px;
+  flex: 0 0 320px;
   box-sizing: border-box;
   border: 1px solid #d7dde7;
   border-radius: 2px;
@@ -194,12 +196,12 @@
   text-align: center;
 }
 
-.hp-toolbar-transfer { gap: 14px; }
+.hp-toolbar-transfer { gap: 10px; }
 
 .hp-button {
-  min-width: 92px;
+  min-width: 72px;
   height: 40px;
-  padding: 0 20px;
+  padding: 0 14px;
   box-sizing: border-box;
   border: 1px solid #cfd7dc;
   border-radius: 2px;
@@ -257,19 +259,27 @@
 .hp-field-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 24px;
+  gap: 14px 24px;
   padding: 18px;
 }
 
-.hp-field { min-width: 0; }
-.hp-field--wide { grid-column: 1 / -1; }
+.hp-field {
+  display: grid;
+  grid-template-columns: 165px minmax(0, 340px);
+  align-items: center;
+  min-width: 0;
+}
+
+.hp-field--wide { grid-column: auto; }
 
 .hp-field-label {
   display: block;
   min-height: 22px;
-  margin-bottom: 7px;
+  margin: 0;
+  padding-right: 12px;
   color: #4b5964;
   line-height: 22px;
+  text-align: right;
 }
 
 .hp-required { margin-right: 3px; color: #d9001b; }
@@ -288,9 +298,24 @@
 }
 
 textarea.hp-control {
-  min-height: 72px;
+  min-height: 58px;
   padding: 9px 10px;
   resize: vertical;
+}
+
+@media (max-width: 1150px) {
+  .hp-field {
+    grid-template-columns: 145px minmax(0, 1fr);
+  }
+
+  .hp-combobox {
+    width: 280px;
+    flex-basis: 280px;
+  }
+
+  .hp-button {
+    padding: 0 10px;
+  }
 }
 
 .hp-control:focus {
