@@ -37,6 +37,9 @@
         input.placeholder = field.placeholder;
         input.value = field.value;
         input.autocomplete = 'off';
+        input.required = true;
+        input.setAttribute('aria-required', 'true');
+        input.title = field.placeholder;
         cell.appendChild(input);
         row.appendChild(cell);
       });

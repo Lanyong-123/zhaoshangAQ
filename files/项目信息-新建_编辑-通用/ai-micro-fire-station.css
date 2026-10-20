@@ -88,6 +88,11 @@
   font-weight: 500;
 }
 
+.ai-micro-fire-required {
+  margin-right: 4px;
+  color: #d9001b;
+}
+
 .ai-micro-fire-table th:nth-child(1),
 .ai-micro-fire-table td:nth-child(1) { width: 28%; }
 .ai-micro-fire-table th:nth-child(2),
@@ -112,6 +117,10 @@
 .ai-micro-fire-table input:focus {
   border-color: #1688db;
   box-shadow: 0 0 0 2px rgba(22, 136, 219, .1);
+}
+
+.ai-micro-fire-table input:required:invalid:not(:placeholder-shown) {
+  border-color: #f0443e;
 }
 
 .ai-micro-fire-delete {
