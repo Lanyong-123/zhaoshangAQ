@@ -4,9 +4,9 @@
   var fields = [
     { col: "E", group: "岗位信息", label: "岗位名称", type: "text" },
     { col: "F", group: "职业病危害因素识别", label: "职业病危害因素名称", type: "text" },
-    { col: "G", group: "职业病危害因素识别", label: "危害因素类别", type: "select", options: ["粉尘", "化学因素", "物理因素", "生物因素", "放射性因素", "粉尘+物理+化学", "其他"] },
+    { col: "G", group: "职业病危害因素识别", label: "危害因素类别", type: "multiselect", options: ["粉尘", "化学因素", "物理因素", "生物因素", "放射性因素", "其他"] },
     { col: "H", group: "职业病危害因素识别", label: "危害来源", type: "textarea", wide: true },
-    { col: "I", group: "职业病危害因素识别", label: "接触方式", type: "select", options: ["定点", "巡检", "定点+巡检", "其他"] },
+    { col: "I", group: "职业病危害因素识别", label: "接触方式", type: "multiselect", options: ["定点", "巡检", "其他"] },
     { col: "J", group: "职业病危害因素识别", label: "接触人数(总数)", type: "number" },
     { col: "K", group: "职业病危害因素识别", label: "接触人数（女性）", type: "number" },
     { col: "L", group: "接触与检测评价", label: "暴露时长", type: "text" },
@@ -18,7 +18,7 @@
     { col: "R", group: "防护措施", label: "工程防护设施", type: "textarea", wide: true },
     { col: "S", group: "防护措施", label: "个体防护用品", type: "textarea", wide: true },
     { col: "T", group: "防护措施", label: "警示标识", type: "select", options: ["有（GBZ158）", "无", "不适用"] },
-    { col: "U", group: "职业健康监护", label: "需开展体检类型", type: "select", options: ["岗前", "在岗", "离岗", "岗前+在岗+离岗", "不涉及"] },
+    { col: "U", group: "职业健康监护", label: "需开展体检类型", type: "multiselect", options: ["岗前", "在岗", "离岗", "不涉及"] },
     { col: "V", group: "职业健康监护", label: "在岗体检周期", type: "select", options: ["1次/年", "1次/2年", "1次/3年", "按需开展", "不涉及"] },
     { col: "W", group: "管控与依据", label: "辨识依据", type: "text" },
     { col: "X", group: "管控与依据", label: "辨识状态", type: "select", options: ["已辨识", "辨识中", "待辨识"] },
@@ -43,9 +43,41 @@
       .replace(/'/g, "&#39;");
   }
 
+  function selectedMultiValues(value, options) {
+    var aliases = {
+      "化学": "化学因素",
+      "物理": "物理因素",
+      "生物": "生物因素",
+      "放射性": "放射性因素"
+    };
+    var values = String(value || "").split(/[+、,，]/).map(function (item) {
+      var normalized = item.trim();
+      return aliases[normalized] || normalized;
+    }).filter(Boolean);
+    return options.filter(function (option) { return values.indexOf(option) !== -1; });
+  }
+
+  function multiselectHtml(field, value, common) {
+    var selected = selectedMultiValues(value, field.options);
+    var displayValue = selected.length ? selected.join("、") : "请选择";
+    return '<div class="hp-multiselect" data-multiselect>' +
+      '<input type="hidden"' + common + ' value="' + escapeHtml(selected.join("、")) + '">' +
+      '<button class="hp-multiselect-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">' +
+        '<span class="hp-multiselect-text">' + escapeHtml(displayValue) + '</span><span class="hp-multiselect-arrow" aria-hidden="true"></span>' +
+      '</button><div class="hp-multiselect-menu" role="listbox" aria-multiselectable="true">' +
+        field.options.map(function (item) {
+          return '<label class="hp-multiselect-option"><input type="checkbox" value="' + escapeHtml(item) + '"' +
+            (selected.indexOf(item) !== -1 ? ' checked' : '') + '><span>' + escapeHtml(item) + '</span></label>';
+        }).join("") +
+      '</div></div>';
+  }
+
   function controlHtml(field) {
     var required = field.optional ? "" : " required aria-required=\"true\"";
     var common = ' class="hp-control" data-column="' + field.col + '" aria-label="' + escapeHtml(field.label) + '"' + required;
+    if (field.type === "multiselect") {
+      return multiselectHtml(field, "", common);
+    }
     if (field.type === "select") {
       return '<select' + common + '><option value="">请选择</option>' + field.options.map(function (item) {
         return '<option value="' + escapeHtml(item) + '">' + escapeHtml(item) + '</option>';
@@ -65,6 +97,9 @@
 
   function tableControlHtml(field, value, rowIndex) {
     var common = ' class="hp-table-control" data-table-row="' + rowIndex + '" data-table-column="' + field.col + '" aria-label="第' + (rowIndex + 1) + '行' + escapeHtml(field.label) + '"';
+    if (field.type === "multiselect") {
+      return multiselectHtml(field, value, common);
+    }
     if (field.type === "select") {
       return '<select' + common + '><option value="">请选择</option>' + field.options.map(function (item) {
         return '<option value="' + escapeHtml(item) + '"' + (String(value || "") === item ? ' selected' : '') + '>' + escapeHtml(item) + '</option>';
@@ -87,6 +122,9 @@
 
   function tileControlHtml(field, value, rowIndex) {
     var common = ' class="hp-tile-control" data-tile-row="' + rowIndex + '" data-tile-column="' + field.col + '" aria-label="第' + (rowIndex + 1) + '条' + escapeHtml(field.label) + '"';
+    if (field.type === "multiselect") {
+      return multiselectHtml(field, value, common);
+    }
     if (field.type === "select") {
       return '<select' + common + '><option value="">请选择</option>' + field.options.map(function (item) {
         return '<option value="' + escapeHtml(item) + '"' + (String(value || "") === item ? ' selected' : '') + '>' + escapeHtml(item) + '</option>';
@@ -175,6 +213,36 @@
       toastTimer = window.setTimeout(function () { toast.classList.remove("hp-show"); }, 1600);
     }
 
+    function syncMultiselectControl(control, value) {
+      var wrapper = control && control.closest(".hp-multiselect");
+      if (!wrapper) return;
+      var field = fields.find(function (item) {
+        return item.col === (control.getAttribute("data-column") || control.getAttribute("data-table-column") || control.getAttribute("data-tile-column"));
+      });
+      var selected = field ? selectedMultiValues(value, field.options) : [];
+      control.value = selected.join("、");
+      Array.prototype.forEach.call(wrapper.querySelectorAll('input[type="checkbox"]'), function (checkbox) {
+        checkbox.checked = selected.indexOf(checkbox.value) !== -1;
+      });
+      var text = wrapper.querySelector(".hp-multiselect-text");
+      if (text) text.textContent = selected.length ? selected.join("、") : "请选择";
+    }
+
+    function setControlValue(control, value) {
+      if (!control) return;
+      control.value = value || "";
+      if (control.closest(".hp-multiselect")) syncMultiselectControl(control, value);
+    }
+
+    function closeMultiselects(except) {
+      Array.prototype.forEach.call(panel.querySelectorAll(".hp-multiselect.hp-open"), function (wrapper) {
+        if (wrapper === except) return;
+        wrapper.classList.remove("hp-open");
+        var trigger = wrapper.querySelector(".hp-multiselect-trigger");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+      });
+    }
+
     function setComboOpen(open) {
       combo.classList.toggle("hp-open", open);
       combo.setAttribute("aria-expanded", open ? "true" : "false");
@@ -210,7 +278,6 @@
               tileControlHtml(field, record[field.col] || "", rowIndex) + '</div>';
           }).join("") + '</div>' +
           '<div class="hp-tile-actions" aria-label="第' + (rowIndex + 1) + '条岗位操作">' +
-            '<button class="hp-tile-add" type="button" data-tile-add-after="' + rowIndex + '" aria-label="在当前岗位后新增">+</button>' +
             '<button class="hp-tile-delete" type="button" data-tile-delete="' + rowIndex + '">删除</button>' +
           '</div></article>';
       }).join("");
@@ -229,7 +296,7 @@
       if (!record) return;
       activeIndex = index;
       Array.prototype.forEach.call(panel.querySelectorAll("[data-column]"), function (control) {
-        control.value = record[control.getAttribute("data-column")] || "";
+        setControlValue(control, record[control.getAttribute("data-column")] || "");
       });
       search.value = record.E || ("危害岗位" + (index + 1));
       renderOptions("");
@@ -323,9 +390,9 @@
       if (!col || !records[activeIndex]) return;
       records[activeIndex][col] = event.target.value;
       var tableControl = tableBody.querySelector('[data-table-row="' + activeIndex + '"][data-table-column="' + col + '"]');
-      if (tableControl) tableControl.value = event.target.value;
+      setControlValue(tableControl, event.target.value);
       var tileControl = tileList.querySelector('[data-tile-row="' + activeIndex + '"][data-tile-column="' + col + '"]');
-      if (tileControl) tileControl.value = event.target.value;
+      setControlValue(tileControl, event.target.value);
       if (col === "E") {
         search.value = event.target.value;
         renderOptions("");
@@ -362,14 +429,14 @@
       records[rowIndex][col] = event.target.value;
       if (rowIndex === activeIndex) {
         var formControl = panel.querySelector('[data-column="' + col + '"]');
-        if (formControl) formControl.value = event.target.value;
+        setControlValue(formControl, event.target.value);
         if (col === "E") {
           search.value = event.target.value;
           renderOptions("");
         }
       }
       var tileControl = tileList.querySelector('[data-tile-row="' + rowIndex + '"][data-tile-column="' + col + '"]');
-      if (tileControl) tileControl.value = event.target.value;
+      setControlValue(tileControl, event.target.value);
     });
     tableBody.addEventListener("click", function (event) {
       var button = event.target.closest("[data-delete-row]");
@@ -392,10 +459,10 @@
       if (!Number.isFinite(rowIndex) || !col || !records[rowIndex]) return;
       records[rowIndex][col] = event.target.value;
       var tableControl = tableBody.querySelector('[data-table-row="' + rowIndex + '"][data-table-column="' + col + '"]');
-      if (tableControl) tableControl.value = event.target.value;
+      setControlValue(tableControl, event.target.value);
       if (rowIndex === activeIndex) {
         var formControl = panel.querySelector('[data-column="' + col + '"]');
-        if (formControl) formControl.value = event.target.value;
+        setControlValue(formControl, event.target.value);
         if (col === "E") {
           search.value = event.target.value;
           renderOptions("");
@@ -403,17 +470,7 @@
       }
     });
     tileList.addEventListener("click", function (event) {
-      var addButton = event.target.closest("[data-tile-add-after]");
       var deleteButton = event.target.closest("[data-tile-delete]");
-      if (addButton) {
-        captureRecord();
-        var insertIndex = Number(addButton.getAttribute("data-tile-add-after")) + 1;
-        records.splice(insertIndex, 0, blankRecord());
-        restoreRecord(insertIndex);
-        updateCount();
-        showToast("已新增一条危害岗位");
-        return;
-      }
       if (!deleteButton) return;
       var rowIndex = Number(deleteButton.getAttribute("data-tile-delete"));
       if (records.length === 1) {
@@ -429,8 +486,34 @@
     });
     panel.querySelector("#hpImport").addEventListener("click", function () { showToast("请选择危害岗位信息导入文件"); });
     panel.querySelector("#hpExport").addEventListener("click", function () { showToast("危害岗位信息导出任务已创建"); });
+    panel.addEventListener("click", function (event) {
+      var trigger = event.target.closest(".hp-multiselect-trigger");
+      if (!trigger) return;
+      event.stopPropagation();
+      var wrapper = trigger.closest(".hp-multiselect");
+      var open = !wrapper.classList.contains("hp-open");
+      closeMultiselects(wrapper);
+      wrapper.classList.toggle("hp-open", open);
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    panel.addEventListener("change", function (event) {
+      if (!event.target.matches('.hp-multiselect-option input[type="checkbox"]')) return;
+      var wrapper = event.target.closest(".hp-multiselect");
+      var hidden = wrapper.querySelector('input[type="hidden"]');
+      var checkboxes = Array.prototype.slice.call(wrapper.querySelectorAll('.hp-multiselect-option input[type="checkbox"]'));
+      if (event.target.value === "不涉及" && event.target.checked) {
+        checkboxes.forEach(function (checkbox) { if (checkbox !== event.target) checkbox.checked = false; });
+      } else if (event.target.checked) {
+        checkboxes.forEach(function (checkbox) { if (checkbox.value === "不涉及") checkbox.checked = false; });
+      }
+      var selected = checkboxes.filter(function (checkbox) { return checkbox.checked; }).map(function (checkbox) { return checkbox.value; });
+      hidden.value = selected.join("、");
+      wrapper.querySelector(".hp-multiselect-text").textContent = selected.length ? selected.join("、") : "请选择";
+      hidden.dispatchEvent(new Event("input", { bubbles: true }));
+    });
     document.addEventListener("click", function (event) {
       if (!combo.contains(event.target)) setComboOpen(false);
+      if (!event.target.closest(".hp-multiselect")) closeMultiselects();
     });
 
     updateCount();

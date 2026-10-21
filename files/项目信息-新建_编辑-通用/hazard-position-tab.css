@@ -323,6 +323,101 @@ textarea.hp-control {
   box-shadow: 0 0 0 2px rgba(22, 136, 219, .1);
 }
 
+.hp-multiselect {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.hp-multiselect-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border: 1px solid #cfd7dc;
+  border-radius: 2px;
+  background: #fff;
+  color: #333;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hp-multiselect-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hp-multiselect-arrow {
+  width: 7px;
+  height: 7px;
+  margin-left: 10px;
+  border-right: 1px solid #647188;
+  border-bottom: 1px solid #647188;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.hp-multiselect.hp-open .hp-multiselect-trigger {
+  border-color: #1688db;
+  box-shadow: 0 0 0 2px rgba(22, 136, 219, .1);
+}
+
+.hp-multiselect.hp-open .hp-multiselect-arrow {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.hp-multiselect-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 4px);
+  z-index: 1200;
+  padding: 6px 0;
+  border: 1px solid #cfd7dc;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(35, 52, 77, .16);
+}
+
+.hp-multiselect.hp-open .hp-multiselect-menu {
+  display: block;
+}
+
+.hp-multiselect-option {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 5px 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.hp-multiselect-option:hover {
+  background: #edf6fd;
+}
+
+.hp-multiselect-option input {
+  margin: 0 8px 0 0;
+}
+
+.hp-table-control + .hp-multiselect-trigger,
+.hp-entry-table .hp-multiselect-trigger {
+  height: 34px;
+  border-radius: 0;
+  font-size: 13px;
+}
+
+.hp-tile-control + .hp-multiselect-trigger,
+.hp-tile-field .hp-multiselect-trigger {
+  height: 36px;
+  border-radius: 0;
+}
+
 .hp-table-section {
   margin-top: 30px;
   border: 1px solid #d9e1e8;
@@ -560,19 +655,6 @@ textarea.hp-tile-control {
   background: #fafcfd;
 }
 
-.hp-tile-add {
-  width: 38px;
-  height: 38px;
-  padding: 0;
-  border: 3px solid #fff;
-  border-radius: 8px;
-  outline: 3px solid #ff5b5b;
-  background: #169bd5;
-  color: #fff;
-  font: 700 27px/30px Arial, sans-serif;
-  cursor: pointer;
-}
-
 .hp-tile-delete {
   width: 66px;
   height: 34px;
@@ -582,10 +664,6 @@ textarea.hp-tile-control {
   color: #ff4d4f;
   font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
   cursor: pointer;
-}
-
-.hp-tile-add:hover {
-  background: #0878c6;
 }
 
 .hp-tile-delete:hover {
