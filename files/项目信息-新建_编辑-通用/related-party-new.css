@@ -35,9 +35,9 @@
   position: absolute;
   left: 243px;
   top: 290px;
-  width: 3134px;
-  min-height: 3500px;
-  padding: 24px 30px 80px;
+  width: calc(100vw - 243px);
+  min-height: 0;
+  padding: 16px 30px 40px;
   box-sizing: border-box;
   z-index: 9999;
   background: #f5f7f9;
@@ -49,13 +49,17 @@
   display: block;
 }
 
+#rpnTabPanel.rpn-survey-hidden {
+  min-height: 3500px;
+}
+
 .rpn-page {
-  width: 2320px;
+  width: 100%;
 }
 
 #rpnRelatedToolbarMount {
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 #rpnTabPanel #ai-related-toolbar {
@@ -66,6 +70,39 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+#rpnTabPanel #ai-related-toolbar .ai-building-main {
+  gap: 8px;
+}
+
+#rpnTabPanel #ai-related-toolbar .ai-building-combobox {
+  width: auto;
+  min-width: 220px;
+  max-width: 400px;
+  flex: 1 1 300px;
+}
+
+#rpnTabPanel #ai-related-toolbar .ai-building-count {
+  min-width: 52px;
+}
+
+#rpnTabPanel #ai-related-toolbar .ai-building-button {
+  min-width: 92px;
+  padding: 0 14px;
+}
+
+#rpnTabPanel #ai-related-toolbar .ai-building-button-danger {
+  min-width: 118px;
+}
+
+#rpnTabPanel #ai-related-toolbar .ai-building-transfer {
+  gap: 8px;
+  margin-left: 8px;
+}
+
+#rpnTabPanel #ai-related-toolbar .ai-building-transfer .ai-building-button {
+  min-width: 76px;
 }
 
 .rpn-toolbar {
@@ -138,16 +175,20 @@
 }
 
 .rpn-section {
-  margin-bottom: 22px;
+  margin-bottom: 14px;
   border: 1px solid #dfe5e8;
   background: #fff;
   box-shadow: 0 1px 2px rgba(31, 45, 61, 0.04);
 }
 
+.rpn-section.rpn-conditional-hidden {
+  display: none;
+}
+
 .rpn-section-title {
   display: flex;
   align-items: center;
-  height: 44px;
+  height: 36px;
   padding: 0 20px;
   border-bottom: 1px solid #dfe5e8;
   background: #eef8f6;
@@ -159,8 +200,8 @@
 .rpn-groups {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 24px;
-  padding: 18px;
+  gap: 12px 20px;
+  padding: 12px;
 }
 
 .rpn-group {
@@ -170,8 +211,8 @@
 }
 
 .rpn-group-title {
-  min-height: 38px;
-  padding: 9px 16px;
+  min-height: 32px;
+  padding: 6px 14px;
   box-sizing: border-box;
   border-bottom: 1px solid #e6ebee;
   background: #f7f9fa;
@@ -182,11 +223,15 @@
 .rpn-field-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 24px;
-  padding: 18px;
+  gap: 10px 20px;
+  padding: 12px 14px;
 }
 
 .rpn-field {
+  display: grid;
+  grid-template-columns: minmax(150px, 38%) minmax(0, 1fr);
+  align-items: start;
+  column-gap: 12px;
   min-width: 0;
 }
 
@@ -196,13 +241,16 @@
 
 .rpn-field--wide {
   grid-column: 1 / -1;
+  grid-template-columns: minmax(180px, 19%) minmax(0, 620px);
 }
 
 .rpn-field-label {
-  min-height: 22px;
-  margin-bottom: 7px;
+  min-height: 18px;
+  margin-bottom: 0;
+  padding-top: 5px;
   color: #4b5964;
-  line-height: 22px;
+  line-height: 18px;
+  text-align: right;
 }
 
 .rpn-required {
@@ -212,7 +260,7 @@
 
 .rpn-control {
   width: 100%;
-  height: 34px;
+  height: 28px;
   padding: 0 10px;
   box-sizing: border-box;
   border: 1px solid #cfd7dc;
@@ -233,9 +281,14 @@ select.rpn-control {
   box-shadow: 0 0 0 2px rgba(0, 168, 143, 0.1);
 }
 
+.rpn-control[readonly] {
+  background: #f5f7f9;
+  color: #596773;
+}
+
 textarea.rpn-control {
-  min-height: 82px;
-  padding: 8px 10px;
+  min-height: 52px;
+  padding: 5px 10px;
   resize: vertical;
   line-height: 1.6;
 }
@@ -250,8 +303,14 @@ textarea.rpn-control {
   font-size: 13px;
 }
 
-@media (max-width: 1900px) {
-  .rpn-page {
-    width: 2100px;
+@media (max-width: 1200px) {
+  .rpn-field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rpn-field,
+  .rpn-field--wide {
+    grid-column: 1;
+    grid-template-columns: minmax(150px, 32%) minmax(0, 1fr);
   }
 }
