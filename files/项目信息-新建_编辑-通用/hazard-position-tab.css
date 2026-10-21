@@ -322,3 +322,335 @@ textarea.hp-control {
   border-color: #1688db;
   box-shadow: 0 0 0 2px rgba(22, 136, 219, .1);
 }
+
+.hp-table-section {
+  margin-top: 30px;
+  border: 1px solid #d9e1e8;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(31, 45, 61, .04);
+}
+
+.hp-table-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 50px;
+  padding: 8px 12px 8px 18px;
+  box-sizing: border-box;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.hp-table-add,
+.hp-table-delete {
+  height: 36px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #168ee0 0%, #0878c6 100%);
+  color: #fff;
+  font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.hp-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-top: 1px solid #d9e1e8;
+}
+
+.hp-entry-table {
+  width: max-content;
+  min-width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  table-layout: fixed;
+  color: #455066;
+  font-size: 13px;
+}
+
+.hp-entry-table th,
+.hp-entry-table td {
+  min-width: 170px;
+  padding: 8px;
+  box-sizing: border-box;
+  border-right: 1px solid #d4dde5;
+  border-bottom: 1px solid #d4dde5;
+  vertical-align: top;
+}
+
+.hp-entry-table th {
+  height: 42px;
+  background: #d9edf7;
+  color: #425069;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.hp-entry-table th:first-child,
+.hp-entry-table td:first-child {
+  border-left: 0;
+}
+
+.hp-entry-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.hp-entry-table td[data-column-name="岗位名称"] { min-width: 150px; }
+.hp-entry-table td[data-column-name="接触人数(总数)"],
+.hp-entry-table td[data-column-name="接触人数（女性）"] { min-width: 125px; }
+.hp-entry-table td[data-column-name="治理/整改措施及责任单位"] { min-width: 260px; }
+
+.hp-table-control {
+  width: 100%;
+  height: 34px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  border: 1px solid #d7dde7;
+  border-radius: 0;
+  outline: none;
+  background: #fff;
+  color: #455066;
+  font: inherit;
+}
+
+textarea.hp-table-control {
+  min-height: 58px;
+  padding: 8px;
+  resize: vertical;
+}
+
+.hp-table-control:focus {
+  border-color: #1688db;
+  box-shadow: 0 0 0 2px rgba(22, 136, 219, .1);
+}
+
+.hp-entry-table .hp-table-action {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  min-width: 96px;
+  width: 96px;
+  background: #fff;
+  text-align: center;
+}
+
+.hp-entry-table th.hp-table-action {
+  z-index: 3;
+  background: #d9edf7;
+}
+
+.hp-table-delete {
+  min-width: 64px;
+  height: 34px;
+  padding: 0 15px;
+}
+
+.hp-table-row-active td {
+  background-color: #f7fbfe;
+}
+
+.hp-table-row-active td.hp-table-action {
+  background-color: #f7fbfe;
+}
+
+.hp-tile-section {
+  margin-top: 30px;
+  border: 1px solid #d9e1e8;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(31, 45, 61, .04);
+}
+
+.hp-tile-heading {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 8px 18px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #d9e1e8;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.hp-tile-heading small {
+  margin-left: 16px;
+  color: #7f8a99;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.hp-tile-search {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e3e8ed;
+  background: #fafcfd;
+}
+
+.hp-tile-search > label {
+  color: #4b5964;
+  font-size: 14px;
+}
+
+.hp-tile-search-box {
+  position: relative;
+  width: 360px;
+}
+
+.hp-tile-search-box .hp-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+#hpTileSearch {
+  width: 100%;
+  height: 36px;
+  padding: 0 34px 0 38px;
+  box-sizing: border-box;
+  border: 1px solid #cfd7dc;
+  border-radius: 2px;
+  outline: none;
+  background: #fff;
+  color: #333;
+  font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+}
+
+#hpTileSearch:focus {
+  border-color: #1688db;
+  box-shadow: 0 0 0 2px rgba(22, 136, 219, .1);
+}
+
+.hp-tile-search-result {
+  color: #7f8a99;
+  font-size: 13px;
+}
+
+.hp-tile-empty {
+  padding: 42px 20px;
+  border: 1px dashed #d7dee5;
+  color: #98a3ad;
+  text-align: center;
+}
+
+.hp-tile-list {
+  padding: 16px;
+}
+
+.hp-tile-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92px;
+  margin-bottom: 18px;
+  border: 1px solid #cfd9e2;
+  background: #fff;
+}
+
+.hp-tile-card:last-child {
+  margin-bottom: 0;
+}
+
+.hp-tile-card-active {
+  border-color: #8fc7ed;
+  box-shadow: 0 0 0 1px rgba(22, 136, 219, .08);
+}
+
+.hp-tile-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+  padding: 18px 20px;
+  box-sizing: border-box;
+}
+
+.hp-tile-field {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+}
+
+.hp-tile-field > label {
+  padding-right: 12px;
+  color: #4b5964;
+  line-height: 22px;
+  text-align: right;
+}
+
+.hp-tile-control {
+  width: 100%;
+  height: 36px;
+  padding: 0 9px;
+  box-sizing: border-box;
+  border: 1px solid #cfd7dc;
+  border-radius: 0;
+  outline: none;
+  background: #fff;
+  color: #333;
+  font: inherit;
+}
+
+textarea.hp-tile-control {
+  min-height: 58px;
+  padding: 8px 9px;
+  resize: vertical;
+}
+
+.hp-tile-control:focus {
+  border-color: #1688db;
+  box-shadow: 0 0 0 2px rgba(22, 136, 219, .1);
+}
+
+.hp-tile-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-left: 1px solid #d9e1e8;
+  background: #fafcfd;
+}
+
+.hp-tile-add {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 3px solid #fff;
+  border-radius: 8px;
+  outline: 3px solid #ff5b5b;
+  background: #169bd5;
+  color: #fff;
+  font: 700 27px/30px Arial, sans-serif;
+  cursor: pointer;
+}
+
+.hp-tile-delete {
+  width: 66px;
+  height: 34px;
+  border: 1px solid #ff4d4f;
+  border-radius: 2px;
+  background: #fff;
+  color: #ff4d4f;
+  font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  cursor: pointer;
+}
+
+.hp-tile-add:hover {
+  background: #0878c6;
+}
+
+.hp-tile-delete:hover {
+  background: #fff4f4;
+}
+
+@media (max-width: 1250px) {
+  .hp-tile-fields {
+    grid-template-columns: 1fr;
+  }
+}

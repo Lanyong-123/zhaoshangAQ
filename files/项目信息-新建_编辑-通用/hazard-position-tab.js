@@ -7,11 +7,11 @@
     { col: "G", group: "职业病危害因素识别", label: "危害因素类别", type: "select", options: ["粉尘", "化学因素", "物理因素", "生物因素", "放射性因素", "粉尘+物理+化学", "其他"] },
     { col: "H", group: "职业病危害因素识别", label: "危害来源", type: "textarea", wide: true },
     { col: "I", group: "职业病危害因素识别", label: "接触方式", type: "select", options: ["定点", "巡检", "定点+巡检", "其他"] },
-    { col: "J", group: "职业病危害因素识别", label: "接触人数（总数）", type: "number" },
+    { col: "J", group: "职业病危害因素识别", label: "接触人数(总数)", type: "number" },
     { col: "K", group: "职业病危害因素识别", label: "接触人数（女性）", type: "number" },
     { col: "L", group: "接触与检测评价", label: "暴露时长", type: "text" },
     { col: "M", group: "接触与检测评价", label: "暴露频次", type: "select", options: ["连续", "间断", "偶尔", "其他"] },
-    { col: "N", group: "接触与检测评价", label: "检测结果（浓度/强度）", type: "text" },
+    { col: "N", group: "接触与检测评价", label: "检测结果(浓度/强度)", type: "text" },
     { col: "O", group: "接触与检测评价", label: "职业接触限值", type: "text" },
     { col: "P", group: "接触与检测评价", label: "超标情况", type: "select", options: ["未超标", "超标", "未检测"] },
     { col: "Q", group: "接触与检测评价", label: "风险等级", type: "select", options: ["低风险", "中风险", "高风险"] },
@@ -63,6 +63,51 @@
       controlHtml(field) + '</div>';
   }
 
+  function tableControlHtml(field, value, rowIndex) {
+    var common = ' class="hp-table-control" data-table-row="' + rowIndex + '" data-table-column="' + field.col + '" aria-label="第' + (rowIndex + 1) + '行' + escapeHtml(field.label) + '"';
+    if (field.type === "select") {
+      return '<select' + common + '><option value="">请选择</option>' + field.options.map(function (item) {
+        return '<option value="' + escapeHtml(item) + '"' + (String(value || "") === item ? ' selected' : '') + '>' + escapeHtml(item) + '</option>';
+      }).join("") + '</select>';
+    }
+    if (field.type === "textarea") {
+      return '<textarea' + common + ' placeholder="请输入">' + escapeHtml(value) + '</textarea>';
+    }
+    return '<input' + common + ' type="' + field.type + '"' + (field.type === "number" ? ' min="0" step="1"' : '') + ' value="' + escapeHtml(value) + '" placeholder="请输入">';
+  }
+
+  function tableSectionHtml() {
+    return '<section id="hpTableSection" class="hp-table-section" aria-label="危害岗位表格录入">' +
+      '<div class="hp-table-heading"><span>危害岗位表格录入</span><button id="hpTableAdd" class="hp-table-add" type="button">新增</button></div>' +
+      '<div class="hp-table-wrap"><table class="hp-entry-table"><thead><tr>' +
+        fields.map(function (field) { return '<th scope="col">' + escapeHtml(field.label) + '</th>'; }).join("") +
+        '<th class="hp-table-action" scope="col">操作</th></tr></thead><tbody id="hpTableBody"></tbody></table></div>' +
+      '</section>';
+  }
+
+  function tileControlHtml(field, value, rowIndex) {
+    var common = ' class="hp-tile-control" data-tile-row="' + rowIndex + '" data-tile-column="' + field.col + '" aria-label="第' + (rowIndex + 1) + '条' + escapeHtml(field.label) + '"';
+    if (field.type === "select") {
+      return '<select' + common + '><option value="">请选择</option>' + field.options.map(function (item) {
+        return '<option value="' + escapeHtml(item) + '"' + (String(value || "") === item ? ' selected' : '') + '>' + escapeHtml(item) + '</option>';
+      }).join("") + '</select>';
+    }
+    if (field.type === "textarea") {
+      return '<textarea' + common + ' placeholder="请输入">' + escapeHtml(value) + '</textarea>';
+    }
+    return '<input' + common + ' type="' + field.type + '"' + (field.type === "number" ? ' min="0" step="1"' : '') + ' value="' + escapeHtml(value) + '" placeholder="请输入">';
+  }
+
+  function tileSectionHtml() {
+    return '<section id="hpTileSection" class="hp-tile-section" aria-label="危害岗位平铺录入">' +
+      '<div class="hp-tile-heading"><span>危害岗位平铺录入</span><small>方案二：全部字段按两列平铺展示</small></div>' +
+      '<div class="hp-tile-search"><label for="hpTileSearch">岗位名称</label>' +
+        '<div class="hp-tile-search-box"><span class="hp-search-icon" aria-hidden="true"></span>' +
+          '<input id="hpTileSearch" type="search" autocomplete="off" placeholder="请输入岗位名称搜索" aria-controls="hpTileList">' +
+        '</div><span id="hpTileSearchResult" class="hp-tile-search-result" aria-live="polite"></span></div>' +
+      '<div id="hpTileList" class="hp-tile-list"></div></section>';
+  }
+
   function panelHtml() {
     return '<div class="hp-page">' +
       '<div id="hpToolbar" class="hp-toolbar" aria-label="危害岗位操作区">' +
@@ -86,7 +131,7 @@
         return '<section class="hp-section" data-group="' + escapeHtml(group) + '">' +
           '<div class="hp-section-title">' + escapeHtml(group) + '</div>' +
           '<div class="hp-field-grid">' + groupFields.map(fieldHtml).join("") + '</div></section>';
-      }).join("") + '</div>';
+      }).join("") + tableSectionHtml() + tileSectionHtml() + '</div>';
   }
 
   function shiftFollowingTabs() {
@@ -124,6 +169,10 @@
     var options = panel.querySelector("#hpOptions");
     var count = panel.querySelector("#hpCount");
     var toast = panel.querySelector("#hpToast");
+    var tableBody = panel.querySelector("#hpTableBody");
+    var tileList = panel.querySelector("#hpTileList");
+    var tileSearch = panel.querySelector("#hpTileSearch");
+    var tileSearchResult = panel.querySelector("#hpTileSearchResult");
 
     function showToast(message) {
       window.clearTimeout(toastTimer);
@@ -140,6 +189,44 @@
 
     function updateCount() {
       count.textContent = "共" + records.length + "个";
+    }
+
+    function blankRecord() {
+      var blank = {};
+      fields.forEach(function (field) { blank[field.col] = ""; });
+      blank.E = "新增危害岗位" + (records.length + 1);
+      return blank;
+    }
+
+    function renderTable() {
+      tableBody.innerHTML = records.map(function (record, rowIndex) {
+        return '<tr' + (rowIndex === activeIndex ? ' class="hp-table-row-active"' : '') + '>' +
+          fields.map(function (field) {
+            return '<td data-column-name="' + escapeHtml(field.label) + '">' + tableControlHtml(field, record[field.col] || "", rowIndex) + '</td>';
+          }).join("") +
+          '<td class="hp-table-action"><button class="hp-table-delete" type="button" data-delete-row="' + rowIndex + '">删除</button></td></tr>';
+      }).join("");
+    }
+
+    function renderTiles() {
+      var keyword = String(tileSearch.value || "").trim().toLowerCase();
+      var visibleCount = 0;
+      tileList.innerHTML = records.map(function (record, rowIndex) {
+        var recordName = String(record.E || "");
+        if (keyword && recordName.toLowerCase().indexOf(keyword) === -1) return "";
+        visibleCount += 1;
+        return '<article class="hp-tile-card' + (rowIndex === activeIndex ? ' hp-tile-card-active' : '') + '" data-tile-record="' + rowIndex + '">' +
+          '<div class="hp-tile-fields">' + fields.map(function (field) {
+            return '<div class="hp-tile-field"><label>' + (field.optional ? '' : '<span class="hp-required">*</span>') + escapeHtml(field.label) + '：</label>' +
+              tileControlHtml(field, record[field.col] || "", rowIndex) + '</div>';
+          }).join("") + '</div>' +
+          '<div class="hp-tile-actions" aria-label="第' + (rowIndex + 1) + '条岗位操作">' +
+            '<button class="hp-tile-add" type="button" data-tile-add-after="' + rowIndex + '" aria-label="在当前岗位后新增">+</button>' +
+            '<button class="hp-tile-delete" type="button" data-tile-delete="' + rowIndex + '">删除</button>' +
+          '</div></article>';
+      }).join("");
+      tileSearchResult.textContent = keyword ? "找到" + visibleCount + "条" : "共" + records.length + "条";
+      if (!visibleCount) tileList.innerHTML = '<div class="hp-tile-empty">未找到匹配的岗位信息</div>';
     }
 
     function captureRecord() {
@@ -159,6 +246,8 @@
       });
       search.value = record.E || ("危害岗位" + (index + 1));
       renderOptions("");
+      renderTable();
+      renderTiles();
     }
 
     function selectRecord(index) {
@@ -242,10 +331,15 @@
         event.preventDefault();
       }
     });
+    tileSearch.addEventListener("input", renderTiles);
     panel.addEventListener("input", function (event) {
       var col = event.target.getAttribute("data-column");
       if (!col || !records[activeIndex]) return;
       records[activeIndex][col] = event.target.value;
+      var tableControl = tableBody.querySelector('[data-table-row="' + activeIndex + '"][data-table-column="' + col + '"]');
+      if (tableControl) tableControl.value = event.target.value;
+      var tileControl = tileList.querySelector('[data-tile-row="' + activeIndex + '"][data-tile-column="' + col + '"]');
+      if (tileControl) tileControl.value = event.target.value;
       if (col === "E") {
         search.value = event.target.value;
         renderOptions("");
@@ -253,10 +347,7 @@
     });
     panel.querySelector("#hpAdd").addEventListener("click", function () {
       captureRecord();
-      var blank = {};
-      fields.forEach(function (field) { blank[field.col] = ""; });
-      blank.E = "新增危害岗位" + (records.length + 1);
-      records.push(blank);
+      records.push(blankRecord());
       restoreRecord(records.length - 1);
       updateCount();
       showToast("已新增危害岗位");
@@ -270,6 +361,86 @@
       restoreRecord(Math.min(activeIndex, records.length - 1));
       updateCount();
       showToast("已删除当前危害岗位");
+    });
+    panel.querySelector("#hpTableAdd").addEventListener("click", function () {
+      captureRecord();
+      records.push(blankRecord());
+      restoreRecord(records.length - 1);
+      updateCount();
+      showToast("已新增一行危害岗位");
+    });
+    tableBody.addEventListener("input", function (event) {
+      var rowIndex = Number(event.target.getAttribute("data-table-row"));
+      var col = event.target.getAttribute("data-table-column");
+      if (!Number.isFinite(rowIndex) || !col || !records[rowIndex]) return;
+      records[rowIndex][col] = event.target.value;
+      if (rowIndex === activeIndex) {
+        var formControl = panel.querySelector('[data-column="' + col + '"]');
+        if (formControl) formControl.value = event.target.value;
+        if (col === "E") {
+          search.value = event.target.value;
+          renderOptions("");
+        }
+      }
+      var tileControl = tileList.querySelector('[data-tile-row="' + rowIndex + '"][data-tile-column="' + col + '"]');
+      if (tileControl) tileControl.value = event.target.value;
+    });
+    tableBody.addEventListener("click", function (event) {
+      var button = event.target.closest("[data-delete-row]");
+      if (!button) return;
+      var rowIndex = Number(button.getAttribute("data-delete-row"));
+      if (records.length === 1) {
+        showToast("至少保留一条危害岗位信息");
+        return;
+      }
+      records.splice(rowIndex, 1);
+      if (rowIndex < activeIndex) activeIndex -= 1;
+      activeIndex = Math.min(activeIndex, records.length - 1);
+      restoreRecord(activeIndex);
+      updateCount();
+      showToast("已删除该行危害岗位");
+    });
+    tileList.addEventListener("input", function (event) {
+      var rowIndex = Number(event.target.getAttribute("data-tile-row"));
+      var col = event.target.getAttribute("data-tile-column");
+      if (!Number.isFinite(rowIndex) || !col || !records[rowIndex]) return;
+      records[rowIndex][col] = event.target.value;
+      var tableControl = tableBody.querySelector('[data-table-row="' + rowIndex + '"][data-table-column="' + col + '"]');
+      if (tableControl) tableControl.value = event.target.value;
+      if (rowIndex === activeIndex) {
+        var formControl = panel.querySelector('[data-column="' + col + '"]');
+        if (formControl) formControl.value = event.target.value;
+        if (col === "E") {
+          search.value = event.target.value;
+          renderOptions("");
+        }
+      }
+    });
+    tileList.addEventListener("click", function (event) {
+      var addButton = event.target.closest("[data-tile-add-after]");
+      var deleteButton = event.target.closest("[data-tile-delete]");
+      if (addButton) {
+        captureRecord();
+        var insertIndex = Number(addButton.getAttribute("data-tile-add-after")) + 1;
+        records.splice(insertIndex, 0, blankRecord());
+        tileSearch.value = "";
+        restoreRecord(insertIndex);
+        updateCount();
+        showToast("已新增一条危害岗位");
+        return;
+      }
+      if (!deleteButton) return;
+      var rowIndex = Number(deleteButton.getAttribute("data-tile-delete"));
+      if (records.length === 1) {
+        showToast("至少保留一条危害岗位信息");
+        return;
+      }
+      records.splice(rowIndex, 1);
+      if (rowIndex < activeIndex) activeIndex -= 1;
+      activeIndex = Math.min(activeIndex, records.length - 1);
+      restoreRecord(activeIndex);
+      updateCount();
+      showToast("已删除该条危害岗位");
     });
     panel.querySelector("#hpImport").addEventListener("click", function () { showToast("请选择危害岗位信息导入文件"); });
     panel.querySelector("#hpExport").addEventListener("click", function () { showToast("危害岗位信息导出任务已创建"); });
