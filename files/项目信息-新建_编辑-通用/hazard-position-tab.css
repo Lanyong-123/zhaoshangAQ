@@ -45,6 +45,17 @@
 
 #hpTabPanel.active { display: block; }
 
+/* 当前原型仅展示平铺录入方案。 */
+#hpTabPanel #hpToolbar,
+#hpTabPanel .hp-section,
+#hpTabPanel #hpTableSection {
+  display: none !important;
+}
+
+#hpTabPanel #hpTileSection {
+  margin-top: 0;
+}
+
 .hp-page {
   width: 100%;
 }

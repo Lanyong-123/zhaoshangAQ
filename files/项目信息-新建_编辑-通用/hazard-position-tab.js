@@ -138,7 +138,6 @@
 
   function tileSectionHtml() {
     return '<section id="hpTileSection" class="hp-tile-section" aria-label="危害岗位平铺录入">' +
-      '<div class="hp-tile-heading"><span>危害岗位平铺录入</span><small>方案二：全部字段按两列平铺展示</small></div>' +
       '<div id="hpTileList" class="hp-tile-list"></div></section>';
   }
 
