@@ -5,9 +5,9 @@
     { col: "D", section: "项目及单位信息", group: "基本信息", label: "端口", value: "非开发板块", required: true, type: "select", options: ["开发板块", "非开发板块"], hidden: true },
     { col: "E", section: "项目及单位信息", group: "基本信息", label: "我方角色", value: "使用人", required: true, type: "text", hidden: true },
 
+    { col: "M", section: "安全生产高风险业务情况", group: "安全生产高风险业务情况", label: "该安全生产高风险业务是否存在外包情形", value: "", type: "select", options: ["是", "否"], wide: true },
     { col: "K", section: "安全生产高风险业务情况", group: "安全生产高风险业务情况", label: "安全生产高风险业务", value: "", type: "text" },
     { col: "L", section: "安全生产高风险业务情况", group: "安全生产高风险业务情况", label: "安全生产高风险业务存在的主要安全风险", value: "", type: "textarea" },
-    { col: "M", section: "安全生产高风险业务情况", group: "安全生产高风险业务情况", label: "该安全生产高风险业务是否存在外包情形", value: "", type: "select", options: ["是", "否"], wide: true },
 
     { col: "G", section: "外包分包单位情况摸排", group: "基本信息", label: "外包分包方名称", value: "", type: "text" },
     { col: "F", section: "外包分包单位情况摸排", group: "基本信息", label: "相关方角色", value: "外包供应商", type: "text" },
@@ -189,18 +189,14 @@
     function setConditionalField(control, visible) {
       var field = control && control.closest(".rpn-field");
       if (!control || !field) return;
+      if (!control.hasAttribute("data-conditional-required")) {
+        control.setAttribute("data-conditional-required", control.required ? "true" : "false");
+      }
       field.classList.toggle("rpn-conditional-hidden", !visible);
       control.disabled = !visible;
-      if (visible) {
-        control.required = control.getAttribute("data-conditional-required") === "true";
-        if (control.required) control.setAttribute("aria-required", "true");
-      } else {
-        if (!control.hasAttribute("data-conditional-required")) {
-          control.setAttribute("data-conditional-required", control.required ? "true" : "false");
-        }
-        control.required = false;
-        control.removeAttribute("aria-required");
-      }
+      control.required = visible && control.getAttribute("data-conditional-required") === "true";
+      if (control.required) control.setAttribute("aria-required", "true");
+      else control.removeAttribute("aria-required");
     }
 
     function setConditionalSection(section, visible) {
@@ -247,26 +243,20 @@
 
     function refreshConditionalFields() {
       var riskOutsourcing = ui.panel.querySelector("#rpnFieldM");
+      var riskBusiness = ui.panel.querySelector("#rpnFieldK");
+      var mainSafetyRisk = ui.panel.querySelector("#rpnFieldL");
       var assessmentMode = ui.panel.querySelector("#rpnFieldBB");
       var assessmentCycle = ui.panel.querySelector("#rpnFieldBC");
       var problemExists = ui.panel.querySelector("#rpnFieldPROBLEM_EXISTS");
       var problemDetail = ui.panel.querySelector("#rpnFieldBG");
       var improvement = ui.panel.querySelector("#rpnFieldBH");
-      var showSurvey = !riskOutsourcing || riskOutsourcing.value !== "否";
+      var showRiskDetails = !riskOutsourcing || riskOutsourcing.value !== "否";
 
-      ui.panel.classList.toggle("rpn-survey-hidden", !showSurvey);
-
-      Array.prototype.forEach.call(ui.panel.querySelectorAll(".rpn-section"), function (section) {
-        if (section.getAttribute("data-section") !== "安全生产高风险业务情况") {
-          setConditionalSection(section, showSurvey);
-        }
-      });
-
-      if (showSurvey) {
-        setConditionalField(assessmentCycle, assessmentMode && assessmentMode.value === "定期考核");
-        setConditionalField(problemDetail, problemExists && problemExists.value === "是");
-        setConditionalField(improvement, problemExists && problemExists.value === "是");
-      }
+      setConditionalField(riskBusiness, showRiskDetails);
+      setConditionalField(mainSafetyRisk, showRiskDetails);
+      setConditionalField(assessmentCycle, assessmentMode && assessmentMode.value === "定期考核");
+      setConditionalField(problemDetail, problemExists && problemExists.value === "是");
+      setConditionalField(improvement, problemExists && problemExists.value === "是");
       refreshCalculatedFields();
     }
 
