@@ -101,10 +101,6 @@
   function tileSectionHtml() {
     return '<section id="hpTileSection" class="hp-tile-section" aria-label="危害岗位平铺录入">' +
       '<div class="hp-tile-heading"><span>危害岗位平铺录入</span><small>方案二：全部字段按两列平铺展示</small></div>' +
-      '<div class="hp-tile-search"><label for="hpTileSearch">岗位名称</label>' +
-        '<div class="hp-tile-search-box"><span class="hp-search-icon" aria-hidden="true"></span>' +
-          '<input id="hpTileSearch" type="search" autocomplete="off" placeholder="请输入岗位名称搜索" aria-controls="hpTileList">' +
-        '</div><span id="hpTileSearchResult" class="hp-tile-search-result" aria-live="polite"></span></div>' +
       '<div id="hpTileList" class="hp-tile-list"></div></section>';
   }
 
@@ -171,8 +167,6 @@
     var toast = panel.querySelector("#hpToast");
     var tableBody = panel.querySelector("#hpTableBody");
     var tileList = panel.querySelector("#hpTileList");
-    var tileSearch = panel.querySelector("#hpTileSearch");
-    var tileSearchResult = panel.querySelector("#hpTileSearchResult");
 
     function showToast(message) {
       window.clearTimeout(toastTimer);
@@ -209,12 +203,7 @@
     }
 
     function renderTiles() {
-      var keyword = String(tileSearch.value || "").trim().toLowerCase();
-      var visibleCount = 0;
       tileList.innerHTML = records.map(function (record, rowIndex) {
-        var recordName = String(record.E || "");
-        if (keyword && recordName.toLowerCase().indexOf(keyword) === -1) return "";
-        visibleCount += 1;
         return '<article class="hp-tile-card' + (rowIndex === activeIndex ? ' hp-tile-card-active' : '') + '" data-tile-record="' + rowIndex + '">' +
           '<div class="hp-tile-fields">' + fields.map(function (field) {
             return '<div class="hp-tile-field"><label>' + (field.optional ? '' : '<span class="hp-required">*</span>') + escapeHtml(field.label) + '：</label>' +
@@ -225,8 +214,6 @@
             '<button class="hp-tile-delete" type="button" data-tile-delete="' + rowIndex + '">删除</button>' +
           '</div></article>';
       }).join("");
-      tileSearchResult.textContent = keyword ? "找到" + visibleCount + "条" : "共" + records.length + "条";
-      if (!visibleCount) tileList.innerHTML = '<div class="hp-tile-empty">未找到匹配的岗位信息</div>';
     }
 
     function captureRecord() {
@@ -331,7 +318,6 @@
         event.preventDefault();
       }
     });
-    tileSearch.addEventListener("input", renderTiles);
     panel.addEventListener("input", function (event) {
       var col = event.target.getAttribute("data-column");
       if (!col || !records[activeIndex]) return;
@@ -423,7 +409,6 @@
         captureRecord();
         var insertIndex = Number(addButton.getAttribute("data-tile-add-after")) + 1;
         records.splice(insertIndex, 0, blankRecord());
-        tileSearch.value = "";
         restoreRecord(insertIndex);
         updateCount();
         showToast("已新增一条危害岗位");
