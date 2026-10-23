@@ -16,9 +16,9 @@
     { col: "J", section: "外包分包单位情况摸排", group: "基本信息", label: "业务描述（指在本单位开展的业务或服务）", value: "档案整理服务", type: "textarea" },
     { col: "STORE_TYPE", section: "外包分包单位情况摸排", group: "基本信息", label: "门店类型", value: "", type: "select", options: ["直营门店", "加盟门店", "不涉及"], hidden: true },
 
-    { col: "N", section: "外包分包单位情况摸排", group: "合同金额情况", label: "该安全生产高风险业务外包合同额总数（万元）", value: "", type: "number", step: "0.01" },
-    { col: "O", section: "外包分包单位情况摸排", group: "合同金额情况", label: "该安全生产高风险业务合同总额（万元）", value: "", type: "number", step: "0.01" },
-    { col: "P", section: "外包分包单位情况摸排", group: "合同金额情况", label: "占比（%）（该安全生产高风险业务外包合同额÷该安全生产高风险业务合同总额×100%）", value: "", type: "number", step: "0.01", max: "100", readonly: true },
+    { col: "N", section: "外包分包单位情况摸排", group: "合同金额情况", label: "该安全生产高风险业务外包合同额总数（万元）", value: "", type: "number", step: "0.01", hidden: true },
+    { col: "O", section: "外包分包单位情况摸排", group: "合同金额情况", label: "业务合同总额(万元)", value: "", type: "number", step: "0.01" },
+    { col: "P", section: "外包分包单位情况摸排", group: "合同金额情况", label: "占比（%）（该安全生产高风险业务外包合同额÷该安全生产高风险业务合同总额×100%）", value: "", type: "number", step: "0.01", max: "100", readonly: true, hidden: true },
 
     { col: "R", section: "外包分包单位情况摸排", group: "在发包单位工作的人员情况", label: "外包单位情况", value: "", type: "select", options: ["集团内部单位", "公司内部单位", "其他央企", "非央企"] },
     { col: "AD", section: "外包分包单位情况摸排", group: "在发包单位工作的人员情况", label: "长期在发包单位工作的人数", value: 1, type: "number" },
