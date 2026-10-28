@@ -25,7 +25,7 @@
     { col: "AE", section: "外包分包单位情况摸排", group: "在发包单位工作的人员情况", label: "临时到发包单位工作的人数", value: 0, type: "number" },
     { col: "WORKER_TOTAL", section: "外包分包单位情况摸排", group: "在发包单位工作的人员情况", label: "总人数", value: 1, type: "number", readonly: true },
 
-    { col: "INTERNAL_UNIT", section: "外包分包单位情况摸排", group: "安全准入条件", label: "是否内部单位", value: "", type: "select", options: ["集团内部单位", "公司内部单位", "外部单位"] },
+    { col: "INTERNAL_UNIT", section: "外包分包单位情况摸排", group: "安全准入条件", label: "是否内部单位", value: "", type: "select", options: ["集团内部单位", "公司内部单位", "外部单位"], hidden: true },
     { col: "T", section: "外包分包单位情况摸排", group: "安全准入条件", label: "经营资质", value: "是，符合经营资质范围", type: "select", options: ["是，符合经营资质范围", "否，法规无要求", "是，但超出经营资质范围", "否，无经营资质"] },
     { col: "U", section: "外包分包单位情况摸排", group: "安全准入条件", label: "安全许可情况", value: "是，具备安全许可", required: true, type: "select", options: ["是，具备安全许可", "否，法规无要求", "否，缺少安全许可"] },
     { col: "V", section: "外包分包单位情况摸排", group: "安全准入条件", label: "行业资质要求", value: "是，有要求且规范", required: true, type: "select", options: ["是，有要求且规范", "是，有要求但缺少", "否，行业无资质要求"] },
@@ -49,7 +49,7 @@
 
     { col: "AO", section: "发包单位（我方）情况摸排", group: "建立健全承包商安全管理制度", label: "建立健全承包商安全管理制度", value: "已建立，且符合业务实际", required: true, type: "select", options: ["已建立，且符合业务实际", "已建立，但未贴合业务", "未建立"] },
     { col: "AP", section: "发包单位（我方）情况摸排", group: "纳入本单位安全生产管理体系", label: "纳入本单位安全生产管理体系", value: "是", required: true, type: "select", options: ["是", "否"] },
-    { col: "AQ", section: "发包单位（我方）情况摸排", group: "招采文件是否包含安全准入条件", label: "招采文件是否包含安全准入条件", value: "是否，不涉及", required: true, type: "text" },
+    { col: "AQ", section: "发包单位（我方）情况摸排", group: "招采文件是否包含安全准入条件", label: "招采文件是否包含安全准入条件", value: "", required: true, type: "select", options: ["是", "否", "不涉及"] },
     { col: "AR", section: "发包单位（我方）情况摸排", group: "签署安全协议情况", label: "签署安全协议情况", value: "是（标准版本）", type: "select", options: ["是（标准版本）", "是（非标准版本）", "是（合同内明确）", "否（未签署）"] },
     { col: "AS", section: "发包单位（我方）情况摸排", group: "对外包分包单位的安全教育培训", label: "首次进入人员培训", value: "均已培训考核", required: true, type: "select", options: ["均已培训考核", "已培训未考核", "未培训未考核"] },
     { col: "AT", section: "发包单位（我方）情况摸排", group: "对外包分包单位的安全教育培训", label: "人员变动情况备案", value: "已备案、已培训考核", required: true, type: "select", options: ["已备案、已培训考核", "未备案", "已备案、未培训或未考核"] },
@@ -60,8 +60,8 @@
     { col: "AY", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "危险作业纳入本单位审批监管范围", value: "暂不涉及", required: true, type: "select", options: ["已纳入", "未纳入", "暂不涉及"] },
     { col: "AZ", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "生产设备、工具的监督检查", value: "已监管，无记录", required: true, type: "select", options: ["已监管，并有记录", "已监管，无记录", "未监管", "不涉及"] },
     { col: "BA", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "安全管理台账", value: "未建立", type: "select", options: ["已建立，且档案完整准确", "已建立，但档案有缺陷", "未建立"] },
-    { col: "BB", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "是否落实", value: "不定期考核", type: "select", options: ["不定期考核", "定期考核", "未考核"] },
-    { col: "BC", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "考核周期", value: "季度", type: "select", options: ["月度", "季度", "年度", "合同期内", "无", "其他（备注写明）"] },
+    { col: "BB", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "动态评估及考核是否落实", value: "不定期考核", type: "select", options: ["不定期考核", "定期考核", "未考核"] },
+    { col: "BC", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "动态评估及考核周期", value: "季度", type: "select", options: ["月度", "季度", "年度", "合同期内", "无", "其他（备注写明）"] },
     { col: "BD", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "安全业绩", value: "符合要求", required: true, type: "select", options: ["发生过事故（公司内部）", "发生过事故（公司外部）", "有被公司处罚（含亮灯）", "有被政府处罚", "符合要求"] },
     { col: "BE", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "有无机制", value: "有", type: "select", options: ["有", "无"] },
     { col: "BF", section: "发包单位（我方）情况摸排", group: "对供应商的日常监管及考核", label: "黑名单管理", value: "有", required: true, type: "select", options: ["有", "无"] },
@@ -245,8 +245,6 @@
       var riskOutsourcing = ui.panel.querySelector("#rpnFieldM");
       var riskBusiness = ui.panel.querySelector("#rpnFieldK");
       var mainSafetyRisk = ui.panel.querySelector("#rpnFieldL");
-      var assessmentMode = ui.panel.querySelector("#rpnFieldBB");
-      var assessmentCycle = ui.panel.querySelector("#rpnFieldBC");
       var problemExists = ui.panel.querySelector("#rpnFieldPROBLEM_EXISTS");
       var problemDetail = ui.panel.querySelector("#rpnFieldBG");
       var improvement = ui.panel.querySelector("#rpnFieldBH");
@@ -254,7 +252,6 @@
 
       setConditionalField(riskBusiness, showRiskDetails);
       setConditionalField(mainSafetyRisk, showRiskDetails);
-      setConditionalField(assessmentCycle, assessmentMode && assessmentMode.value === "定期考核");
       setConditionalField(problemDetail, problemExists && problemExists.value === "是");
       setConditionalField(improvement, problemExists && problemExists.value === "是");
       refreshCalculatedFields();
