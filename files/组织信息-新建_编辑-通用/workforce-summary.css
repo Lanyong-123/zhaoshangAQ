@@ -1,0 +1,91 @@
+.org-workforce-label,
+.org-workforce-input {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.org-workforce-label {
+  top: 219px;
+  width: 207px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font: 13px/18px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  text-align: center;
+}
+
+.org-workforce-input {
+  top: 224px;
+  width: 400px;
+  height: 30px;
+  padding: 2px;
+  border: 1px solid #d7d7d7;
+  border-radius: 0;
+  outline: 0;
+  background: #f2f2f2;
+  color: #999;
+  font: 13px Arial, sans-serif;
+}
+
+#orgWorkforceLongTermLabel { left: 17px; }
+#orgWorkforceLongTermInput { left: 230px; }
+#orgWorkforceTemporaryLabel { left: 744px; }
+#orgWorkforceTemporaryInput { left: 957px; }
+
+.org-workforce-input:disabled {
+  border-color: #d7d7d7;
+  background: #f2f2f2;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 1;
+  -webkit-text-fill-color: #999;
+}
+
+.org-workforce-help {
+  position: absolute;
+  top: 230px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #169bd5;
+  color: #fff;
+  font: 600 12px/18px Arial, sans-serif;
+  text-align: center;
+  cursor: help;
+  z-index: 3;
+}
+
+#orgWorkforceLongTermHelp { left: 642px; }
+#orgWorkforceTemporaryHelp { left: 1369px; }
+
+.org-workforce-tip {
+  position: absolute;
+  top: 258px;
+  display: none;
+  width: 360px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  border: 1px solid #f1b2b9;
+  background: #fff;
+  color: #d9001b;
+  font: 13px/1.5 "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+}
+
+#orgWorkforceLongTermTip { left: 270px; }
+#orgWorkforceTemporaryTip { left: 997px; }
+
+.org-workforce-help:hover + .org-workforce-tip,
+.org-workforce-help:focus + .org-workforce-tip {
+  display: block;
+}
+
+#u34267,
+#u34267_state0 {
+  height: 2330px !important;
+}
