@@ -69,11 +69,25 @@
     content.appendChild(temporaryHelp.help);
     content.appendChild(temporaryHelp.tip);
 
+    var relatedWrapper = document.getElementById("u34445");
+    var relatedBackground = document.getElementById("u34445_div");
+    var relatedInput = document.getElementById("u34445_input");
+    if (relatedWrapper) relatedWrapper.classList.add("disabled");
+    if (relatedBackground) relatedBackground.classList.add("disabled");
+    if (relatedInput) {
+      relatedInput.disabled = true;
+      relatedInput.classList.add("disabled");
+      relatedInput.setAttribute("aria-disabled", "true");
+    }
+
     function updateSummary() {
       var longTermInput = document.getElementById("orgWorkforceLongTermInput");
       var temporaryInput = document.getElementById("orgWorkforceTemporaryInput");
-      if (longTermInput) longTermInput.value = numericValue(document.getElementById("u34949_input"));
-      if (temporaryInput) temporaryInput.value = numericValue(document.getElementById("u34951_input"));
+      var longTermValue = numericValue(document.getElementById("u34949_input"));
+      var temporaryValue = numericValue(document.getElementById("u34951_input"));
+      if (longTermInput) longTermInput.value = longTermValue;
+      if (temporaryInput) temporaryInput.value = temporaryValue;
+      if (relatedInput) relatedInput.value = longTermValue + temporaryValue;
     }
 
     document.addEventListener("input", function (event) {

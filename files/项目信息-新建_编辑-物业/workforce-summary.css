@@ -1,0 +1,92 @@
+.property-workforce-label,
+.property-workforce-input {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.property-workforce-label {
+  top: 719px;
+  width: 207px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font: 13px/18px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  text-align: center;
+}
+
+.property-workforce-input {
+  top: 724px;
+  width: 400px;
+  height: 30px;
+  padding: 2px;
+  border: 1px solid #d7d7d7;
+  border-radius: 0;
+  outline: 0;
+  background: #f2f2f2;
+  color: #999;
+  font: 13px Arial, sans-serif;
+}
+
+#propertyWorkforceLongTermLabel { left: 19px; }
+#propertyWorkforceLongTermInput { left: 232px; }
+#propertyWorkforceTemporaryLabel { left: 752px; }
+#propertyWorkforceTemporaryInput { left: 965px; }
+#propertyWorkforceRelatedLabel { left: 19px; top: 771px; }
+#propertyWorkforceRelatedInput { left: 232px; top: 776px; }
+
+.property-workforce-input:disabled {
+  border-color: #d7d7d7;
+  background: #f2f2f2;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 1;
+  -webkit-text-fill-color: #999;
+}
+
+.property-workforce-help {
+  position: absolute;
+  top: 730px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #169bd5;
+  color: #fff;
+  font: 600 12px/18px Arial, sans-serif;
+  text-align: center;
+  cursor: help;
+  z-index: 3;
+}
+
+#propertyWorkforceLongTermHelp { left: 642px; }
+#propertyWorkforceTemporaryHelp { left: 1375px; }
+
+.property-workforce-tip {
+  position: absolute;
+  top: 758px;
+  display: none;
+  width: 360px;
+  padding: 8px 10px;
+  box-sizing: border-box;
+  border: 1px solid #f1b2b9;
+  background: #fff;
+  color: #d9001b;
+  font: 13px/1.5 "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+}
+
+#propertyWorkforceLongTermTip { left: 274px; }
+#propertyWorkforceTemporaryTip { left: 1007px; }
+
+.property-workforce-help:hover + .property-workforce-tip,
+.property-workforce-help:focus + .property-workforce-tip {
+  display: block;
+}
+
+#u12974_state0 {
+  height: 2686px !important;
+}
