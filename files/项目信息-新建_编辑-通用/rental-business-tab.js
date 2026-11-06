@@ -197,7 +197,7 @@
     function renderRecords() {
       list.innerHTML = records.map(function (record, index) {
         return '<article class="rb-record' + (index === activeIndex ? ' rb-record--active' : '') + '" data-record-card="' + index + '">' +
-          '<div class="rb-record-body"><div class="rb-record-head"><div><strong>出租业务' + (index + 1) + '</strong><span>' + escapeHtml(recordName(record, index)) + '</span></div></div>' +
+          '<div class="rb-record-body">' +
           groupOrder.map(function (group) { return groupHtml(group, record, index); }).join("") + '</div>' +
           '<div class="rb-record-actions" aria-label="第' + (index + 1) + '条出租业务操作">' +
             '<button class="rb-add-record" type="button" data-add-after="' + index + '">新增</button>' +
