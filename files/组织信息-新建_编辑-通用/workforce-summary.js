@@ -83,15 +83,15 @@
     function updateSummary() {
       var longTermInput = document.getElementById("orgWorkforceLongTermInput");
       var temporaryInput = document.getElementById("orgWorkforceTemporaryInput");
-      var longTermValue = numericValue(document.getElementById("u34949_input"));
-      var temporaryValue = numericValue(document.getElementById("u34951_input"));
+      var longTermValue = numericValue(document.getElementById("rpnFieldAD") || document.getElementById("u34949_input"));
+      var temporaryValue = numericValue(document.getElementById("rpnFieldAE") || document.getElementById("u34951_input"));
       if (longTermInput) longTermInput.value = longTermValue;
       if (temporaryInput) temporaryInput.value = temporaryValue;
       if (relatedInput) relatedInput.value = longTermValue + temporaryValue;
     }
 
     document.addEventListener("input", function (event) {
-      if (["u34949_input", "u34951_input"].indexOf(event.target.id) !== -1) updateSummary();
+      if (["rpnFieldAD", "rpnFieldAE", "u34949_input", "u34951_input"].indexOf(event.target.id) !== -1) updateSummary();
     });
     updateSummary();
   }
