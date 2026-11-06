@@ -666,15 +666,28 @@ textarea.hp-tile-control {
   background: #fafcfd;
 }
 
+.hp-tile-add,
 .hp-tile-delete {
   width: 66px;
   height: 34px;
-  border: 1px solid #ff4d4f;
   border-radius: 2px;
   background: #fff;
-  color: #ff4d4f;
   font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
   cursor: pointer;
+}
+
+.hp-tile-add {
+  border: 1px solid #1688db;
+  color: #1688db;
+}
+
+.hp-tile-delete {
+  border: 1px solid #ff4d4f;
+  color: #ff4d4f;
+}
+
+.hp-tile-add:hover {
+  background: #f0f8fe;
 }
 
 .hp-tile-delete:hover {

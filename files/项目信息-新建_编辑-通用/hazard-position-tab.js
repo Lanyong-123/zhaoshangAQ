@@ -188,11 +188,11 @@
 
     button.id = "hpTabButton";
     button.type = "button";
-    button.textContent = "危害岗位";
+    button.textContent = "职业健康";
     button.setAttribute("aria-controls", "hpTabPanel");
     button.setAttribute("aria-selected", "false");
     panel.id = "hpTabPanel";
-    panel.setAttribute("aria-label", "危害岗位");
+    panel.setAttribute("aria-label", "职业健康");
     panel.innerHTML = panelHtml();
     document.body.appendChild(button);
     document.body.appendChild(panel);
@@ -277,6 +277,7 @@
               tileControlHtml(field, record[field.col] || "", rowIndex) + '</div>';
           }).join("") + '</div>' +
           '<div class="hp-tile-actions" aria-label="第' + (rowIndex + 1) + '条岗位操作">' +
+            '<button class="hp-tile-add" type="button" data-tile-add="' + rowIndex + '">新增</button>' +
             '<button class="hp-tile-delete" type="button" data-tile-delete="' + rowIndex + '">删除</button>' +
           '</div></article>';
       }).join("");
@@ -469,6 +470,16 @@
       }
     });
     tileList.addEventListener("click", function (event) {
+      var addButton = event.target.closest("[data-tile-add]");
+      if (addButton) {
+        captureRecord();
+        var insertIndex = Number(addButton.getAttribute("data-tile-add")) + 1;
+        records.splice(insertIndex, 0, blankRecord());
+        restoreRecord(insertIndex);
+        updateCount();
+        showToast("已新增危害岗位");
+        return;
+      }
       var deleteButton = event.target.closest("[data-tile-delete]");
       if (!deleteButton) return;
       var rowIndex = Number(deleteButton.getAttribute("data-tile-delete"));

@@ -159,7 +159,7 @@
 
     button.id = "rpnTabButton";
     button.type = "button";
-    button.textContent = "相关方管理（新）";
+    button.textContent = "相关方管理";
     button.setAttribute("aria-controls", "rpnTabPanel");
     button.setAttribute("aria-selected", "false");
 
@@ -172,7 +172,7 @@
     }
 
     panel.id = "rpnTabPanel";
-    panel.setAttribute("aria-label", "相关方管理（新）");
+    panel.setAttribute("aria-label", "相关方管理");
     panel.innerHTML = panelHtml();
 
     document.body.appendChild(button);
