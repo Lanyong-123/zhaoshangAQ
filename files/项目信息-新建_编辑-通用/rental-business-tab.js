@@ -14,7 +14,7 @@
   var fields = [
     { col: "D", group: "出租业务基本信息", label: "我方角色", type: "select", options: ["业主", "发包方", "二房东"] },
     { col: "E", group: "出租业务基本信息", label: "承租分类", type: "select", options: ["场地出租", "物业出租", "设施设备出租"] },
-    { col: "F", group: "出租业务基本信息", label: "承租单位类型", type: "select", options: [] },
+    { col: "F", group: "出租业务基本信息", label: "承租类型", type: "select", options: [] },
     { col: "G", group: "出租业务基本信息", label: "承租场所/设备", type: "select", options: [] },
     { col: "H", group: "出租业务基本信息", label: "承租方名称（请按营业执照名称填写）", type: "text" },
     { col: "I", group: "出租业务基本信息", label: "承租单位类型", type: "select", options: ["集团内部单位", "公司内部单位", "其他央企", "非央企"] },
