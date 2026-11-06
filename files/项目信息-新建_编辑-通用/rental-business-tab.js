@@ -2,16 +2,19 @@
   "use strict";
 
   var yesNo = ["是", "否"];
+  var unitTypeOptionsByCategory = {
+    "物业出租": ["生产仓储场所", "商业办公场所"],
+    "设施设备出租": ["设施装备"]
+  };
   var venueOptionsByType = {
     "生产仓储场所": ["厂房", "仓库", "园区", "其他（自定义写明）"],
     "商业办公场所": ["办公场所", "楼宇", "商铺", "其他（自定义写明）"],
-    "设施装备": ["车辆", "船舶", "特种设备", "其他（自定义写明）"],
-    "/": ["/"]
+    "设施装备": ["车辆", "船舶", "特种设备", "其他（自定义写明）"]
   };
   var fields = [
     { col: "D", group: "出租业务基本信息", label: "我方角色", type: "select", options: ["业主", "发包方", "二房东"] },
     { col: "E", group: "出租业务基本信息", label: "承租分类（场地出租时，结构安全、特种设备可留空）", type: "select", options: ["场地出租", "物业出租", "设施设备出租"] },
-    { col: "F", group: "出租业务基本信息", label: "承租单位类型", type: "select", options: ["生产仓储场所", "商业办公场所", "设施装备", "/"] },
+    { col: "F", group: "出租业务基本信息", label: "承租单位类型", type: "select", options: [] },
     { col: "G", group: "出租业务基本信息", label: "承租场所/设备", type: "select", options: [] },
     { col: "H", group: "出租业务基本信息", label: "承租方名称（请按营业执照名称填写）", type: "text" },
     { col: "I", group: "出租业务基本信息", label: "承租单位类型", type: "select", options: ["集团内部单位", "公司内部单位", "其他央企", "非央企"] },
@@ -91,8 +94,13 @@
   }
 
   function fieldOptions(field, record) {
+    if (field.col === "F") return unitTypeOptionsByCategory[record.E] || [];
     if (field.col === "G") return venueOptionsByType[record.F] || [];
     return field.options || [];
+  }
+
+  function fieldVisible(field, record) {
+    return !(record.E === "场地出租" && (field.col === "F" || field.col === "G"));
   }
 
   function controlHtml(field, value, recordIndex, record) {
@@ -117,7 +125,9 @@
     var groupFields = fields.filter(function (field) { return field.group === group; });
     return '<section class="rb-group" data-group="' + escapeHtml(group) + '">' +
       '<div class="rb-group-title">' + escapeHtml(group) + '</div>' +
-      '<div class="rb-field-grid">' + groupFields.map(function (field) {
+      '<div class="rb-field-grid">' + groupFields.filter(function (field) {
+        return fieldVisible(field, record);
+      }).map(function (field) {
         return '<div class="rb-field"><label>' + escapeHtml(field.label) + '：</label>' +
           controlHtml(field, record[field.col] || "", recordIndex, record) + '</div>';
       }).join("") + '</div></section>';
@@ -161,11 +171,11 @@
 
     button.id = "rbTabButton";
     button.type = "button";
-    button.textContent = "出租业务";
+    button.textContent = "出租管理";
     button.setAttribute("aria-controls", "rbTabPanel");
     button.setAttribute("aria-selected", "false");
     panel.id = "rbTabPanel";
-    panel.setAttribute("aria-label", "出租业务");
+    panel.setAttribute("aria-label", "出租管理");
     panel.innerHTML = panelHtml();
     document.body.appendChild(button);
     document.body.appendChild(panel);
@@ -295,6 +305,12 @@
       var col = event.target.getAttribute("data-column");
       if (!Number.isFinite(index) || !col || !records[index]) return;
       records[index][col] = event.target.value;
+      if (col === "E") {
+        var availableUnitTypes = unitTypeOptionsByCategory[records[index].E] || [];
+        records[index].F = availableUnitTypes.length === 1 ? availableUnitTypes[0] : "";
+        records[index].G = "";
+        renderRecords();
+      }
       if (col === "F") {
         records[index].G = "";
         renderRecords();
