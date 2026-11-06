@@ -13,7 +13,7 @@
   };
   var fields = [
     { col: "D", group: "出租业务基本信息", label: "我方角色", type: "select", options: ["业主", "发包方", "二房东"] },
-    { col: "E", group: "出租业务基本信息", label: "承租分类（场地出租时，结构安全、特种设备可留空）", type: "select", options: ["场地出租", "物业出租", "设施设备出租"] },
+    { col: "E", group: "出租业务基本信息", label: "承租分类", type: "select", options: ["场地出租", "物业出租", "设施设备出租"] },
     { col: "F", group: "出租业务基本信息", label: "承租单位类型", type: "select", options: [] },
     { col: "G", group: "出租业务基本信息", label: "承租场所/设备", type: "select", options: [] },
     { col: "H", group: "出租业务基本信息", label: "承租方名称（请按营业执照名称填写）", type: "text" },
@@ -25,7 +25,7 @@
 
     { col: "M", group: "资质范围、转包及业务信息", label: "是否在资质范围内", type: "select", options: yesNo },
     { col: "N", group: "资质范围、转包及业务信息", label: "是否存在业务转包", type: "select", options: yesNo },
-    { col: "O", group: "资质范围、转包及业务信息", label: "转包情况（存在转包时填写）", type: "textarea" },
+    { col: "O", group: "资质范围、转包及业务信息", label: "转包情况", type: "textarea" },
     { col: "P", group: "资质范围、转包及业务信息", label: "承租部位或场地名称", type: "text" },
     { col: "Q", group: "资质范围、转包及业务信息", label: "租赁场所或场地面积（㎡）", type: "number" },
     { col: "R", group: "资质范围、转包及业务信息", label: "业务描述（承租单位做什么，或者承包了哪个业务）", type: "textarea" },
@@ -39,11 +39,11 @@
     { col: "X", group: "合同签订情况", label: "签订日期", type: "text" },
     { col: "Y", group: "合同签订情况", label: "签署主体—甲方（我方签署主体）", type: "text" },
     { col: "Z", group: "合同签订情况", label: "签署主体—乙方（乙方签署主体）", type: "text" },
-    { col: "AA", group: "合同签订情况", label: "合同内是否明确检维保责任主体（设施装备时填写）", type: "select", options: yesNo },
+    { col: "AA", group: "合同签订情况", label: "合同内是否明确检维保责任主体", type: "select", options: yesNo },
 
     { col: "AB", group: "协议、人员及设备管理", label: "安全管理协议签署", type: "select", options: ["是（标准版本）", "是（合同内明确）", "是（非标准版本）", "否（未签署）"] },
     { col: "AC", group: "协议、人员及设备管理", label: "承租方人员资质", type: "select", options: ["已全部按法规要求持证", "部分未持证，法规无要求", "部分持证，不符合法规要求", "存在未持证或过期情况", "全员未持证", "不涉及（无相关持证岗位人员）", "未开展持证审查 / 未有审查记录"] },
-    { col: "AD", group: "协议、人员及设备管理", label: "特种设备是否按规定办理使用登记变更（设施装备出租或整体物业出租包含特种设备时填写）", type: "select", options: yesNo },
+    { col: "AD", group: "协议、人员及设备管理", label: "特种设备是否按规定办理使用登记变更", type: "select", options: yesNo },
 
     { col: "AE", group: "安全教育情况", label: "三级安全教育培训", type: "select", options: ["已组织，有提供记录", "已组织，但未提供记录", "未组织/未提供记录"] },
     { col: "AF", group: "安全教育情况", label: "日常安全教育培训", type: "select", options: ["已组织，且有记录", "已组织，但未记录", "未组织/未有记录"] },
@@ -60,10 +60,10 @@
     { col: "AO", group: "承租单位清退管理", label: "排查后是否清退该承租单位", type: "select", options: ["清退", "不清退"] },
     { col: "AP", group: "承租单位清退管理", label: "清退原因", type: "select", options: ["不具备合法有效的经营资格、安全资质", "存在违规转租分租行为", "存在重大隐患且拒不整改", "存在超资质范围经营行为", "其他原因（请在备注写明）"] },
 
-    { col: "AQ", group: "隐患问题整改情况", label: "问题数量", type: "text" },
+    { col: "AQ", group: "隐患问题整改情况", label: "问题数量", type: "number", step: "1" },
     { col: "AR", group: "隐患问题整改情况", label: "问题简要描述", type: "textarea" },
     { col: "AS", group: "隐患问题整改情况", label: "是否完成全部隐患整改", type: "select", options: ["已完成", "全部未完成", "部分未完成"] },
-    { col: "AT", group: "隐患问题整改情况", label: "计划整改时间（针对未完成的）", type: "date" }
+    { col: "AT", group: "隐患问题整改情况", label: "计划整改时间", type: "date" }
   ];
 
   var groupOrder = [
@@ -82,7 +82,7 @@
     AD: "是", AE: "已组织，有提供记录", AF: "已组织，且有记录", AG: "已建立，且档案完整准确",
     AH: "已设置，且符合法规要求", AI: "已设置，且符合法规要求", AJ: "已投入，符合法规要求",
     AK: "有，契合业务", AL: "是", AM: "未开展审查", AN: "是", AO: "不清退",
-    AP: "不具备合法有效的经营资格、安全资质", AQ: "XX个",
+    AP: "不具备合法有效的经营资格、安全资质", AQ: "3",
     AR: "①叉车驾驶员未持有相应资质证书\n②一名员工未经安全教育培训并考核合格\n③###",
     AS: "部分未完成", AT: "2026-12-30"
   }];
@@ -100,7 +100,16 @@
   }
 
   function fieldVisible(field, record) {
-    return !(record.E === "场地出租" && (field.col === "F" || field.col === "G"));
+    if (record.E === "场地出租" && (field.col === "F" || field.col === "G")) return false;
+    if (record.N !== "是" && field.col === "O") return false;
+    if (field.col === "AA" && record.E !== "设施设备出租") return false;
+    if (field.col === "AD") {
+      var propertyHasSpecialEquipment = record.E === "物业出租" &&
+        (record.V === "有特种设备且符合要求" || record.V === "有特种设备，但不符合要求");
+      if (record.E !== "设施设备出租" && !propertyHasSpecialEquipment) return false;
+    }
+    if (record.AS === "已完成" && field.col === "AT") return false;
+    return true;
   }
 
   function controlHtml(field, value, recordIndex, record) {
@@ -113,7 +122,7 @@
     if (field.type === "textarea") {
       return '<textarea' + common + ' placeholder="请输入">' + escapeHtml(value) + '</textarea>';
     }
-    return '<input' + common + ' type="' + field.type + '"' + (field.type === "number" ? ' min="0" step="0.01"' : '') +
+    return '<input' + common + ' type="' + field.type + '"' + (field.type === "number" ? ' min="0" step="' + escapeHtml(field.step || "0.01") + '"' : '') +
       ' value="' + escapeHtml(value) + '" placeholder="请输入">';
   }
 
@@ -143,6 +152,7 @@
             '<div id="rbOptions" class="rb-options" role="listbox"></div>' +
           '</div><span id="rbCount" class="rb-count"></span>' +
           '<button id="rbAdd" class="rb-button rb-button--primary" type="button"><span class="rb-plus">+</span>新增出租业务</button>' +
+          '<button id="rbDeleteCurrent" class="rb-button rb-button--danger" type="button">删除当前出租业务</button>' +
         '</div>' +
         '<div class="rb-toolbar-transfer"><button id="rbImport" class="rb-button rb-button--primary" type="button">导入</button>' +
           '<button id="rbExport" class="rb-button rb-button--primary" type="button">导出</button></div>' +
@@ -208,11 +218,7 @@
       list.innerHTML = records.map(function (record, index) {
         return '<article class="rb-record' + (index === activeIndex ? ' rb-record--active' : '') + '" data-record-card="' + index + '">' +
           '<div class="rb-record-body">' +
-          groupOrder.map(function (group) { return groupHtml(group, record, index); }).join("") + '</div>' +
-          '<div class="rb-record-actions" aria-label="第' + (index + 1) + '条出租业务操作">' +
-            '<button class="rb-add-record" type="button" data-add-after="' + index + '">新增</button>' +
-            '<button class="rb-delete" type="button" data-delete-record="' + index + '">删除</button>' +
-          '</div></article>';
+          groupOrder.map(function (group) { return groupHtml(group, record, index); }).join("") + '</div></article>';
       }).join("");
       updateCount();
     }
@@ -315,32 +321,22 @@
         records[index].G = "";
         renderRecords();
       }
+      if (col === "N") renderRecords();
+      if (col === "V") renderRecords();
+      if (col === "AS") renderRecords();
       if (col === "H" || col === "W") renderOptions(search.value);
     });
-    list.addEventListener("click", function (event) {
-      var addButton = event.target.closest("[data-add-after]");
-      if (addButton) {
-        var insertIndex = Number(addButton.getAttribute("data-add-after")) + 1;
-        records.splice(insertIndex, 0, blankRecord());
-        activeIndex = insertIndex;
-        renderRecords();
-        renderOptions("");
-        showToast("已新增出租业务");
-        return;
-      }
-      var deleteButton = event.target.closest("[data-delete-record]");
-      if (!deleteButton) return;
+    panel.querySelector("#rbDeleteCurrent").addEventListener("click", function () {
       if (records.length === 1) {
         showToast("至少保留一条出租业务信息");
         return;
       }
-      var index = Number(deleteButton.getAttribute("data-delete-record"));
-      records.splice(index, 1);
+      records.splice(activeIndex, 1);
       activeIndex = Math.min(activeIndex, records.length - 1);
       search.value = recordName(records[activeIndex], activeIndex);
       renderRecords();
       renderOptions("");
-      showToast("已删除该条出租业务");
+      showToast("已删除当前出租业务");
     });
     panel.querySelector("#rbImport").addEventListener("click", function () { showToast("请选择出租业务信息导入文件"); });
     panel.querySelector("#rbExport").addEventListener("click", function () { showToast("出租业务信息导出任务已创建"); });

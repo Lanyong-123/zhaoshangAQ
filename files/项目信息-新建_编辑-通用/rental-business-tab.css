@@ -44,9 +44,6 @@
 #rbTabPanel.active { display: block; }
 .rb-page { width: 100%; }
 
-/* 参考职业健康页签：直接平铺记录块，隐藏顶部工具栏。 */
-#rbTabPanel .rb-toolbar { display: none !important; }
-
 .rb-toolbar {
   position: relative;
   display: flex;
@@ -158,6 +155,11 @@
   background: linear-gradient(180deg, #168ee0 0%, #0878c6 100%);
   color: #fff;
 }
+.rb-button--danger {
+  min-width: 132px;
+  border-color: #ff4d4f;
+  color: #ff4d4f;
+}
 .rb-plus { margin-right: 7px; font-size: 18px; }
 
 .rb-toast {
@@ -177,8 +179,7 @@
 .rb-toast.rb-show { opacity: 1; transform: translate(-50%, 0); }
 
 .rb-record {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 92px;
+  display: block;
   margin-bottom: 22px;
   border: 1px solid #cfd9e2;
   background: #fff;
@@ -186,52 +187,6 @@
 }
 .rb-record--active { border-color: #8fc7ed; }
 .rb-record-body { min-width: 0; }
-
-.rb-delete {
-  width: 66px;
-  height: 34px;
-  border: 1px solid #ff4d4f;
-  border-radius: 2px;
-  background: #fff;
-  color: #ff4d4f;
-  font: inherit;
-  cursor: pointer;
-}
-
-.rb-record-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 18px 0;
-  box-sizing: border-box;
-  border-left: 1px solid #d9e1e8;
-  background: #fafcfd;
-}
-
-.rb-add-record,
-.rb-delete {
-  width: 66px;
-  height: 34px;
-  border-radius: 2px;
-  background: #fff;
-  font: 14px "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
-  cursor: pointer;
-}
-
-.rb-add-record {
-  border: 1px solid #1688db;
-  color: #1688db;
-}
-
-.rb-delete {
-  border: 1px solid #ff4d4f;
-  color: #ff4d4f;
-}
-
-.rb-add-record:hover { background: #f0f8fe; }
-.rb-delete:hover { background: #fff4f4; }
 
 .rb-group { border-bottom: 1px solid #dfe5e8; }
 .rb-group:last-child { border-bottom: 0; }
@@ -267,6 +222,13 @@
   color: #4b5964;
   line-height: 22px;
   text-align: right;
+}
+
+.rb-field > label::before {
+  content: "*";
+  margin-right: 4px;
+  color: #d9001b;
+  font-weight: 600;
 }
 
 .rb-control {
